@@ -1,5 +1,5 @@
 package haagahelia.fi.ProjectManagement.model;
 
 public enum ProjectStatus {
-	NOTSTARTED, PROCEEDING, COMPLETE;
+	NOTYETSTARTED, PROCEEDING, COMPLETE;
 }

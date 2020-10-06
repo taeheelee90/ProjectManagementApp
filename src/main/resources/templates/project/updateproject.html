@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Project List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body style="margin: 15px;">
+<div class="form-group">
+	<form  class="form-horizontal" action="#" th:action="@{/submit}" th:object="${project}"
+		method="post">
+		
+		<input type="hidden" id="id" th:field="*{id}"/>
+		
+		<label for="name" class="control-label col-sm-2">Project Name</label> 
+		<input type="text" id="name" th:field="*{name}" class="form-control" /><br> 
+			
+		<label for ="startDate" class="control-label col-sm-2"> Start Date</label>
+		<input type ="date" id="startDate"   th:field="*{startDate}" class="form-control" /> <br>
+		
+		<label for ="endDate" class="control-label col-sm-2"> End Date</label>
+		<input type ="date" id="endDate"  th:field="*{endDate}" class="form-control" /> <br>
+				 
+		<label for="status" class="control-label col-sm-2">Status</label>
+		<select id="status" th:field="*{status}" class="form-control">
+			<option th:each ="status: ${T(haagahelia.fi.ProjectManagement.model.ProjectStatus).values()}" th:value="${status}" th:text="${status}">
+			</option>
+		</select> <br>		
+		
+		<label for="pm" class="control-label col-sm-2">Project Manager</label>
+		<select id ="pm" th:field=*{projectManager} class="form-control">
+			<option th:each="employee: ${employees}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' (' + ${employee.department.name}+')'"></option>
+		</select> <br>
+		
+		<!--  <label for="handlingDepartment" class="control-label col-sm-2">Handling Department</label>
+		<select id ="handlingDepartment" th:field=*{handlingDepartment} class="form-control">
+			<option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+		</select> <br>-->
+		
+		<div style="clear: both; display: block; height: 10px;"></div>
+		
+		<input type ="submit" class="btn btn-success" value="Submit"/>
+ 	</form>
+ 	</div>
+</body>
+</html>

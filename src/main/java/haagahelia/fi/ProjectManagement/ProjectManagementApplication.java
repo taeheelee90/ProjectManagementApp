@@ -49,10 +49,10 @@ public class ProjectManagementApplication {
 			eRepository.save(e3);
 
 			log.info("create projects");
-			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-			Project p1 = new Project("CRM Implementation", format.parse("31-08-2020"), format.parse("31-12-2020"),
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Project p1 = new Project("CRM Implementation", format.parse("2020-08-30"), format.parse("2020-12-31"),
 					ProjectStatus.PROCEEDING, e1, e1.getDepartment());
-			Project p2 = new Project("Market analys in Korea", format.parse("01-09-2020"), format.parse("20-09-2020"),
+			Project p2 = new Project("Market analys in Korea", format.parse("2020-09-01"), format.parse("2020-09-20"),
 					ProjectStatus.COMPLETE, e2, e2.getDepartment());
 
 			pRepository.save(p1);
