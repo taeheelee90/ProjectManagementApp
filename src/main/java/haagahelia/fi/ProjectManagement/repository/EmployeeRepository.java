@@ -7,4 +7,5 @@ import haagahelia.fi.ProjectManagement.model.Employee;
 @RepositoryRestResource
 public interface EmployeeRepository extends CrudRepository <Employee, Long> {
 
+	
 }

@@ -25,7 +25,7 @@ public class ProjectRepositoryTest {
 	@Test
 	public void createProject() throws ParseException {
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-		Project p = new Project ("CRM Implementation", format.parse("31-08-2020"), format.parse("31-12-2020"), ProjectStatus.NOTSTARTED);
+		Project p = new Project ("CRM Implementation", format.parse("31-08-2020"), format.parse("31-12-2020"), ProjectStatus.COMPLETE);
 		
 		repository.save(p);		
 		assertThat(repository).isNotNull();		

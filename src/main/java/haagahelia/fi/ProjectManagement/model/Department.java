@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import haagahelia.fi.ProjectManagement.Entity.ObjectEntity;
+import haagahelia.fi.ProjectManagement.entity.ObjectEntity;
 
 @Entity
 @Table(name = "department")

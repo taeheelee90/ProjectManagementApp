@@ -28,9 +28,16 @@ public class ProjectController {
 	@Autowired
 	private EmployeeRepository eRepository;	
 
+	// Main page
 	@RequestMapping(value = "/")
 	public String home() {
-		return "home";
+		return "main/home";
+	}
+	
+	// Login
+	@RequestMapping(value ="/login")
+	public String login() {
+		return "main/login";
 	}
 
 	// Read Project

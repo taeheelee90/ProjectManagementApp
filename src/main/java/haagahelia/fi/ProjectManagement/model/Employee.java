@@ -9,12 +9,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import haagahelia.fi.ProjectManagement.Entity.PersonEntity;
+import haagahelia.fi.ProjectManagement.entity.PersonEntity;
+import haagahelia.fi.ProjectManagement.entity.Title;
+
 
 @Entity
 @Table(name = "employee")
-public class Employee extends PersonEntity {
-
+public class Employee extends PersonEntity {	
 
 	@ManyToOne
 	@JoinColumn(name = "department_id")
@@ -28,22 +29,22 @@ public class Employee extends PersonEntity {
 	
 	}
 	
-	public Employee(String firstName, String lastName) {
-		super(firstName, lastName);
+	public Employee(String firstName, String lastName, Title title) {
+		super(firstName, lastName, title);
 	}
 
-	public Employee(String firstName, String lastName, Department department) {
-		super(firstName, lastName);
+	public Employee(String firstName, String lastName, Title title, Department department) {
+		super(firstName, lastName, title);
 		this.department = department;
 	}
 	
-	public Employee(String firstName, String lastName, Department department, List<Project> projects) {
-		super(firstName, lastName);
+	public Employee(String firstName, String lastName, Title title, Department department, List<Project> projects) {
+		super(firstName, lastName, title);
 		this.department = department;
 		this.projects = projects;
 	}
 
-	// Getters Setters
+	// Getters Setters	
 	
 	public Department getDepartment() {
 		return department;

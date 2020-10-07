@@ -4,13 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import haagahelia.fi.ProjectManagement.Entity.ObjectEntity;
+import haagahelia.fi.ProjectManagement.entity.ObjectEntity;
 
 @Entity
 @Table(name = "project")
@@ -25,6 +27,8 @@ public class Project extends ObjectEntity {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 
+	@Column(name = "status")
+	@Enumerated(EnumType.ORDINAL)
 	private ProjectStatus status;
 
 	@ManyToOne
