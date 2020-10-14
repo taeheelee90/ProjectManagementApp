@@ -9,16 +9,12 @@
 </head>
 <body style="margin: 15px;">
 	<h1>Project Management</h1>
-	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 
-	<div class="col-md-4" style="padding: 20px 0">
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
-		</form>
-	</div>
 	<ul>		
-		<li><a href="/list">Show All Projects</a></li>
-		<li><a href="/add">Add Project</a></li>
+		<li><a href="/projectlist">Show All Projects</a></li>
+		<li><a href="/projectadd">Add Project</a></li>
+		<li><a href="/employeelist">Show All Employees</a></li>
+		<li><a href="/employeeadd">Add Employee</a></li>
 	</ul>
 
 

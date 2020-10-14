@@ -28,20 +28,14 @@ public class ProjectController {
 	@Autowired
 	private EmployeeRepository eRepository;	
 
-	// Main page
-	@RequestMapping(value = "/")
-	public String home() {
+	// Main
+	@RequestMapping(value="/")
+	public String main() {
 		return "main/home";
 	}
-	
-	// Login
-	@RequestMapping(value ="/login")
-	public String login() {
-		return "main/login";
-	}
 
-	// Read Project
-	@RequestMapping(value = "/list")
+	// Read Projects
+	@RequestMapping(value = "/projectlist")
 	public String projectList(Model model) {
 		model.addAttribute("projects", pRepository.findAll());
 		return "project/projectlist";
@@ -49,7 +43,7 @@ public class ProjectController {
 	}
 
 	// Add Project
-	@GetMapping(value = "/add")
+	@GetMapping(value = "/projectadd")
 	public String addproject(Model model) {
 		model.addAttribute("project", new Project());
 		model.addAttribute("employees", eRepository.findAll()); // leader만 보이게 해야지? level enum 추가하고 eRepository에 findByLevel 추가
@@ -57,14 +51,14 @@ public class ProjectController {
 	}
 
 	// Submit Project
-	@PostMapping(value = "/submit")
+	@PostMapping(value = "/projectsubmit")
 	public String submitProject(Project project, Model model) {
 		model.addAttribute("project", pRepository.save(project));
-		return "redirect:list";
+		return "redirect:projectlist";
 	}
 
 	// Update Project
-	@GetMapping(value = "/edit/{id}")
+	@GetMapping(value = "/projectedit/{id}")
 	public String updateProject(@PathVariable("id") Long projectId, Model model) {
 		model.addAttribute("project", pRepository.findById(projectId));
 		model.addAttribute("employees", eRepository.findAll()); // leader만 보이게 해야지? level enum 추가하고 eRepository에 findByLevel 추가
@@ -72,10 +66,10 @@ public class ProjectController {
 	}
 
 	// Delete Project
-	@GetMapping(value = "/delete/{id}")
+	@GetMapping(value = "/projectdelete/{id}")
 	public String deleteProject(@PathVariable("id") Long projectId) {
 		pRepository.deleteById(projectId);
-		return "redirect:../list";
+		return "redirect:../projectlist";
 	}
 	
 	// Handling Date

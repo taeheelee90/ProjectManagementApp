@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Project List</title>
+<title>Project Management</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
 	th:href="@{css/bootstrap.min.css}" />
@@ -10,14 +10,7 @@
 
 <body style="margin: 15px;">
 	<h1>Project List</h1>
-	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-	<br>
-
-	<div class="col-md-4" style="padding: 20px 0">
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
-		</form>
-	</div>
+	
 	<br>
 	<table class="table table-striped">
 		<tr>
@@ -37,12 +30,12 @@
 			<td th:text="${project.name}"></td>
 			<td th:text="${#dates.format(project.startDate, 'yyyy-MM-dd')}"></td>
 			<td th:text="${#dates.format(project.endDate, 'yyyy-MM-dd')}"></td>
-			<td th:text="${project.status}"></td>
+			<td th:text="${project.status}"></td> 
 			<td th:text="${project.projectManager.firstName} + ' ' + ${project.projectManager.lastName}"></td>
 			<td th:text="${project.projectManager.department.name}"></td>
-			<td><a th:href="@{/edit/{id}(id = ${project.id})}"class="btn btn-warning">Edit</a></td>
+			<td><a th:href="@{/projectedit/{id}(id = ${project.id})}"class="btn btn-warning">Edit</a></td>
 			<!--<td sec:authorize="hasAuthority('ADMIN')">-->
-			<td><a th:href="@{/delete/{id}(id = ${project.id})}"class="btn btn-danger">Delete</a></td>
+			<td><a th:href="@{/projectdelete/{id}(id = ${project.id})}"class="btn btn-danger">Delete</a></td>
 
 		</tr>
 	</table>
@@ -50,7 +43,7 @@
 	<br>
 	<ul>
 		<li><a href="/">Back to main page</a></li>
-		<li><a href="/add"> Add Project</a></li>
+		<li><a href="/projectadd"> Add Project</a></li>
 	</ul>
 </body>
 </html>

@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import haagahelia.fi.ProjectManagement.entity.ObjectEntity;
 
 @Entity
-@Table(name = "project")
+@Table(name = "projects")
 public class Project extends ObjectEntity {
 
 	
@@ -28,15 +28,15 @@ public class Project extends ObjectEntity {
 	private Date endDate;
 
 	@Column(name = "status")
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private ProjectStatus status;
 
 	@ManyToOne
-	@JoinColumn(name = "employee_id")
+	@JoinColumn(name = "project_manager")
 	private Employee projectManager;
 
 	@ManyToOne
-	@JoinColumn(name = "department_id")
+	@JoinColumn(name = "handling_department")
 	private Department handlingDepartment;
 
 	// Constructor

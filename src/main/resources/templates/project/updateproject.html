@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Project List</title>
+<title>Project Management</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body style="margin: 15px;">
 <div class="form-group">
-	<form  class="form-horizontal" action="#" th:action="@{/submit}" th:object="${project}"
+	<form  class="form-horizontal" action="#" th:action="@{/projectsubmit}" th:object="${project}"
 		method="post">
 		
 		<input type="hidden" id="id" th:field="*{id}"/>

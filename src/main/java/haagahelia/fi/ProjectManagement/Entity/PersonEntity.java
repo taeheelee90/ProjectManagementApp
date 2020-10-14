@@ -15,7 +15,7 @@ public class PersonEntity extends BaseEntity  {
 	private String lastName;	
 
 	@Column(name = "title")
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private Title title;
 	
 	public PersonEntity() {};
