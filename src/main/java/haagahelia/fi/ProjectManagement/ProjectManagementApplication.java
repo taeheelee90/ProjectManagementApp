@@ -1,6 +1,6 @@
 package haagahelia.fi.ProjectManagement;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,12 +72,12 @@ public class ProjectManagementApplication {
 			eRepository.save(e11);
 
 			log.info("create projects");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			Project p1 = new Project("CRM Implementation", format.parse("2019-03-20"), format.parse("2019-09-15"),
+			//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Project p1 = new Project("CRM Implementation", LocalDate.parse("2019-03-20"), LocalDate.parse("2019-09-15"),
 					ProjectStatus.COMPLETE, e1, e1.getDepartment());
-			Project p2 = new Project("Data Migration", format.parse("2020-10-10"), format.parse("2020-12-31"),
+			Project p2 = new Project("Data Migration", LocalDate.parse("2020-10-10"), LocalDate.parse("2020-12-31"),
 					ProjectStatus.PROCEEDING, e10, e10.getDepartment());
-			Project p3 = new Project("Q4 profit analysis", format.parse("2021-01-01"), format.parse("2021-02-20"),
+			Project p3 = new Project("Q4 profit analysis", LocalDate.parse("2021-01-01"), LocalDate.parse("2021-02-20"),
 					ProjectStatus.WAITING, e8, e8.getDepartment());
 
 			pRepository.save(p1);

@@ -18,13 +18,11 @@
 		<label for ="startDate" class="control-label col-sm-2"> Start Date</label>
 		<input type ="date" id="startDate"   th:field="*{startDate}" class="form-control"  
 		placeholder="YYYY-MM-DD" 
-		title="Enter a date in this format: YYYY-MM-DD"
-        pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/> <br>
+		pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/> <br>
 		
 		<label for ="endDate" class="control-label col-sm-2"> End Date</label>
 		<input type ="date" id="endDate"  th:field="*{endDate}" class="form-control" 
-		placeholder="YYYY-MM-DD" 
-		title="Enter a date in this format: YYYY-MM-DD"
+		placeholder="YYYY-MM-DD" 	
         pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/> <br>
 				
 		<label for="status" class="control-label col-sm-2">Status</label>
@@ -33,12 +31,13 @@
 			</option>
 		</select> <br>		
 		
+		<!-- manager, director만 보이도록 if문 입력할것 -->
 		<label for="pm" class="control-label col-sm-2">Project Manager</label>
 		<select id ="pm" th:field=*{projectManager} class="form-control">
 			<option th:each="employee: ${employees}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' (' + ${employee.department.name}+')'"></option>
 		</select> <br>
 		
-		<!--  <label for="handlingDepartment" class="control-label col-sm-2">Handling Department</label>
+		<!-- employee 선택되면 해당 getDepartmentID hidden 저장 <label for="handlingDepartment" class="control-label col-sm-2">Handling Department</label>
 		<select id ="handlingDepartment" th:field=*{handlingDepartment} class="form-control">
 			<option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
 		</select> <br>-->

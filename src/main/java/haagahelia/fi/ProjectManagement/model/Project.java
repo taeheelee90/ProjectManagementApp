@@ -1,6 +1,6 @@
 package haagahelia.fi.ProjectManagement.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,15 +21,20 @@ public class Project extends ObjectEntity {
 	
 	@Column(name = "start_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date startDate;
+	//@Temporal(TemporalType.DATE)
+	private LocalDate startDate;
 
 	@Column(name = "end_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date endDate;
+	//@Temporal(TemporalType.DATE)
+	private LocalDate endDate;
 
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private ProjectStatus status;
+	
+	//@Lob
+	//private String description;
 
 	@ManyToOne
 	@JoinColumn(name = "project_manager")
@@ -39,20 +44,19 @@ public class Project extends ObjectEntity {
 	@JoinColumn(name = "handling_department")
 	private Department handlingDepartment;
 
-	// Constructor
-		
+	// Constructor		
 	public Project() {
 		
 	}
 
-	public Project(String name, Date startDate, Date endDate, ProjectStatus status) {
+	public Project(String name, LocalDate startDate, LocalDate endDate, ProjectStatus status) {
 		super(name);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
 	}
 
-	public Project(String name, Date startDate, Date endDate, ProjectStatus status, Employee projectManager) {
+	public Project(String name, LocalDate startDate, LocalDate endDate, ProjectStatus status, Employee projectManager) {
 		super(name);
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -60,7 +64,7 @@ public class Project extends ObjectEntity {
 		this.projectManager = projectManager;
 	}
 
-	public Project(String name, Date startDate, Date endDate, ProjectStatus status, Employee projectManager,
+	public Project(String name, LocalDate startDate, LocalDate endDate, ProjectStatus status, Employee projectManager,
 			Department handlingDepartment) {
 		super(name);
 		this.startDate = startDate;
@@ -71,19 +75,19 @@ public class Project extends ObjectEntity {
 	}
 
 	// Getter Setter
-		public Date getStartDate() {
+		public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 
