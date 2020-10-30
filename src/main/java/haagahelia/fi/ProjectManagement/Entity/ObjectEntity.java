@@ -3,6 +3,10 @@ package haagahelia.fi.ProjectManagement.entity;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 @MappedSuperclass
 public class ObjectEntity extends BaseEntity {
 	
