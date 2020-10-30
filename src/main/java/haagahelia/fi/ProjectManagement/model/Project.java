@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import haagahelia.fi.ProjectManagement.entity.ObjectEntity;
+import haagahelia.fi.ProjectManagement.model.entity.ObjectEntity;
 import lombok.Getter;
 import lombok.Setter;
 

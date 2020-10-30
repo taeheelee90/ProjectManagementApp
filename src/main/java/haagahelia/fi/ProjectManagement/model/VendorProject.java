@@ -6,7 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import haagahelia.fi.ProjectManagement.entity.BaseEntity;
+import haagahelia.fi.ProjectManagement.model.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 

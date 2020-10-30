@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import haagahelia.fi.ProjectManagement.entity.PersonEntity;
-import haagahelia.fi.ProjectManagement.entity.Title;
+import haagahelia.fi.ProjectManagement.model.entity.Contact;
+import haagahelia.fi.ProjectManagement.model.entity.PersonEntity;
 import lombok.Getter;
 import lombok.Setter;
 

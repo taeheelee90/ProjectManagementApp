@@ -1,4 +1,4 @@
-package haagahelia.fi.ProjectManagement.entity;
+package haagahelia.fi.ProjectManagement.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

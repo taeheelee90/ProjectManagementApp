@@ -7,15 +7,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import haagahelia.fi.ProjectManagement.entity.Title;
-import haagahelia.fi.ProjectManagement.model.Contact;
 import haagahelia.fi.ProjectManagement.model.Department;
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.Project;
 import haagahelia.fi.ProjectManagement.model.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.model.ProjectStatus;
+import haagahelia.fi.ProjectManagement.model.Title;
 import haagahelia.fi.ProjectManagement.model.Vendor;
 import haagahelia.fi.ProjectManagement.model.VendorProject;
+import haagahelia.fi.ProjectManagement.model.entity.Contact;
 import haagahelia.fi.ProjectManagement.repository.DepartmentRepository;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;

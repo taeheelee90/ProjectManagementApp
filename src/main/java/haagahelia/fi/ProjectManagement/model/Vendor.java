@@ -3,7 +3,8 @@ package haagahelia.fi.ProjectManagement.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import haagahelia.fi.ProjectManagement.entity.ObjectEntity;
+import haagahelia.fi.ProjectManagement.model.entity.Contact;
+import haagahelia.fi.ProjectManagement.model.entity.ObjectEntity;
 import lombok.Getter;
 import lombok.Setter;
 

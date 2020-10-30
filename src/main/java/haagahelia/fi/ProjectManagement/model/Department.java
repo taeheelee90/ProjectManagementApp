@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import haagahelia.fi.ProjectManagement.entity.ObjectEntity;
+import haagahelia.fi.ProjectManagement.model.entity.ObjectEntity;
 import lombok.Getter;
 import lombok.Setter;
 

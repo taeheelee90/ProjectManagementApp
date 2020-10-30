@@ -1,10 +1,11 @@
-package haagahelia.fi.ProjectManagement.entity;
+package haagahelia.fi.ProjectManagement.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 
+import haagahelia.fi.ProjectManagement.model.Title;
 import lombok.Getter;
 import lombok.Setter;
 

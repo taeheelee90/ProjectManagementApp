@@ -1,4 +1,4 @@
-package haagahelia.fi.ProjectManagement.model;
+package haagahelia.fi.ProjectManagement.model.entity;
 
 import javax.persistence.Embeddable;
 
