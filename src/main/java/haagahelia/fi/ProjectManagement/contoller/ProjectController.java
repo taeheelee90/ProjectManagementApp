@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import haagahelia.fi.ProjectManagement.model.Project;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class ProjectController {
 
-	@Autowired
-	private ProjectRepository pRepository;
-	@Autowired
-	private EmployeeRepository eRepository;	
+	
+	private final ProjectRepository pRepository;
+	private final EmployeeRepository eRepository;	
 
 	// Main
 	@RequestMapping(value="/")

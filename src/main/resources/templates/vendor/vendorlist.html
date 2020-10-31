@@ -16,34 +16,32 @@
 
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
-		<h3>Employee List</h3>
+		<h3>Vendor List</h3>
 		<ul>
-			<li><a href="/employeeadd"> Add Employee</a></li>
+			<li><a href="/vendoradd"> Add Vendor</a></li>
 		</ul>
 		<br>
 		<table class="table table-striped">
 			<tr>
-				<th>Employee ID</th>
+				<th>Vendor ID</th>
 				<th>Name</th>
-				<th>Title</th>
-				<th>Department</th>
 				<th>Email</th>
+				<th>Phone</th>
 				<th>Edit</th>
 				<th>Delete</th>
 
 
 			</tr>
 
-			<tr th:each="employee: ${employees}">
-				<td th:text="${employee.id}"></td>
-				<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
-				<td th:text="${employee.title}"></td>
-				<td th:text="${employee.department.name}"></td>
-				<td th:text="${employee.contact?.email}"</td>
+			<tr th:each="vendor: ${vendors}">
+				<td th:text="${vendor.id}"></td>
+				<td th:text="${vendor.name}"></td>
+				<td th:text="${vendor.contact?.email}"</td>
+				<td th:text="${vendor.contact?.phone}"</td>
 
-				<td><a th:href="@{/employeeedit/{id}(id = ${employee.id})}" class="btn btn-warning">Edit</a></td>
+				<td><a th:href="@{/vendoredit/{id}(id = ${vendor.id})}" class="btn btn-warning">Edit</a></td>
 				<td sec:authorize="hasAuthority('ADMIN')">
-					<a th:href="@{/employeedelete/{id}(id = ${employee.id})}" class="btn btn-danger">Delete</a></td>
+					<a th:href="@{/vendordelete/{id}(id = ${vendor.id})}" class="btn btn-danger">Delete</a></td>
 
 			</tr>
 		</table>

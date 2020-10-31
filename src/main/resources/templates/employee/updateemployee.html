@@ -37,6 +37,8 @@
 		<select id ="department" th:field=*{department} class="form-control">
 			<option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
 		</select> <br>
+	
+		
 		
 		<div style="clear: both; display: block; height: 10px;"></div>
 		

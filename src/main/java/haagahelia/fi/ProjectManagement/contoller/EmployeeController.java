@@ -1,6 +1,5 @@
 package haagahelia.fi.ProjectManagement.contoller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.repository.DepartmentRepository;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class EmployeeController {
 
-	@Autowired
-	private EmployeeRepository eRepository;
-	@Autowired
-	private DepartmentRepository dRepository;
+	
+	private final EmployeeRepository eRepository;
+	private final DepartmentRepository dRepository;
 	
 	// Read Employees
 	@RequestMapping(value="/employeelist")

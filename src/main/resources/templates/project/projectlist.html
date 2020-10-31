@@ -29,6 +29,8 @@
 				<th>Status</th>
 				<th>Project Manager</th>
 				<th>Handling Department</th>
+				<th>Vendor Included</th>
+				<th>Budget</th>
 				<th>Edit</th>
 				<!-- <th sec:authorize="hasAuthority('ADMIN')" >-->
 				<th>Delete</th>
@@ -44,6 +46,8 @@
 				<td
 					th:text="${project.projectManager.firstName} + ' ' + ${project.projectManager.lastName}"></td>
 				<td th:text="${project.projectManager.department.name}"></td>
+				<td th:text="${project.vendorIncluded}"></td>
+				<td th:text="${project.budget}"></td>
 				<td><a th:href="@{/projectedit/{id}(id = ${project.id})}"
 					class="btn btn-warning">Edit</a></td>
 				<!--<td sec:authorize="hasAuthority('ADMIN')">-->
