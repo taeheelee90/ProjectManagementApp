@@ -4,44 +4,53 @@
 <head>
 <title>Project Management</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
-	th:href="@{css/bootstrap.min.css}" />
+<head th:replace="fragments/header :: header">
 </head>
 
-<body style="margin: 15px;">
-	<h1>Employee List</h1>
-	
-	<br>
-	<table class="table table-striped">
-		<tr>
-			<th>Employee ID</th>
-			<th>Name</th>
-			<th>Title</th>
-			<th>Department</th>
-			<th></th>
-			<th></th>
-	
+<body>
+	<div class="container">
 
-		</tr>
+		<div class="jumbotron text-center" style="margin-bottom: 0">
+			<h1>Project Management</h1>
+		</div>
 
-		  <tr th:each="employee: ${employees}">
-			<td th:text="${employee.id}"></td>
-			<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
-			<td th:text="${employee.title}"></td>
-			<td th:text="${employee.department.name}"></td>
-			
-		
-			<td><a th:href="@{/employeeedit/{id}(id = ${employee.id})}"class="btn btn-warning">Edit</a></td>
-			<td sec:authorize="hasAuthority('ADMIN')">
-			<td><a th:href="@{/employeedelete/{id}(id = ${employee.id})}"class="btn btn-danger">Delete</a></td>
+		<div th:replace="fragments/navBar :: navBar" />
+		<br> <br>
+		<h3>Employee List</h3>
+		<ul>
+			<li><a href="/employeeadd"> Add Employee</a></li>
+		</ul>
+		<br>
+		<table class="table table-striped">
+			<tr>
+				<th>Employee ID</th>
+				<th>Name</th>
+				<th>Title</th>
+				<th>Department</th>
+				<th>Edit</th>
+				<th>Delete</th>
 
-		</tr>
-	</table>
 
-	<br>
-	<ul>
-		<li><a href="/">Back to main page</a></li>
-		<li><a href="/employeeadd"> Add Employee</a></li>
-	</ul>
+			</tr>
+
+			<tr th:each="employee: ${employees}">
+				<td th:text="${employee.id}"></td>
+				<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
+				<td th:text="${employee.title}"></td>
+				<td th:text="${employee.department.name}"></td>
+
+
+				<td><a th:href="@{/employeeedit/{id}(id = ${employee.id})}"
+					class="btn btn-warning">Edit</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a
+					th:href="@{/employeedelete/{id}(id = ${employee.id})}"
+					class="btn btn-danger">Delete</a></td>
+
+			</tr>
+		</table>
+
+		<br>
+		<div th:replace="fragments/footer :: footer" />
+	</div>
 </body>
 </html>
