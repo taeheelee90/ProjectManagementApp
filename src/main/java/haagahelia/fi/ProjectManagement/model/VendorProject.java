@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import haagahelia.fi.ProjectManagement.model.entity.BaseEntity;
+import haagahelia.fi.ProjectManagement.model.project.Project;
 import lombok.Getter;
 import lombok.Setter;
 

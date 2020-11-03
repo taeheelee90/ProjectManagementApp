@@ -41,7 +41,7 @@ public class VendorController {
 	}
 
 	// Update Vendor
-	@GetMapping(value = "/vendoreedit/{id}")
+	@GetMapping(value = "/vendoredit/{id}")
 	public String updateEmployee(@PathVariable("id") Long vendorId, Model model) {
 		model.addAttribute("vendor", repository.findById(vendorId));
 		return "vendor/updatevendor";

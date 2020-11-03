@@ -10,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import haagahelia.fi.ProjectManagement.model.Department;
 import haagahelia.fi.ProjectManagement.model.Employee;
-import haagahelia.fi.ProjectManagement.model.Title;
-import haagahelia.fi.ProjectManagement.model.entity.Contact;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 
 @RunWith(SpringRunner.class)
@@ -22,11 +20,10 @@ public class EmployeeRepositoryTest {
 	private EmployeeRepository repository;
 
 	@Test
-	public void createEmployeeTest() {
-		Department d = new Department("IT");
-		Contact c = new Contact ("a@email.com", "1111");
+	public void createEmployeeTest() {	
+		
 
-		Employee e = new Employee("Tei", "Lee", Title.DIRECTOR, d, c);
+		Employee e = new Employee("Tei", "Lee", Department.ACCOUNTING, "email", "phone");
 		
 		repository.save(e);
 		assertThat(repository).isNotNull();

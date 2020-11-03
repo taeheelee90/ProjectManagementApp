@@ -16,31 +16,28 @@
 
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
-		<h3>Employee List</h3>
-		<ul>
-			<li><a href="/employeeadd"> Add Employee</a></li>
-		</ul>
-		<br>
+		<h3>Project Manager List</h3>
+	
+		<a class="btn btn-primary" th:href="@{/employeeadd}"> Add PM</a>
+		<br> <br> <br>
+		
 		<table class="table table-striped">
 			<tr>
-				<th>Employee ID</th>
 				<th>Name</th>
-				<th>Title</th>
 				<th>Department</th>
 				<th>Email</th>
+				<th>Phone</th>
 				<th>Edit</th>
 				<th>Delete</th>
 
 
 			</tr>
 
-			<tr th:each="employee: ${employees}">
-				<td th:text="${employee.id}"></td>
+			<tr th:each="employee: ${employees}">	
 				<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
-				<td th:text="${employee.title}"></td>
-				<td th:text="${employee.department.name}"></td>
-				<td th:text="${employee.contact?.email}"</td>
-
+				<td th:text="${employee.department}"></td>
+				<td th:text="${employee.email}"></td>
+				<td th:text="${employee.phone}"></td>
 				<td><a th:href="@{/employeeedit/{id}(id = ${employee.id})}" class="btn btn-warning">Edit</a></td>
 				<td sec:authorize="hasAuthority('ADMIN')">
 					<a th:href="@{/employeedelete/{id}(id = ${employee.id})}" class="btn btn-danger">Delete</a></td>

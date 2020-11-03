@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import haagahelia.fi.ProjectManagement.model.Employee;
-import haagahelia.fi.ProjectManagement.repository.DepartmentRepository;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +17,7 @@ public class EmployeeController {
 
 	
 	private final EmployeeRepository eRepository;
-	private final DepartmentRepository dRepository;
+
 	
 	// Read Employees
 	@RequestMapping(value="/employeelist")
@@ -31,7 +30,6 @@ public class EmployeeController {
 	@GetMapping(value="/employeeadd")
 	public String addEmployee(Model model) {
 		model.addAttribute("employee", new Employee());
-		model.addAttribute("departments", dRepository.findAll());
 		return "employee/addemployee";
 		
 	}
@@ -47,7 +45,6 @@ public class EmployeeController {
 	@GetMapping(value="/employeeedit/{id}")
 	public String updateEmployee (@PathVariable("id") Long empId, Model model) {
 		model.addAttribute("employee", eRepository.findById(empId));
-		model.addAttribute("departments", dRepository.findAll());
 		return "employee/updateemployee";
 	}
 	

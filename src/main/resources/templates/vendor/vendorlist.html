@@ -17,13 +17,12 @@
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
 		<h3>Vendor List</h3>
-		<ul>
-			<li><a href="/vendoradd"> Add Vendor</a></li>
-		</ul>
-		<br>
+	
+		<a class="btn btn-primary" th:href="@{/vendoradd}"> Add Vendor</a>
+		<br> <br> <br>
+		
 		<table class="table table-striped">
 			<tr>
-				<th>Vendor ID</th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Phone</th>
@@ -34,10 +33,9 @@
 			</tr>
 
 			<tr th:each="vendor: ${vendors}">
-				<td th:text="${vendor.id}"></td>
 				<td th:text="${vendor.name}"></td>
-				<td th:text="${vendor.contact?.email}"</td>
-				<td th:text="${vendor.contact?.phone}"</td>
+				<td th:text="${vendor.email}"></td>
+				<td th:text="${vendor.phone}"></td>
 
 				<td><a th:href="@{/vendoredit/{id}(id = ${vendor.id})}" class="btn btn-warning">Edit</a></td>
 				<td sec:authorize="hasAuthority('ADMIN')">

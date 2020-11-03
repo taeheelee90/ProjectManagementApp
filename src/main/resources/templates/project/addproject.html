@@ -31,20 +31,19 @@
 				
 		<label for="status" class="control-label col-sm-2">Status</label>
 		<select id="status" th:field="*{status}" class="form-control">
-			<option th:each ="status: ${T(haagahelia.fi.ProjectManagement.model.ProjectStatus).values()}" th:value="${status}" th:text="${status}">
+			<option th:each ="status: ${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).values()}" th:value="${status}" th:text="${status}">
 			</option>
 		</select> <br>		
 		
-		<!-- manager, director만 보이도록 if문 입력할것 -->
+		
 		<label for="pm" class="control-label col-sm-2">Project Manager</label>
 		<select id ="pm" th:field=*{projectManager} class="form-control">
-			<option th:each="employee: ${employees}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' (' + ${employee.department.name}+')'"></option>
+			<option th:each="employee: ${employees}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' (' + ${employee.department}+')'"></option>
 		</select> <br>
 		
-		<!-- employee 선택되면 해당 getDepartmentID hidden 저장 <label for="handlingDepartment" class="control-label col-sm-2">Handling Department</label>
-		<select id ="handlingDepartment" th:field=*{handlingDepartment} class="form-control">
-			<option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
-		</select> <br>-->
+			
+	<label for="budget" class="control-label col-sm-2">Budget</label>
+	<input type="text" id="budget" th:field="*{budget}" class="form-control" /><br>
 		
 		<div style="clear: both; display: block; height: 10px;"></div>
 		

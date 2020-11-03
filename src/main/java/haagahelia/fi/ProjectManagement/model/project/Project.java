@@ -1,4 +1,4 @@
-package haagahelia.fi.ProjectManagement.model;
+package haagahelia.fi.ProjectManagement.model.project;
 
 import java.time.LocalDate;
 
@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.entity.ObjectEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,13 +42,6 @@ public class Project extends ObjectEntity {
 	@JoinColumn(name = "project_manager")
 	private Employee projectManager;
 
-	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name = "handling_department")
-	private Department handlingDepartment;
-
-	@Column(name= "vendor_included")
-	private String vendorIncluded;
-	
 	private int budget;
 	
 	// Constructor		
@@ -56,19 +50,14 @@ public class Project extends ObjectEntity {
 	}
 
 	public Project(String name, LocalDate startDate, LocalDate endDate, ProjectStatus status, Employee projectManager,
-			Department handlingDepartment, String vendorIncluded, int budget) {
+			int budget) {
 		super(name);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
 		this.projectManager = projectManager;
-		this.handlingDepartment = handlingDepartment;
-		this.vendorIncluded = vendorIncluded;
 		this.budget = budget;
 	}
-
-	
-	
 
 
 }

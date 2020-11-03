@@ -16,10 +16,21 @@
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
 		<h3>Project List</h3>
-		<ul>
-			<li><a href="/projectadd"> Add Project</a></li>
-		</ul>
-		<br>
+			<a class="btn btn-primary" th:href="@{/projectadd}"> Add Project</a>
+		<br> <br> <br>
+	
+	<form th:action="@{/projectlist}">
+    Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+    &nbsp;
+    <input type="submit" value="Search" />
+    &nbsp;
+    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+</form>
+	<br>
+	<br>
+	<br>
+
+		
 		<table class="table table-striped">
 			<tr>
 				<th>Id</th>
@@ -29,7 +40,6 @@
 				<th>Status</th>
 				<th>Project Manager</th>
 				<th>Handling Department</th>
-				<th>Vendor Included</th>
 				<th>Budget</th>
 				<th>Edit</th>
 				<!-- <th sec:authorize="hasAuthority('ADMIN')" >-->
@@ -45,8 +55,7 @@
 				<td th:text="${project.status}"></td>
 				<td
 					th:text="${project.projectManager.firstName} + ' ' + ${project.projectManager.lastName}"></td>
-				<td th:text="${project.projectManager.department.name}"></td>
-				<td th:text="${project.vendorIncluded}"></td>
+				<td th:text="${project.projectManager.department}"></td>				
 				<td th:text="${project.budget}"></td>
 				<td><a th:href="@{/projectedit/{id}(id = ${project.id})}"
 					class="btn btn-warning">Edit</a></td>
@@ -62,5 +71,12 @@
 
 		<div th:replace="fragments/footer :: footer" />
 	</div>
+	
+	
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/projectlist}]]";
+    }
+</script>	
 </body>
 </html>

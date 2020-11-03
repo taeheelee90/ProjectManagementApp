@@ -20,18 +20,11 @@
 		<label for="name" class="control-label col-sm-2">Name</label> 
 		<input type="text" id="name" th:field="*{name}" class="form-control" /><br> 
 		
-
+		<label th:for="email" class="control-label col-sm-2">Email</label> 
+		<input type="text" th:field="*{email}" class="form-control" /><br> 
 		
-		<!-- <label for="email" class="control-label col-sm-2">Email</label> 
-		<input type="text" id="email" th:field="*{contact.email}" class="form-control" /><br> 
-		
-		<label for="phone" class="control-label col-sm-2">Phone</label> 
-		<input type="text" id="phone" th:field="*{contact.phone}" class="form-control" /><br> 
-		
-		 <label for="handlingDepartment" class="control-label col-sm-2">Handling Department</label>
-		<select id ="handlingDepartment" th:field=*{handlingDepartment} class="form-control">
-			<option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
-		</select> <br>-->
+		<label th:for="phone" class="control-label col-sm-2">Phone</label> 
+		<input type="text" th:field="*{phone}" class="form-control" /><br> 
 		
 		<div style="clear: both; display: block; height: 10px;"></div>
 		
