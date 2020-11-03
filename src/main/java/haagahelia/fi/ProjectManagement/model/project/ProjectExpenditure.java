@@ -36,6 +36,8 @@ public class ProjectExpenditure extends BaseEntity {
 	}
 
 	
+	
+	// Business Logic  Adding Expenditure -> minus Project budget (if cost> budget, error message)
 	public static void addExpenditure (Project project, int cost, String description) {
 		ProjectExpenditure e = new ProjectExpenditure();
 		

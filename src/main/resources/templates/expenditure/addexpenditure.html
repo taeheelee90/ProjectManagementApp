@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body style="margin: 15px;">
+<div class="container">
+		<div class="jumbotron text-center" style="margin-bottom: 0">
+			<h1>Project Management</h1>
+		</div>
+		
+		
+		<div class="form-group">
+	<form  class="form-horizontal" action="#" th:action="@{/expendituresubmit}" th:object="${expenditure}"
+		method="post">
+		
+		<label for="expenditure" class="control-label col-sm-2">Expenditure</label> 
+		<input type="text" id="cost" th:field="*{cost}" class="form-control" /><br> 
+		
+		<label for="description" class="control-label col-sm-2">Description</label>
+		<input type="text" id="description" th:field="*{description}" class="form-control"/> <br>		
+		
+		
+		<input type ="submit" class="btn btn-success" value="Submit"/>
+		<button  class="btn btn-danger">Cancel</button>
+ 	</form>
+ 	</div>
+ 		<div th:replace="fragments/footer :: footer" />
+ 	</div>
+</body>
+</html>

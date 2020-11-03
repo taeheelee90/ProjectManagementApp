@@ -2,8 +2,6 @@ package haagahelia.fi.ProjectManagement.contoller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -14,9 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;

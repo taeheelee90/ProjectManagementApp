@@ -50,44 +50,40 @@
 				
 				<tr>
 				<th>Budget (EUR)</th>	
-				<td th:text="*{budget}"></td>
+				<td th:text="*{budget}">
+				</td>
+				
 				</tr>
 			</table>
-			<br>
-			<br>
+			
+			<div class="text-right">
+			
+				<a th:href="@{/expenditureform/__${id}__}" class="btn btn-info"> Add Expenditure</a>			 
+				<a th:href="@{/projectedit/{id}(id = ${id})}" class="btn btn-warning">Edit</a>
+				<!--<td sec:authorize="hasAuthority('ADMIN')">-->
+				<a th:href="@{/projectdelete/{id}(id = ${id})}" class="btn btn-danger">Delete</a>					
+			</div>	
+			
 			
 			<table class="table table-striped" th:object="${project.projectManager}">
-			<h4>PM Iformation</h4>
+			<h4>PM Information</h4>
 		
 				<tr>
 				<th>Project Manager</th>	
-				<td>
-				
+				<td>	
 				      <a th:href="@{/employee/__${id}__}"  th:text="*{firstName} + ' ' + *{lastName}"> </a> 
-             	</td>			
-				 <!--   <td th:text="*{projectManager.firstName} + ' ' + *{projectManager.lastName}"></td> -->
+             	</td>				
 				</tr>
 				
 				<tr>
 				<th>Handling Department</th>				
 				<td th:text="*{department}"></td>	
 				</tr>
-				
-			
-		
 			</table>
 			
 				
 		
 
-			
-		<br>	
-			<div class="text-right">
-				<a th:href="@{/projectedit/{id}(id = ${id})}" class="btn btn-warning">Edit</a>
-				<!--<td sec:authorize="hasAuthority('ADMIN')">-->
-				<a th:href="@{/projectdelete/{id}(id = ${id})}" class="btn btn-danger">Delete</a>
-					
-			</div>	
 		<br>
 			<div th:replace="fragments/footer :: footer" />
 			
