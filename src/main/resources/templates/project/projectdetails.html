@@ -47,21 +47,33 @@
 				<th>Project Status</th>
 				<td th:text="*{status}"></td>
 				</tr>
-		
-				<tr>
-				<th>Project Manager</th>				
-				  <td th:text="*{projectManager.firstName} + ' ' + *{projectManager.lastName}"></td> 
-				</tr>
-				
-				<tr>
-				<th>Handling Department</th>				
-				<td th:text="*{projectManager.department}"></td>	
-				</tr>
 				
 				<tr>
 				<th>Budget (EUR)</th>	
 				<td th:text="*{budget}"></td>
 				</tr>
+			</table>
+			<br>
+			<br>
+			
+			<table class="table table-striped" th:object="${project.projectManager}">
+			<h4>PM Iformation</h4>
+		
+				<tr>
+				<th>Project Manager</th>	
+				<td>
+				
+				      <a th:href="@{/employee/__${id}__}"  th:text="*{firstName} + ' ' + *{lastName}"> </a> 
+             	</td>			
+				 <!--   <td th:text="*{projectManager.firstName} + ' ' + *{projectManager.lastName}"></td> -->
+				</tr>
+				
+				<tr>
+				<th>Handling Department</th>				
+				<td th:text="*{department}"></td>	
+				</tr>
+				
+			
 		
 			</table>
 			
