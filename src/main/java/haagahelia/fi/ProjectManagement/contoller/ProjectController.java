@@ -45,8 +45,7 @@ public class ProjectController {
 	// Read Project Details
 	@GetMapping(value = "/project/{id}")
 	public String projectDetails(@PathVariable("id") Long projectId, Model model) {		 		
-		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));
-		
+		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));	
 		return "project/projectdetails";
 	}
 	

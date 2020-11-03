@@ -25,23 +25,15 @@
 			<tr>
 				<th>Name</th>
 				<th>Department</th>
-				<th>Email</th>
-				<th>Phone</th>
-				<th>Edit</th>
-				<th>Delete</th>
-
-
+				<th>Action</th>		
 			</tr>
 
 			<tr th:each="employee: ${employees}">	
 				<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
 				<td th:text="${employee.department}"></td>
-				<td th:text="${employee.email}"></td>
-				<td th:text="${employee.phone}"></td>
-				<td><a th:href="@{/employeeedit/{id}(id = ${employee.id})}" class="btn btn-warning">Edit</a></td>
-				<td sec:authorize="hasAuthority('ADMIN')">
-					<a th:href="@{/employeedelete/{id}(id = ${employee.id})}" class="btn btn-danger">Delete</a></td>
-
+				<td>
+				      <a th:href="@{/employee/__${employee.id}__}" class="btn btn-default"> Show Details</a> 
+              </td>
 			</tr>
 		</table>
 

@@ -22,13 +22,14 @@
 	      
       
 		<table class="table table-striped" th:object="${project}">
+		<h4>Basic Information</h4>
 				<tr>
-				<th>Id</th>
+				<th>Project Id</th>
 				<td th:text="*{id}"></td>
 				</tr>
 				
 				<tr>
-				<th>Project name</th>
+				<th>Project Name</th>
 				<td th:text="*{name}"></td>
 				</tr>
 				
@@ -43,39 +44,42 @@
 				</tr>
 				
 				<tr>				
-				<th>Status</th>
+				<th>Project Status</th>
 				<td th:text="*{status}"></td>
 				</tr>
-				
-				<!--<tr>
-				<th>Project Manager</th>
-				<td th:text="${projectManager}">
-				  <td th:text="${projectManager.firstName} + ' ' + ${projectManager.lastName}"></td> 
+		
+				<tr>
+				<th>Project Manager</th>				
+				  <td th:text="*{projectManager.firstName} + ' ' + *{projectManager.lastName}"></td> 
 				</tr>
 				
 				<tr>
 				<th>Handling Department</th>				
-				<td th:text="*{department}"></td>	
-				</tr>-->
+				<td th:text="*{projectManager.department}"></td>	
+				</tr>
 				
 				<tr>
-				<th>Budget</th>	
+				<th>Budget (EUR)</th>	
 				<td th:text="*{budget}"></td>
 				</tr>
 		
+			</table>
+			
+				
+		
 
-		</table>
 			
 		<br>	
-				
+			<div class="text-right">
 				<a th:href="@{/projectedit/{id}(id = ${id})}" class="btn btn-warning">Edit</a>
 				<!--<td sec:authorize="hasAuthority('ADMIN')">-->
 				<a th:href="@{/projectdelete/{id}(id = ${id})}" class="btn btn-danger">Delete</a>
-
+					
+			</div>	
 		<br>
-
-
-		<div th:replace="fragments/footer :: footer" />
+			<div th:replace="fragments/footer :: footer" />
+			
+	
 	</div>
 	
 

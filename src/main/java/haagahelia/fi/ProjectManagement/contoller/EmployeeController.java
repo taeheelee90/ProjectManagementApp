@@ -19,12 +19,23 @@ public class EmployeeController {
 	private final EmployeeRepository eRepository;
 
 	
-	// Read Employees
+	// Read All Employees
 	@RequestMapping(value="/employeelist")
 	public String employeeList(Model model) {
 		model.addAttribute("employees", eRepository.findAll());
 		return "employee/employeelist";
 	}
+	
+	
+	// Read Employee Details
+	@GetMapping(value = "/employee/{id}")
+	public String projectDetails(@PathVariable("id") Long employeeId, Model model) {		 		
+		eRepository.findById(employeeId).ifPresent(employee -> model.addAttribute("employee", employee));
+		
+		return "employee/employeedetails";
+	}
+	
+	
 	
 	// Add Employee
 	@GetMapping(value="/employeeadd")

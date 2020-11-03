@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<div class="container">
+		<div class="jumbotron text-center" style="margin-bottom: 0">
+			<h1>Project Management</h1>
+		</div>
+
+		<div th:replace="fragments/navBar :: navBar" />
+		<br> <br>
+		<h3>Project Manager Information</h3>
+
+
+		<br> <br> <br>
+		<table class="table table-striped" th:object="${employee}">
+			<h4>Basic Information</h4>
+			<tr>
+				<th>Employee Id</th>
+				<td th:text="*{id}"></td>
+			</tr>
+
+			<tr>
+				<th>Employee Name</th>
+				<td th:text="*{firstName} + ' ' + *{lastName}"></td>
+			</tr>
+
+			<tr>
+				<th>Employee Department</th>
+				<td th:text="*{department}"></td>
+			</tr>
+						
+			<tr>
+				<th>Email</th>
+				<td th:text="*{email}"></td>
+			</tr>
+
+			<tr>
+				<th>Phone</th>
+				<td th:text="*{phone}"></td>
+			</tr>
+
+			<tr>
+				<th>Projects</th>
+				<td th:text="*{phone}"> </td>
+			</tr>
+
+		
+
+		</table>
+
+
+
+
+
+		<br>
+		<div class="text-right">
+			<a th:href="@{/employeeedit/{id}(id = ${id})}" class="btn btn-warning">Edit</a>
+			<!--<td sec:authorize="hasAuthority('ADMIN')">-->
+			<a th:href="@{/employeedelete/{id}(id = ${id})}" class="btn btn-danger">Delete</a>
+
+		</div>
+		<br>
+	</div>
+	<div th:replace="fragments/footer :: footer" />
+	</div>
+
+
+</body>
+</html>
