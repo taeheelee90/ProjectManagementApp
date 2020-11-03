@@ -24,43 +24,43 @@
 		<table class="table table-striped" th:object="${project}">
 				<tr>
 				<th>Id</th>
-				<td th:text="${id}"></td>
+				<td th:text="*{id}"></td>
 				</tr>
 				
 				<tr>
 				<th>Project name</th>
-				<td th:text="${name}"></td>
+				<td th:text="*{name}"></td>
 				</tr>
 				
 				<tr>
 				<th>Start Date</th>
-				<td th:text="${#temporals.format(startDate, 'yyyy-MM-dd')}"></td>
+				<td th:text="*{#temporals.format(startDate, 'yyyy-MM-dd')}"></td>
 				</tr>
 				
 				<tr>
 				<th>End Date</th>
-				<td th:text="${#temporals.format(endDate, 'yyyy-MM-dd')}"></td>
+				<td th:text="*{#temporals.format(endDate, 'yyyy-MM-dd')}"></td>
 				</tr>
 				
 				<tr>				
 				<th>Status</th>
-				<td th:text="${status}"></td>
+				<td th:text="*{status}"></td>
 				</tr>
 				
-				<tr>
+				<!--<tr>
 				<th>Project Manager</th>
 				<td th:text="${projectManager}">
-				<!--  <td th:text="${projectManager.firstName} + ' ' + ${projectManager.lastName}"></td> -->
+				  <td th:text="${projectManager.firstName} + ' ' + ${projectManager.lastName}"></td> 
 				</tr>
 				
 				<tr>
 				<th>Handling Department</th>				
-				<td th:text="${department}"></td>	
-				</tr>
+				<td th:text="*{department}"></td>	
+				</tr>-->
 				
 				<tr>
 				<th>Budget</th>	
-				<td th:text="${budget}"></td>
+				<td th:text="*{budget}"></td>
 				</tr>
 		
 

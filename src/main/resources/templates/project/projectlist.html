@@ -52,11 +52,13 @@
 				<td th:text="${project.projectManager.department}"></td>				
 				<td th:text="${project.budget}"></td>-->
 				
-		
-              
-              <td>
-                  <a th:href="@{/project/{id}(id = ${project.id})}" class=".btn-default"> Show Details</a>
+			<td>
+                  <a th:href="@{/project/__${project.id}__}" class="btn btn-default"> Show Details</a> 
               </td>
+              
+              <!--  <td>
+                  <a th:href="@{/project/{id}(id = ${project.id})}" class=".btn-default"> Show Details</a>
+              </td>-->
 				
 			
 

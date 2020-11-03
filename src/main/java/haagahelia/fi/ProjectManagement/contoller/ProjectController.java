@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.project.Project;
@@ -33,7 +34,7 @@ public class ProjectController {
 		return "main/home";
 	}
 
-	// All Projects
+	// Read All Projects
 	@GetMapping(value = "/projectlist")
 	public String projectList(Model model) {
 		model.addAttribute("projects", pRepository.findAll());
@@ -41,13 +42,32 @@ public class ProjectController {
 
 	}
 	
-	// Read Project Detail
+	// Read Project Details
 	@GetMapping(value = "/project/{id}")
 	public String projectDetails(@PathVariable("id") Long projectId, Model model) {		 		
-		model.addAttribute("project", pRepository.findById(projectId));	
-																
+		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));
+		
 		return "project/projectdetails";
 	}
+	
+	
+	
+	/**
+	 * Custom handler for displaying an owner.
+	 * @param ownerId the ID of the owner to display
+	 * @return a ModelMap with the model attributes for the view
+	 
+	@GetMapping("/owners/{ownerId}")
+	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+		ModelAndView mav = new ModelAndView("owners/ownerDetails");
+		Owner owner = this.owners.findById(ownerId);
+		for (Pet pet : owner.getPets()) {
+			pet.setVisitsInternal(visits.findByPetId(pet.getId()));
+		}
+		mav.addObject(owner);
+		return mav;
+	}*/
+	
 	
 
 	// Add Project
@@ -87,21 +107,5 @@ public class ProjectController {
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, null, new CustomDateEditor(dateFormat, true));
 	}
-	
-	
-	/**
-	 * Custom handler for displaying an owner.
-	 * @param ownerId the ID of the owner to display
-	 * @return a ModelMap with the model attributes for the view
-	 
-	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("owners/ownerDetails");
-		Owner owner = this.owners.findById(ownerId);
-		for (Pet pet : owner.getPets()) {
-			pet.setVisitsInternal(visits.findByPetId(pet.getId()));
-		}
-		mav.addObject(owner);
-		return mav;
-	}*/
+
 }
