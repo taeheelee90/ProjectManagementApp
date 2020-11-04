@@ -18,5 +18,11 @@
       <a class="nav-link" href="/vendorlist">Vendor</a>
     </li>
   </ul>
+  <br> <br>
+  	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
   </nav>
 </div>

@@ -23,7 +23,7 @@ public class UserController {
 	@RequestMapping(value = "/signup")
 	public String addUser(Model model) {
 		model.addAttribute("signupform", new SignupForm());
-		return "home/signup";
+		return "main/signup";
 	}
 
 	@RequestMapping(value = "/saveuser", method = RequestMethod.POST)
@@ -49,20 +49,20 @@ public class UserController {
 						repository.save(newUser);
 					} else {
 						bindingResult.rejectValue("email", "err.email", "Email format is invalid");
-						return "signup";
+						return "main/signup";
 					}
 
 				} else {
 					bindingResult.rejectValue("username", "err.username", "Username already exists");
-					return "signup";
+					return "main/signup";
 				}
 
 			} else {
 				bindingResult.rejectValue("passwordCheck", "err.passCheck", "Password does not match");
-				return "signup";
+				return "main/signup";
 			}
 		} else {
-			return "signup";
+			return "main/signup";
 		}
 		return "redirect:/login";
 	}
