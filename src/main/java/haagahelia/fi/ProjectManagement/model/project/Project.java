@@ -39,7 +39,7 @@ public class Project extends ObjectEntity {
 	@Enumerated(EnumType.STRING)
 	private ProjectStatus status;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne //(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_manager")
 	private Employee projectManager;
 

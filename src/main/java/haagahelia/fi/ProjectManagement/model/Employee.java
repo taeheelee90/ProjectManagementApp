@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -34,7 +35,7 @@ public class Employee extends PersonEntity {
 	@NotEmpty (message = "Please select Department!")
 	private Department department;
 	
-	@OneToMany (cascade = CascadeType.ALL, mappedBy ="projectManager")
+	@OneToMany  (cascade = CascadeType.ALL, mappedBy ="projectManager", fetch= FetchType.EAGER)
 	private Set <Project> projects;
 	
 	@NotEmpty (message = "Please fill Email!")
