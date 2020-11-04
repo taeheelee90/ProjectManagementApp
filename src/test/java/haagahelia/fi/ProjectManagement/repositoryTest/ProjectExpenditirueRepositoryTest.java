@@ -37,31 +37,28 @@ public class ProjectExpenditirueRepositoryTest {
 		ProjectExpenditure projectExpenditure = new ProjectExpenditure();
 		Project project = new Project();
 		project.setBudget(100);
-		
+
 		// When
-		projectExpenditure.setProject(project);
-		ProjectExpenditure.addExpenditure(project, 50, "initial Cost");
+		projectExpenditure.addExpenditure(project, 50);
 
 		// Then
-
+		assertEquals("Project should be same", projectExpenditure.getProject(), project);
 		assertEquals("Budget Left should be 50", project.getBudget(), 50);
 	}
-	
-	@Test (expected = NotEnoughBudgetException.class)
-	public void exceedeProjectBudege() throws ParseException{
-		
+
+	@Test(expected = NotEnoughBudgetException.class)
+	public void exceedeProjectBudege() throws ParseException {
+
 		// Given
 		ProjectExpenditure projectExpenditure = new ProjectExpenditure();
 		Project project = new Project();
 		project.setBudget(100);
-		
+
 		// When
-		projectExpenditure.setProject(project);
-		ProjectExpenditure.addExpenditure(project, 150, "initial Cost");
-		
-		//Then
+		projectExpenditure.addExpenditure(project, 150);
+
+		// Then
 		fail("Should throw an exception");
-		
-		
+
 	}
 }

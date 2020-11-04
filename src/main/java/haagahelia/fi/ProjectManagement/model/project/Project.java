@@ -63,11 +63,11 @@ public class Project extends ObjectEntity {
 	
 	// Business Logic:  Adding Expenditure will minus Project budget (if cost > budget, throw exception)
 	public void addExpenditure(int expenditure) {
-		int leftBudget = this.budget - expenditure;
+		int leftBudget = this.budget -= expenditure;
 		
-		if(leftBudget < 0) {
+		/*if(leftBudget < 0) {
 			throw new NotEnoughBudgetException ("Budget is not enough");
-		}
+		}*/
 	
 		this.budget = leftBudget;
 	}
