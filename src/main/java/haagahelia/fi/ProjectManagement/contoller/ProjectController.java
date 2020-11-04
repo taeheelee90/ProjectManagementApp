@@ -31,13 +31,6 @@ public class ProjectController {
 	public String main() {
 		return "main/home";
 	}
-	
-	// Login
-	// log in
-	@RequestMapping(value = "/login")
-	public String login() {
-		return "main/login";
-	}
 
 	// Read All Projects
 	@GetMapping(value = "/projectlist")

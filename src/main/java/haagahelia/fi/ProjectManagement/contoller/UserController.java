@@ -19,13 +19,21 @@ import haagahelia.fi.ProjectManagement.repository.UserRepository;
 public class UserController {
 	@Autowired
 	private UserRepository repository;
-
+	
+	// Login
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "main/login";
+	}
+	
+	// Sign up
 	@RequestMapping(value = "/signup")
 	public String addUser(Model model) {
 		model.addAttribute("signupform", new SignupForm());
 		return "main/signup";
 	}
 
+	// Handling sign up
 	@RequestMapping(value = "/saveuser", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) {
