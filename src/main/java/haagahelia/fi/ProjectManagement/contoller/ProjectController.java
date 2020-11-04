@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
@@ -23,10 +25,18 @@ public class ProjectController {
 
 	private final ProjectRepository pRepository;
 	private final EmployeeRepository eRepository;	
+	
 	// Main
 	@GetMapping(value = "/")
 	public String main() {
 		return "main/home";
+	}
+	
+	// Login
+	// log in
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "main/login";
 	}
 
 	// Read All Projects

@@ -10,14 +10,12 @@ import org.springframework.context.annotation.Bean;
 import haagahelia.fi.ProjectManagement.model.Department;
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.Vendor;
-import haagahelia.fi.ProjectManagement.model.VendorProject;
 import haagahelia.fi.ProjectManagement.model.project.Project;
-import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
+import haagahelia.fi.ProjectManagement.model.user.User;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
-import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
-import haagahelia.fi.ProjectManagement.repository.VendorProjectRepository;
+import haagahelia.fi.ProjectManagement.repository.UserRepository;
 import haagahelia.fi.ProjectManagement.repository.VendorRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,8 +29,7 @@ public class ProjectManagementApplication {
 
 	@Bean
 	public CommandLineRunner Demo(EmployeeRepository eRepository, ProjectRepository pRepository,
-			ProjectExpenditureRepository peRepository, VendorRepository vRepository,
-			VendorProjectRepository vpRepository) {
+			VendorRepository vRepository, UserRepository uRepository) {
 
 		return (args) -> {
 
@@ -67,10 +64,6 @@ public class ProjectManagementApplication {
 			pRepository.save(p3);
 			pRepository.save(p4);
 
-			log.info("create project_expenditure");
-			ProjectExpenditure pe1 = new ProjectExpenditure(p1, 750, "Vendor Contract");
-			peRepository.save(pe1);
-
 			log.info("create vendors");
 			Vendor v1 = new Vendor("AAAVendor", "a@vendor.com", "1111");
 			Vendor v2 = new Vendor("BBBVendor", "b@vendor.com", "2222");
@@ -78,9 +71,15 @@ public class ProjectManagementApplication {
 			vRepository.save(v1);
 			vRepository.save(v2);
 
-			log.info("create vendor_project");
-			VendorProject vp1 = new VendorProject(v1, p1, 750);
-			vpRepository.save(vp1);
+			log.info("create users");
+			// user/user, admin/admin
+			User user1 = new User("user", "$2a$10$zTvn5SMAQ.NSO/jnY3PjAueq2qEKG1gVLXASHCob6q6.EpBDj90H6",
+					"user@email.com", "USER");
+			User user2 = new User("admin", "$2a$10$Qflab20ugY5RFyC65P.2VuqGPGLvlJEuzGOqZsB21j9j8tJlbcrGe",
+					"admin@email.com", "ADMIN");
+			uRepository.save(user1);
+			uRepository.save(user2);
+
 		};
 	}
 
