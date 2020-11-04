@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import haagahelia.fi.ProjectManagement.exception.NotEnoughBudgetException;
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.entity.ObjectEntity;
 import lombok.Getter;
@@ -59,5 +60,16 @@ public class Project extends ObjectEntity {
 		this.budget = budget;
 	}
 
+	
+	// Business Logic:  Adding Expenditure will minus Project budget (if cost > budget, throw exception)
+	public void addExpenditure(int expenditure) {
+		int leftBudget = this.budget - expenditure;
+		
+		if(leftBudget < 0) {
+			throw new NotEnoughBudgetException ("Budget is not enough");
+		}
+	
+		this.budget = leftBudget;
+	}
 
 }

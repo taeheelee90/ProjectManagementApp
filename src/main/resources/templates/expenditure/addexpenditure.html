@@ -16,8 +16,10 @@
 		
 		
 		<div class="form-group">
-	<form  class="form-horizontal" action="#" th:action="@{/expendituresubmit}" th:object="${expenditure}"
-		method="post">
+		<form  class="form-horizontal" action="#" th:action="@{/expendituresubmit}" th:object="${expenditure}" method="post">
+			
+			<input type="text" id="id" th:field="*{project.id}" /> <br>
+	
 		
 		<label for="expenditure" class="control-label col-sm-2">Expenditure</label> 
 		<input type="text" id="cost" th:field="*{cost}" class="form-control" /><br> 
