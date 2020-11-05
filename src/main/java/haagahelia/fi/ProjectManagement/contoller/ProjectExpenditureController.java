@@ -55,12 +55,9 @@ public class ProjectExpenditureController {
 	@PostMapping(value = "/expenditureadd/{id}")
 	public String expendtirueSubmit(@PathVariable("id") Long project_Id, @RequestParam("project.id") Long projectId, @RequestParam("cost") int cost, @RequestParam("description") String description, Model model) {
 		
-		System.out.println(projectId);
-		System.out.println(cost);
-		System.out.println(description);
+		
 		service.addExpenditure(projectId, cost, description);		
 		
-		//return "redirect:/project/{id}";
 		return "redirect:/expendituretlist/{id}";
 		
 	}

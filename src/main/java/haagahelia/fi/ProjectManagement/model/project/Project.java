@@ -55,8 +55,9 @@ public class Project extends ObjectEntity {
 	private int budget;
 	
 		
-	@OneToMany (cascade = CascadeType.ALL, mappedBy ="project", fetch= FetchType.EAGER) 
+	/*@OneToMany (cascade = CascadeType.ALL, mappedBy ="project", fetch= FetchType.EAGER) 
 	private Set <ProjectExpenditure> projectExpenditures;
+	*/
 	
 	// Constructor		
 	public Project() {
@@ -74,7 +75,7 @@ public class Project extends ObjectEntity {
 	}
 
 	// Relationship Management with Project Expenditure
-	protected Set <ProjectExpenditure> getProjectExpendituresInternal(){
+	/*protected Set <ProjectExpenditure> getProjectExpendituresInternal(){
 		if(this.projectExpenditures == null) {
 			this.projectExpenditures = new HashSet<>();
 		}
@@ -121,7 +122,7 @@ public class Project extends ObjectEntity {
 		}
 		return null;
 	}
-
+*/
 	
 	
 

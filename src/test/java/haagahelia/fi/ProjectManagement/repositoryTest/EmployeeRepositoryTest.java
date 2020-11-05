@@ -2,6 +2,8 @@ package haagahelia.fi.ProjectManagement.repositoryTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.text.ParseException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class EmployeeRepositoryTest {
 	private EmployeeRepository repository;
 
 	@Test
-	public void createEmployeeTest() {	
+	public void createEmployeeTest() throws ParseException {	
 		
 		// Given
 		Employee e = new Employee("Tei", "Lee", Department.ACCOUNTING, "email", "phone");

@@ -1,5 +1,6 @@
 package haagahelia.fi.ProjectManagement.serviceTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
@@ -13,34 +14,33 @@ import org.springframework.transaction.annotation.Transactional;
 
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
-import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
-import haagahelia.fi.ProjectManagement.service.ProjectService;
+import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
+import haagahelia.fi.ProjectManagement.service.ProjectExpenditureService;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Transactional
-public class ProjectServiceTest {
+public class ProjectExpenditureServiceTest {
 
-	@Autowired ProjectRepository pRepository;
-	@Autowired ProjectService service;
-	/*
+	@Autowired ProjectExpenditureService service;
+	@Autowired ProjectExpenditureRepository repository;
+	
+	
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
-	public void updateExpenditureTest() throws ParseException {
+	public void addExpenditureTest() throws ParseException {
 		// Given
 		Project p = new Project();
-		p.setId(100);
 		p.setBudget(100);
-		pRepository.save(p);
-		
 		ProjectExpenditure e = new ProjectExpenditure();
-		e.setCost(50);
 		
 		// When
-		service.updateBudget(p.getId(), e.getCost());
+		service.addExpenditure(p.getId(), 50, "test");
+		
 		
 		// Then
-		assertEquals("Budget Left should be 50", p.getBudget(), 50);
+		//assertEquals(repository.findById(e.getId()), e);
+		//assertThat(repository.findById(e.getId()).equals(e));
+		assertThat(repository.count()== 1);
 	}
-*/
-
 }
