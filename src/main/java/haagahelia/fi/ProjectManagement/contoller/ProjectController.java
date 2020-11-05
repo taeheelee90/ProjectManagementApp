@@ -19,13 +19,13 @@ import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 
-@Controller  
+@Controller
 @RequiredArgsConstructor
 public class ProjectController {
 
 	private final ProjectRepository pRepository;
-	private final EmployeeRepository eRepository;	
-	
+	private final EmployeeRepository eRepository;
+
 	// Main
 	@GetMapping(value = "/")
 	public String main() {
@@ -39,41 +39,37 @@ public class ProjectController {
 		return "project/projectlist";
 
 	}
-	
+
 	// Read Project Details
 	@GetMapping(value = "/project/{id}")
-	public String projectDetails(@PathVariable("id") Long projectId, Model model) {		 		
+	public String projectDetails(@PathVariable("id") Long projectId, Model model) {
 		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));
-		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
-		
+		pRepository.findById(projectId)
+				.ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
+		pRepository.findById(projectId)
+				.ifPresent(project -> model.addAttribute("projectExpenditures", project.getProjectExpenditures()));
 		return "project/projectdetails";
 	}
-	
-	
-	
+
 	/**
 	 * Custom handler for displaying an owner.
+	 * 
 	 * @param ownerId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
-	 
-	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("owners/ownerDetails");
-		Owner owner = this.owners.findById(ownerId);
-		for (Pet pet : owner.getPets()) {
-			pet.setVisitsInternal(visits.findByPetId(pet.getId()));
-		}
-		mav.addObject(owner);
-		return mav;
-	}*/
-	
-	
+	 * 
+	 *         @GetMapping("/owners/{ownerId}") public ModelAndView
+	 *         showOwner(@PathVariable("ownerId") int ownerId) { ModelAndView mav =
+	 *         new ModelAndView("owners/ownerDetails"); Owner owner =
+	 *         this.owners.findById(ownerId); for (Pet pet : owner.getPets()) {
+	 *         pet.setVisitsInternal(visits.findByPetId(pet.getId())); }
+	 *         mav.addObject(owner); return mav; }
+	 */
 
 	// Add Project
 	@GetMapping(value = "/projectadd")
 	public String addproject(Model model) {
 		model.addAttribute("project", new Project());
-		model.addAttribute("employees", eRepository.findAll()); 
+		model.addAttribute("employees", eRepository.findAll());
 		return "project/addproject";
 	}
 
@@ -88,7 +84,7 @@ public class ProjectController {
 	@GetMapping(value = "/projectedit/{id}")
 	public String updateProject(@PathVariable("id") Long projectId, Model model) {
 		model.addAttribute("project", pRepository.findById(projectId));
-		model.addAttribute("employees", eRepository.findAll()); 
+		model.addAttribute("employees", eRepository.findAll());
 		return "project/updateproject";
 	}
 

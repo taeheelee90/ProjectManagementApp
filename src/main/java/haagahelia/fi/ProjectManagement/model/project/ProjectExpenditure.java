@@ -26,28 +26,28 @@ public class ProjectExpenditure extends BaseEntity {
 
 	private String description;
 
-	public ProjectExpenditure(Project project, int cost) {
-		super();		
-		this.project = project;
-		this.cost = cost;		
+	
+	
+	// Add Expenditure: Adding Expenditure will minus Project budget 
+	public void createExpenditure (Project project, int cost, String description) {
+		ProjectExpenditure expenditure = new ProjectExpenditure();
+		expenditure.setProject(project);
+		expenditure.setCost(cost);
+		expenditure.setDescription(description);
+		
+		project.minusBudget(cost);	
+	
 	}
 
 
-	public ProjectExpenditure(Project project, int cost, String description) {
-		super();		
-		this.project = project;
-		this.cost = cost;
-		this.description = description;
-	}
-
 	
-	
-	// Business Logic:  Adding Expenditure will minus Project budget (if cost> budget, error message)
-	public void addExpenditure (Project project, int cost) {
+	/*
+	// Business Logic:  
+	public void addExpenditure (int cost) {
 		this.setProject(project);
 		this.setCost(cost);
 		getProject().addExpenditure(cost);
-	}
+	}*/
 
 
 }

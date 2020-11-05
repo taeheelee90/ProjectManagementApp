@@ -21,7 +21,7 @@ public class ProjectServiceTest {
 
 	@Autowired ProjectRepository pRepository;
 	@Autowired ProjectService service;
-	
+	/*
 	@Test
 	public void updateExpenditureTest() {
 		// Given
@@ -39,6 +39,6 @@ public class ProjectServiceTest {
 		// Then
 		assertEquals("Budget Left should be 50", p.getBudget(), 50);
 	}
-
+*/
 
 }

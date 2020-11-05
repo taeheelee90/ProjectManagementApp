@@ -15,8 +15,8 @@ public class ProjectService {
 	
 	
 	
-	@Transactional
+	/*@Transactional
     public void updateBudget(Long projectId, int expenditure) {
     	repository.findById(projectId).ifPresent(p -> p.addExpenditure(expenditure));
-    } 
+    } */
 }

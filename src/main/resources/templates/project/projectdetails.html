@@ -59,7 +59,7 @@
 			
 			<div class="text-right">
 			
-				<a th:href="@{/expenditureform/__${id}__}" class="btn btn-info"> Add Expenditure</a>			 
+				<a th:href="@{/expenditureadd/__${id}__}" class="btn btn-info"> Add Expenditure</a>			 
 				<a th:href="@{/projectedit/{id}(id = ${id})}" class="btn btn-warning">Edit</a>
 				<!--<td sec:authorize="hasAuthority('ADMIN')">-->
 				<a th:href="@{/projectdelete/{id}(id = ${id})}" class="btn btn-danger">Delete</a>					
@@ -72,13 +72,33 @@
 				<tr>
 				<th>Project Manager</th>	
 				<td>	
-				      <a th:href="@{/employee/__${id}__}"  th:text="*{firstName} + ' ' + *{lastName}"> </a> 
+				      <a th:href="@{/employee/__${projectManager.id}__}"  th:text="*{firstName} + ' ' + *{lastName}"> </a> 
              	</td>				
 				</tr>
 				
 				<tr>
 				<th>Handling Department</th>				
 				<td th:text="*{department}"></td>	
+				</tr>
+			</table>
+			<br>
+			
+			
+			<table class="table table-striped">
+			<h4>Expenditure Information</h4>
+			<tr th:each="projectExpenditure: ${projectExpenditures}">
+			
+		
+				<tr>
+				<th>Expenditure</th>	
+				<td>	
+				      <a th:href="@{/employee/__${projectManager.id}__}"  th:text="*{cost}"> </a> 
+             	</td>				
+				</tr>
+				
+				<tr>
+				<th>Description</th>				
+				<td th:text="*{description}"></td>	
 				</tr>
 			</table>
 			

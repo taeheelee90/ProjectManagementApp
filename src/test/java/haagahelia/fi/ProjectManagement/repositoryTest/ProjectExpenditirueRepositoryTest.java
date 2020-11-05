@@ -37,12 +37,12 @@ public class ProjectExpenditirueRepositoryTest {
 		ProjectExpenditure projectExpenditure = new ProjectExpenditure();
 		Project project = new Project();
 		project.setBudget(100);
+		
 
 		// When
-		projectExpenditure.addExpenditure(project, 50);
+		projectExpenditure.createExpenditure(project, 50);
 
 		// Then
-		assertEquals("Project should be same", projectExpenditure.getProject(), project);
 		assertEquals("Budget Left should be 50", project.getBudget(), 50);
 	}
 
@@ -55,7 +55,7 @@ public class ProjectExpenditirueRepositoryTest {
 		project.setBudget(100);
 
 		// When
-		projectExpenditure.addExpenditure(project, 150);
+		projectExpenditure.createExpenditure(project, 150);
 
 		// Then
 		fail("Should throw an exception");
