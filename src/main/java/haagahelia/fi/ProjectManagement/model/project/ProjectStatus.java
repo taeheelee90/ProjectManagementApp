@@ -1,5 +1,5 @@
 package haagahelia.fi.ProjectManagement.model.project;
 
 public enum ProjectStatus {
-	WAITING, PROCEEDING, COMPLETE;
+	WAITING, PROCEEDING, COMPLETE, CANCEL;
 }

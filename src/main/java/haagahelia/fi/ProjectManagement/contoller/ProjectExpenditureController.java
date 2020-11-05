@@ -24,7 +24,7 @@ public class ProjectExpenditureController {
 	
 	@GetMapping(value ="expendituretlist/{id}")
 	public String expenditureList(@PathVariable("id") Long projectId, Model model) {
-		
+		pRepository.findById(projectId).ifPresent(p -> model.addAttribute("expenditures", p.getProjectExpenditures()));		
 		return "expenditure/expenditurelist";
 	}
 
@@ -53,7 +53,7 @@ public class ProjectExpenditureController {
 	@PostMapping(value = "/expenditureadd/{id}")
 	public String expendtirueSubmit(@PathVariable("id") Long project_Id, @RequestParam("project.id") Long projectId, @RequestParam("cost") int cost, @RequestParam("description") String description, Model model) {
 		
-		service.addExpnditure(projectId, cost, description);
+		service.addExpenditure(projectId, cost, description);
 		
 		/*
 		pRepository.findById(project_Id).ifPresent(project -> model.addAttribute("project", project));

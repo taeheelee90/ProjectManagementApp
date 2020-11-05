@@ -31,6 +31,7 @@ public class ProjectExpenditure extends BaseEntity {
 	// Add Expenditure: Adding Expenditure will minus Project budget 
 	public void createExpenditure (Project project, int cost, String description) {
 		ProjectExpenditure expenditure = new ProjectExpenditure();
+		
 		expenditure.setProject(project);
 		expenditure.setCost(cost);
 		expenditure.setDescription(description);
@@ -38,16 +39,6 @@ public class ProjectExpenditure extends BaseEntity {
 		project.minusBudget(cost);	
 	
 	}
-
-
-	
-	/*
-	// Business Logic:  
-	public void addExpenditure (int cost) {
-		this.setProject(project);
-		this.setCost(cost);
-		getProject().addExpenditure(cost);
-	}*/
 
 
 }

@@ -2,6 +2,7 @@ package haagahelia.fi.ProjectManagement.contoller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
+import haagahelia.fi.ProjectManagement.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -25,6 +26,7 @@ public class ProjectController {
 
 	private final ProjectRepository pRepository;
 	private final EmployeeRepository eRepository;
+	private final ProjectService service;
 
 	// Main
 	@GetMapping(value = "/")
@@ -46,8 +48,8 @@ public class ProjectController {
 		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));
 		pRepository.findById(projectId)
 				.ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
-		pRepository.findById(projectId)
-				.ifPresent(project -> model.addAttribute("projectExpenditures", project.getProjectExpenditures()));
+		/*pRepository.findById(projectId)
+				.ifPresent(project -> model.addAttribute("projectExpenditures", project.getProjectExpenditures()));*/
 		return "project/projectdetails";
 	}
 
@@ -88,12 +90,12 @@ public class ProjectController {
 		return "project/updateproject";
 	}
 
-	// Delete Project
+	/* Delete Project
 	@GetMapping(value = "/projectdelete/{id}")
 	public String deleteProject(@PathVariable("id") Long projectId) {
-		pRepository.deleteById(projectId);
-		return "redirect:../projectlist";
-	}
+		service.cancelProject(projectId);
+		return "main/home";
+	}*/
 
 	// Handling Date
 	@InitBinder

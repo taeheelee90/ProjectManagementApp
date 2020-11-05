@@ -135,4 +135,14 @@ public class Project extends ObjectEntity {
 		this.budget = leftBudget;
 	}
 
+	
+	// Cancel Project
+	public void cancel() {
+		if (getStatus() == ProjectStatus.PROCEEDING || getStatus() == ProjectStatus.COMPLETE) {
+			throw new IllegalStateException ("Cannot cancel this project."); // Only WAITING status can be cancelled
+		}
+		
+		this.setStatus(ProjectStatus.CANCEL);
+	}
+
 }

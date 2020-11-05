@@ -13,10 +13,19 @@ public class ProjectService {
 
 	private ProjectRepository repository;
 	
+	/*
+	 * Cancel
+	 * 
+	*/
 	
+	@Transactional
+	public void cancelProject (Long projectId) {
+		
+		// Search and cancel order
+		repository.findById(projectId).ifPresent(p -> p.cancel());
+		
+		
+	}
 	
-	/*@Transactional
-    public void updateBudget(Long projectId, int expenditure) {
-    	repository.findById(projectId).ifPresent(p -> p.addExpenditure(expenditure));
-    } */
+
 }

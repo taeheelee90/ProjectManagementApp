@@ -22,10 +22,15 @@ public class EmployeeRepositoryTest {
 	@Test
 	public void createEmployeeTest() {	
 		
-
+		// Given
 		Employee e = new Employee("Tei", "Lee", Department.ACCOUNTING, "email", "phone");
 		
+		// When
 		repository.save(e);
-		assertThat(repository).isNotNull();
+		
+		// Then	
+		assertThat(repository.findById(e.getId()).equals(e));
 	}
+	
+	
 }

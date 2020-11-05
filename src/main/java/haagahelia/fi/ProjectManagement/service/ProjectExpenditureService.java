@@ -20,7 +20,7 @@ public class ProjectExpenditureService {
 	 * Add Expenditure
 	 */
 	@Transactional
-	public Long addExpnditure (Long projectId, int cost, String description) {
+	public Long addExpenditure (Long projectId, int cost, String description) {
 		
 		// Create ProjectExpenditure
 		ProjectExpenditure projectExpenditure = new ProjectExpenditure();
