@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
@@ -24,7 +25,8 @@ public class ProjectExpenditureController {
 	
 	@GetMapping(value ="expendituretlist/{id}")
 	public String expenditureList(@PathVariable("id") Long projectId, Model model) {
-		pRepository.findById(projectId).ifPresent(p -> model.addAttribute("expenditures", p.getProjectExpenditures()));		
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("expenditures", peRepository.findByProjectId(projectId));
 		return "expenditure/expenditurelist";
 	}
 
@@ -42,9 +44,9 @@ public class ProjectExpenditureController {
 	@GetMapping(value = "expenditureadd/{id}")
 	public String addExpenditure(@PathVariable("id") Long projectId, Model model) {
 		
-		ProjectExpenditure projectExpenditure = new ProjectExpenditure();
-		pRepository.findById(projectId).ifPresent(p -> projectExpenditure.setProject(p));
-		model.addAttribute("expenditure", projectExpenditure);
+		ProjectExpenditure expenditure = new ProjectExpenditure();
+		pRepository.findById(projectId).ifPresent(p -> expenditure.setProject(p));
+		model.addAttribute("expenditure", expenditure);
 
 		
 		return "expenditure/addexpenditure";
@@ -53,20 +55,13 @@ public class ProjectExpenditureController {
 	@PostMapping(value = "/expenditureadd/{id}")
 	public String expendtirueSubmit(@PathVariable("id") Long project_Id, @RequestParam("project.id") Long projectId, @RequestParam("cost") int cost, @RequestParam("description") String description, Model model) {
 		
-		service.addExpenditure(projectId, cost, description);
+		System.out.println(projectId);
+		System.out.println(cost);
+		System.out.println(description);
+		service.addExpenditure(projectId, cost, description);		
 		
-		/*
-		pRepository.findById(project_Id).ifPresent(project -> model.addAttribute("project", project));
-		pRepository.findById(project_Id)
-				.ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
-		pRepository.findById(project_Id)
-				.ifPresent(project -> model.addAttribute("projectExpenditures", project.getProjectExpenditures()));
-		*/
-		
-		
-		
-		return "redirect:/project/{id}";
-		
+		//return "redirect:/project/{id}";
+		return "redirect:/expendituretlist/{id}";
 		
 	}
 

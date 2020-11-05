@@ -1,13 +1,16 @@
 package haagahelia.fi.ProjectManagement.contoller;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -53,19 +56,36 @@ public class ProjectController {
 		return "project/projectdetails";
 	}
 
-	/**
-	 * Custom handler for displaying an owner.
-	 * 
-	 * @param ownerId the ID of the owner to display
-	 * @return a ModelMap with the model attributes for the view
-	 * 
-	 *         @GetMapping("/owners/{ownerId}") public ModelAndView
-	 *         showOwner(@PathVariable("ownerId") int ownerId) { ModelAndView mav =
-	 *         new ModelAndView("owners/ownerDetails"); Owner owner =
-	 *         this.owners.findById(ownerId); for (Pet pet : owner.getPets()) {
-	 *         pet.setVisitsInternal(visits.findByPetId(pet.getId())); }
-	 *         mav.addObject(owner); return mav; }
-	 */
+	
+	// Search Project by name
+	@GetMapping("/project")
+	public String searchProjectByName (Project project, BindingResult result, Map<String, Object> model) {
+
+		// allow parameterless GET request for /owners to return all records
+		if (project.getName() == null) {
+			project.setName(""); // empty string signifies broadest possible search
+		}
+
+		// find owners by name
+		Collection<Project> results = pRepository.findByName(project.getName());
+		if (results.isEmpty()) {
+			// no owners found
+			result.rejectValue("name", "notFound", "not found");
+			return "project/projectlist";
+		}
+		else if (results.size() == 1) {
+			// 1 owner found
+			project = results.iterator().next();
+			return "redirect:/project/" + project.getId();
+		}
+		else {
+			// multiple owners found
+			model.put("projects", results);
+			//return "project/projectSearch";
+			return "project/projectlist";
+		}
+	}
+	
 
 	// Add Project
 	@GetMapping(value = "/projectadd")

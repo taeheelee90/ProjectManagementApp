@@ -9,12 +9,7 @@
 </head>
 <body>
 	<div class="container">
-
-			<div class="jumbotron text-center" style="margin-bottom: 0">
-			<h1>Project Management</h1>
-			
-		</div>
-
+		<div th:replace="fragments/title :: title" />
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
 		<h3>Project Information</h3>
@@ -84,7 +79,7 @@
 			<br>
 			
 			
-			<table class="table table-striped">
+			<!--  <table class="table table-striped">
 			<h4>Expenditure Information</h4>
 			<tr th:each="projectExpenditure: ${projectExpenditures}">
 			
@@ -100,7 +95,7 @@
 				<th>Description</th>				
 				<td th:text="*{description}"></td>	
 				</tr>
-			</table>
+			</table>-->
 			
 				
 		

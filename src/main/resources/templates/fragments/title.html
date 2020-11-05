@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="div" th:fragment="title">
+		<div class="jumbotron text-center"style="margin-bottom: 0; padding-bottom: 0">
+			<h1>Project Management</h1>
+			<div class="jumbotron text-right">
+				User Name: <span sec:authentication="name"></span> | Role: <span
+					sec:authentication="principal.authorities"></span>
+				
+					<form th:action="@{/logout}" method="post">
+						<input type="submit" value="Sign Out"
+							class="btn btn-sm btn-danger" />
+					</form>
+			</div>
+
+		</div>
+</div>

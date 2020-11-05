@@ -9,10 +9,8 @@
 
 <body style="margin: 15px;">
 <div class="container">
-			<div class="jumbotron text-center" style="margin-bottom: 0">
-			<h1>Project Management</h1>
-			
-		</div>
+<div th:replace="fragments/title :: title" />
+
 <div class="form-group">
 	<form  class="form-horizontal" action="#" th:action="@{/projectsubmit}" th:object="${project}"
 		method="post">
@@ -44,7 +42,7 @@
 		
 			
 	<label for="budget" class="control-label col-sm-2">Budget</label>
-	<input type="text" id="budget" th:field="*{budget}" class="form-control" /><br>
+	<input type="number" id="budget" th:field="*{budget}" class="form-control" /><br>
 		
 		<div style="clear: both; display: block; height: 10px;"></div>
 		

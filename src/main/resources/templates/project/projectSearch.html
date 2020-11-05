@@ -16,20 +16,12 @@
 		<br> <br> <br>
 	
 	<form th:action="@{/project}">
-    Search By Project Name: <input type="text" name="name" id="name" size="50" th:value="${name}" required />
+    Filter: <input type="text" name="name" id="name" size="50" th:value="${name}" required />
     &nbsp;
     <input type="submit" value="Search" />
     &nbsp;
-	</form>
-	
-	<!-- To be updated to selection form -->
-	<form th:action="@{/projectstatus}">
-    Status: 
-    <input type="text" name="status" id="status" size="50" th:value="${status}" required />
-    &nbsp;
-    <input type="submit" value="Search" />
-    &nbsp;
-	</form>
+    <a class="nav-link" href="/projectlist">All List</a>
+</form>
 	<br>
 	<br>
 	<br>
@@ -56,12 +48,20 @@
 				
 			  <td>
                   <a th:href="@{/project/__${project.id}__}" class="btn btn-default"> Show Details</a> 
-              </td>   			
+              </td>
+              
+              <!--  <td>
+                  <a th:href="@{/project/{id}(id = ${project.id})}" class=".btn-default"> Show Details</a>
+              </td>-->
+				
+			
 
 			</tr>
 		</table>
 		
-		 
+		 	<!--<td>
+                  <a th:href="@{/owners/__${owner.id}__}" th:text="${owner.firstName + ' ' + owner.lastName}"/></a>
+              </td>  -->
 
 		<br>
 
@@ -69,6 +69,11 @@
 		<div th:replace="fragments/footer :: footer" />
 	</div>
 	
-		
+	
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/projectlist}]]";
+    }
+</script>	
 </body>
 </html>
