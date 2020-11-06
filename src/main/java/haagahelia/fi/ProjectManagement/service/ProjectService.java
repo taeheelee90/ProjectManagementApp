@@ -13,10 +13,11 @@ public class ProjectService {
 
 	private ProjectRepository repository;
 	
+	
 	/*
 	 * Cancel
 	 * 
-	*/
+	
 	
 	@Transactional
 	public void cancelProject (Long projectId) {
@@ -25,7 +26,8 @@ public class ProjectService {
 		repository.findById(projectId).ifPresent(p -> p.cancel());
 		
 		
-	}
+	}*/
+
 	
 
 }

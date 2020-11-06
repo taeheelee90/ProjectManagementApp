@@ -13,23 +13,22 @@
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
 		<h3>Project Manager List</h3>
-	
-		<a class="btn btn-primary" th:href="@{/employeeadd}"> Add PM</a>
-		<br> <br> <br>
-		
+
+		<a class="btn btn-primary" th:href="@{/employeeadd}"> Add PM</a> <br>
+		<br> <br>
+
 		<table class="table table-striped">
 			<tr>
 				<th>Name</th>
 				<th>Department</th>
-				<th>Action</th>		
+				<th>Action</th>
 			</tr>
 
-			<tr th:each="employee: ${employees}">	
+			<tr th:each="employee: ${employees}">
 				<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
 				<td th:text="${employee.department}"></td>
-				<td>
-				      <a th:href="@{/employee/__${employee.id}__}" class="btn btn-default"> Show Details</a> 
-              </td>
+				<td><a th:href="@{/employee/__${employee.id}__}"
+					class="btn btn-default"> Show Details</a></td>
 			</tr>
 		</table>
 

@@ -16,32 +16,56 @@
 			<form class="form-horizontal" action="#"
 				th:action="@{/projectsubmit}" th:object="${project}" method="post">
 
-				<input type="hidden" id="id" th:field="*{id}" /> 
-				
-				<label for="name" class="control-label col-sm-2">Project Name</label> 
-				<input type="text" id="name" th:field="*{name}" class="form-control" /><br>
+				<input type="hidden" id="id" th:field="*{id}" /> <label for="name"
+					class="control-label col-sm-2">Project Name</label> <input
+					type="text" id="name" th:field="*{name}" class="form-control" /><br>
 
-				<label for="startDate" class="control-label col-sm-2"> Start Date</label> 
-				<input type="date" id="startDate" th:field="*{startDate}" class="form-control" /> <br> 
-				
-				<label for="endDate" class="control-label col-sm-2"> End Date</label> 
-				<input type="date" id="endDate" th:field="*{endDate}" class="form-control" /> <br>
+				<label for="startDate" class="control-label col-sm-2"> Start
+					Date</label> <input type="date" id="startDate" th:field="*{startDate}"
+					class="form-control" /> <br> <label for="endDate"
+					class="control-label col-sm-2"> End Date</label> <input type="date"
+					id="endDate" th:field="*{endDate}" class="form-control" /> <br>
 
-				<label for="status" class="control-label col-sm-2">Status</label> 
-				<select id="status" th:field="*{status}" class="form-control">
-					<option th:each="status: ${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).values()}" 
+				<!-- Only Admin can Cancel Project -->
+				<div sec:authorize="hasAuthority('ADMIN')">
+					<label for="status" class="control-label col-sm-2">Status</label> <select
+						id="status" th:field="*{status}" class="form-control">
+						<option
+							th:each="status: ${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).values()}"
 							th:value="${status}" th:text="${status}"></option>
-				</select> <br> 
+					</select> <br>
+				</div>
 				
-				<label for="pm" class="control-label col-sm-2">Project Manager</label> 
-				<select id="pm" th:field=*{projectManager} class="form-control">
+			
+				<div sec:authorize="hasAuthority('USER')">
+					<label for="status" class="control-label col-sm-2">Status</label> 
+					<select
+						id="status" th:field="*{status}" class="form-control">
+						<option
+							th:value="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING}"
+							th:text="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING}"></option>
+						<option
+							th:value="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}"
+							th:text="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}"></option>
+						<option
+							th:value="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).COMPLETE}"
+							th:text="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).COMPLETE}"></option>
+					</select> <br>
+				</div>
+				
+				<label for="pm" class="control-label col-sm-2">Project
+					Manager</label> <select id="pm" th:field=*{projectManager}
+					class="form-control">
 					<option th:each="employee: ${employees}" th:value="${employee.id}"
-							th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' (' + ${employee.department}+')'"></option>
-				</select> <br> 
-				
-				<label for="budget" class="control-label col-sm-2">Budget</label>
-				<input type="number" id="budget" th:field="*{budget}" class="form-control" /><br>
+						th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' (' + ${employee.department}+')'"></option>
+				</select> <br>
 
+
+				<!-- Budget can be only edited by ADMIN -->
+				<span sec:authorize="hasAuthority('ADMIN')"> <label
+					for="budget" class="control-label col-sm-2">Budget</label> <input
+					type="number" id="budget" th:field="*{budget}" class="form-control" /><br>
+				</span>
 
 				<div style="clear: both; display: block; height: 10px;"></div>
 

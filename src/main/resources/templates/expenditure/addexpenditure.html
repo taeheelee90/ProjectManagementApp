@@ -9,31 +9,32 @@
 </head>
 
 <body style="margin: 15px;">
-<div class="container">
+	<div class="container">
 		<div th:replace="fragments/title :: title" />
 
 		<!-- action="#" th:action="@{/expendituresubmit}"  -->
-		
+
 		<div class="form-group">
-		<form  class="form-horizontal" th:action="@{/expenditureadd/__${id}__}" th:object="${expenditure}" method="post">
-		
-				<!--<input type="text" id="id" th:field="*{id}" /> <br> -->
+			<form class="form-horizontal"
+				th:action="@{/expenditureadd/__${id}__}" th:object="${expenditure}"
+				method="post">
+
+				<!--<input type="text" id="id" th:field="*{id}" /> <br> 
 			
-		<input type="hidden" id="projectId" th:field="*{project.id}" /> <br>
-	
-		
-		<label for="expenditure" class="control-label col-sm-2">Expenditure</label> 
-		<input type="number" id="cost" th:field="*{cost}" class="form-control" /><br> 
-		
-		<label for="description" class="control-label col-sm-2">Description</label>
-		<input type="text" id="description" th:field="*{description}" class="form-control"/> <br>		
-		
-		
-		<input type ="submit" class="btn btn-success" value="Submit"/>
-		<button  class="btn btn-danger">Cancel</button>
- 	</form>
- 	</div>
- 		<div th:replace="fragments/footer :: footer" />
- 	</div>
+		<input type="hidden" id="projectId" th:field="*{project.id}" /> <br>-->
+
+
+				<label for="expenditure" class="control-label col-sm-2">Expenditure</label>
+				<input type="number" id="cost" th:field="*{cost}"
+					class="form-control" /><br> <label for="description"
+					class="control-label col-sm-2">Description</label> <input
+					type="text" id="description" th:field="*{description}"
+					class="form-control" /> <br> <input type="submit"
+					class="btn btn-success" value="Submit" />
+				<button class="btn btn-danger">Cancel</button>
+			</form>
+		</div>
+		<div th:replace="fragments/footer :: footer" />
+	</div>
 </body>
 </html>

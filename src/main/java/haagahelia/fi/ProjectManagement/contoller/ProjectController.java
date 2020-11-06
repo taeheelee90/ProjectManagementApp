@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,12 +62,12 @@ public class ProjectController {
 	@GetMapping("/project")
 	public String searchProjectByName (Project project, BindingResult result, Map<String, Object> model) {
 
-		// allow parameterless GET request for /owners to return all records
+		// request without parameter returns all list
 		if (project.getName() == null) {
-			project.setName(""); // empty string signifies broadest possible search
+			project.setName(""); 
 		}
 
-		// find owners by name
+		// find project by project name
 		Collection<Project> results = pRepository.findByName(project.getName());
 		if (results.isEmpty()) {
 			// no owners found
@@ -74,14 +75,14 @@ public class ProjectController {
 			return "project/projectlist";
 		}
 		else if (results.size() == 1) {
-			// 1 owner found
+			// 1 project found
 			project = results.iterator().next();
 			return "redirect:/project/" + project.getId();
 		}
 		else {
-			// multiple owners found
+			// multiple projects found
 			model.put("projects", results);
-			//return "project/projectSearch";
+		
 			return "project/projectlist";
 		}
 	}
@@ -110,13 +111,15 @@ public class ProjectController {
 		return "project/updateproject";
 	}
 
-	/* Delete Project
-	@GetMapping(value = "/projectdelete/{id}")
-	public String deleteProject(@PathVariable("id") Long projectId) {
-		service.cancelProject(projectId);
-		return "main/home";
+	/*// Cancel Project
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping(value = "projectcancel/{id}")
+	public String cancelProject(@PathVariable("id") Long projectId, Model model) {
+		pRepository.findById(projectId).ifPresent(p -> p.cancel());
+		return "redirect:projectlist";
 	}*/
 
+	
 	// Handling Date
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {

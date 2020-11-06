@@ -1,6 +1,7 @@
 package haagahelia.fi.ProjectManagement.serviceTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import haagahelia.fi.ProjectManagement.model.project.Project;
-import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
+import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import haagahelia.fi.ProjectManagement.service.ProjectService;
 
@@ -42,5 +43,4 @@ public class ProjectServiceTest {
 		assertEquals("Budget Left should be 50", p.getBudget(), 50);
 	}
 */
-
 }

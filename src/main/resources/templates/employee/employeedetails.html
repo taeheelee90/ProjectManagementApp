@@ -18,7 +18,7 @@
 
 		<br> <br> <br>
 		<table class="table table-striped" th:object="${employee}">
-		<h4>Basic Information</h4>
+			<h4>Basic Information</h4>
 			<tr>
 				<th>Employee Id</th>
 				<td th:text="*{id}"></td>
@@ -33,7 +33,7 @@
 				<th>Employee Department</th>
 				<td th:text="*{department}"></td>
 			</tr>
-						
+
 			<tr>
 				<th>Email</th>
 				<td th:text="*{email}"></td>
@@ -49,35 +49,38 @@
 
 		<br>
 		<div class="text-right">
-			<a th:href="@{/employeeedit/{id}(id = ${id})}" class="btn btn-warning">Edit</a>
+			<a th:href="@{/employeeedit/{id}(id = ${id})}"
+				class="btn btn-warning">Edit</a>
 			<!--<td sec:authorize="hasAuthority('ADMIN')">-->
-			<a th:href="@{/employeedelete/{id}(id = ${id})}" class="btn btn-danger">Delete</a>
+			<a th:href="@{/employeedelete/{id}(id = ${id})}"
+				class="btn btn-danger">Delete</a>
 
 		</div>
 		<br>
-		
-		<table class="table table-striped">		
-		<h4>Project Information</h4>
+
+		<table class="table table-striped">
+			<h4>Project Information</h4>
 			<tr>
 				<th>Project Id</th>
 				<th>Project name</th>
-				<th>Status</th>		
+				<th>Status</th>
 				<th>More Info</th>
 			</tr>
-		 
-		
+
+
 			<tr th:each="project : ${employee.projects}">
 				<td th:text="${project.id}"></td>
 				<td th:text="${project.name}"></td>
 				<td th:text="${project.status}"></td>
-				<td><a th:href="@{/project/__${project.id}__}" class="btn btn-default"> Show Details</a> </td>
-			</tr>			
+				<td><a th:href="@{/project/__${project.id}__}"
+					class="btn btn-default"> Show Details</a></td>
+			</tr>
 		</table>
-		
-		
-		
-		
-		
+
+
+
+
+
 	</div>
 	<div th:replace="fragments/footer :: footer" />
 	</div>
