@@ -111,14 +111,6 @@ public class ProjectController {
 		return "project/updateproject";
 	}
 
-	/*// Cancel Project
-	@PreAuthorize("hasAuthority('ADMIN')")
-	@GetMapping(value = "projectcancel/{id}")
-	public String cancelProject(@PathVariable("id") Long projectId, Model model) {
-		pRepository.findById(projectId).ifPresent(p -> p.cancel());
-		return "redirect:projectlist";
-	}*/
-
 	
 	// Handling Date
 	@InitBinder

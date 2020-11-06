@@ -58,11 +58,14 @@ public class ProjectManagementApplication {
 					ProjectStatus.WAITING, e1, 150000);
 			Project p4 = new Project("Data Security Policy Update", LocalDate.parse("2021-02-10"),
 					LocalDate.parse("2021-03-31"), ProjectStatus.WAITING, e3, 2000);
+			Project p5 = new Project("Asian Market Analysis", LocalDate.parse("2020-06-05"),
+					LocalDate.parse("2020-12-31"), ProjectStatus.PROCEEDING, e4, 3000);
 
 			pRepository.save(p1);
 			pRepository.save(p2);
 			pRepository.save(p3);
 			pRepository.save(p4);
+			pRepository.save(p5);
 
 			log.info("create vendors");
 			Vendor v1 = new Vendor("AAAVendor", "a@vendor.com", "1111");

@@ -25,8 +25,8 @@
 			</tr>
 
 			<tr th:each="expenditure: ${expenditures}">
-				<td th:text="*{expenditure.project.status}"></td>
-				<td th:text="*{expenditure.project.budget}">
+				<td th:text="*{expenditure.cost}"></td>
+				<td th:text="*{expenditure.description}">
 			</tr>
 
 		</table>

@@ -18,13 +18,17 @@ public class ProjectExpenditureService {
 	
 	/*
 	 * Add Expenditure
-	 */
+	 * */
 	@Transactional
 	public Long addExpenditure (Long projectId, int cost, String description) {
 		
 		// Create ProjectExpenditure
 		ProjectExpenditure projectExpenditure = new ProjectExpenditure();
-		pRepository.findById(projectId).ifPresent(p -> ProjectExpenditure.createExpenditure(p, cost, description));
+		pRepository.findById(projectId).ifPresent(p -> projectExpenditure.setProject(p));
+		projectExpenditure.setCost(cost);
+		projectExpenditure.setDescription(description);
+		
+		pRepository.findById(projectId).ifPresent(p -> projectExpenditure.createExpenditure(p, cost, description));
 	
 		
 		// Save ProjectExpenditure

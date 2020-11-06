@@ -31,7 +31,7 @@ public class ProjectExpenditureServiceTest {
 	@Autowired ProjectExpenditureRepository repository;
 	
 	
-	
+	/*
 	@Test
 	public void addExpenditureTest() throws ParseException {
 		// Given
@@ -54,7 +54,7 @@ public class ProjectExpenditureServiceTest {
 		//assertEquals("Left budget = 50", 50, p.getBudget());
 		assertEquals("Exp saved", repository.findById(expenditureId));
 	}
-	/*
+	
 			assertEquals("Order Status : ORDER", OrderStatus.ORDER, getOrder.getOrderStatus());
 			assertEquals("Number of ordered item: 1", 1, getOrder.getOrderItems().size());
 			assertEquals("Order price = price * quantity", 10000 * 2, getOrder.getTotalPrice());

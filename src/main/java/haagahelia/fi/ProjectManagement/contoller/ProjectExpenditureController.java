@@ -5,8 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
@@ -31,17 +29,24 @@ public class ProjectExpenditureController {
 		return "expenditure/expenditurelist";
 	}
 
-	
 	// Add Expenditure
 	@GetMapping(value = "expenditureadd/{id}")
 	public String addExpenditure(@PathVariable("id") Long projectId, Model model) {
 		
-		ProjectExpenditure expenditure = new ProjectExpenditure();
+		/*ProjectExpenditure expenditure = new ProjectExpenditure();
 		pRepository.findById(projectId).ifPresent(p -> expenditure.setProject(p));
-		model.addAttribute("expenditure", expenditure);
-
+		model.addAttribute("expenditure", new ProjectExpenditure());*/
 		
+		model.addAttribute("expenditure", new ProjectExpenditure());		
 		return "expenditure/addexpenditure";
 	}
 
+	@PostMapping(value = "/expenditureadd/{id}")
+	public String expendtirueSubmit(@PathVariable("id") Long projectId, ProjectExpenditure expenditure) {
+		
+		service.addExpenditure(projectId, expenditure.getCost(), expenditure.getDescription());		
+		return "redirect:/expendituretlist/{id}";
+		
+	}
+	
 }
