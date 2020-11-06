@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,6 +20,9 @@ import javax.persistence.Table;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import haagahelia.fi.ProjectManagement.exception.NotEnoughBudgetException;
 import haagahelia.fi.ProjectManagement.model.Employee;
@@ -49,12 +51,13 @@ public class Project extends ObjectEntity {
 	private ProjectStatus status;
 	
 	@ManyToOne //(fetch = FetchType.LAZY)
+	@JsonManagedReference
 	@JoinColumn(name = "project_manager_id")
 	private Employee projectManager;
 
 	private int budget;
 	
-		
+	@JsonBackReference	
 	@OneToMany (cascade = CascadeType.ALL, mappedBy ="project") // , fetch= FetchType.EAGER
 	private Set <ProjectExpenditure> projectExpenditures;
 	

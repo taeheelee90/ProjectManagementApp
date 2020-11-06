@@ -19,6 +19,8 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import haagahelia.fi.ProjectManagement.model.entity.PersonEntity;
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import lombok.Getter;
@@ -35,6 +37,7 @@ public class Employee extends PersonEntity {
 	@NotEmpty (message = "Please select Department!")
 	private Department department;
 	
+	@JsonBackReference
 	@OneToMany  (cascade = CascadeType.ALL, mappedBy ="projectManager", fetch= FetchType.EAGER)
 	private Set <Project> projects;
 	

@@ -3,12 +3,13 @@ package haagahelia.fi.ProjectManagement.contoller;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
@@ -52,19 +55,32 @@ public class ProjectController {
 		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));
 		pRepository.findById(projectId)
 				.ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
-		/*pRepository.findById(projectId)
-				.ifPresent(project -> model.addAttribute("projectExpenditures", project.getProjectExpenditures()));*/
+		/*
+		 * pRepository.findById(projectId) .ifPresent(project ->
+		 * model.addAttribute("projectExpenditures", project.getProjectExpenditures()));
+		 */
 		return "project/projectdetails";
 	}
 
-	
+	// REST: Read All Projects
+	@RequestMapping(value = "/projects")
+	public @ResponseBody List<Project> projectsRest() {
+		return (List<Project>) pRepository.findAll();
+	}
+
+	// REST: Search Project by ID
+	@GetMapping(value = "/projects/{id}")
+	public @ResponseBody Optional<Project> findProjectRest(@PathVariable("id") Long projectId) {
+		return pRepository.findById(projectId);
+	}
+
 	// Search Project by name
 	@GetMapping("/project")
-	public String searchProjectByName (Project project, BindingResult result, Map<String, Object> model) {
+	public String searchProjectByName(Project project, BindingResult result, Map<String, Object> model) {
 
 		// request without parameter returns all list
 		if (project.getName() == null) {
-			project.setName(""); 
+			project.setName("");
 		}
 
 		// find project by project name
@@ -73,20 +89,17 @@ public class ProjectController {
 			// no owners found
 			result.rejectValue("name", "notFound", "not found");
 			return "project/projectlist";
-		}
-		else if (results.size() == 1) {
+		} else if (results.size() == 1) {
 			// 1 project found
 			project = results.iterator().next();
 			return "redirect:/project/" + project.getId();
-		}
-		else {
+		} else {
 			// multiple projects found
 			model.put("projects", results);
-		
+
 			return "project/projectlist";
 		}
 	}
-	
 
 	// Add Project
 	@GetMapping(value = "/projectadd")
@@ -111,7 +124,6 @@ public class ProjectController {
 		return "project/updateproject";
 	}
 
-	
 	// Handling Date
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
