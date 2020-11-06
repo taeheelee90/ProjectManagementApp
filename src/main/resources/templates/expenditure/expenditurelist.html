@@ -33,6 +33,12 @@
 
 
 		<div class="text-right" th:object="${projectId}">
+		<a
+			
+				th:href="@{/expenditureadd/__${projectId}__}" class="btn btn-info"> Add
+				Expenditure</a>
+		
+		
 			<a th:href="@{/project/__${projectId}__}" class="btn btn-info">
 				Back to Project Information</a>
 		</div>

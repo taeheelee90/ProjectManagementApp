@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
-import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import haagahelia.fi.ProjectManagement.service.ProjectExpenditureService;
 import lombok.RequiredArgsConstructor;
 
@@ -17,10 +15,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProjectExpenditureController {
 
-	private final ProjectRepository pRepository;
 	private final ProjectExpenditureRepository peRepository;
 	private final ProjectExpenditureService service;
-	//private final ProjectService pService;
+	
 	
 	@GetMapping(value ="expendituretlist/{id}")
 	public String expenditureList(@PathVariable("id") Long projectId, Model model) {
@@ -31,12 +28,7 @@ public class ProjectExpenditureController {
 
 	// Add Expenditure
 	@GetMapping(value = "expenditureadd/{id}")
-	public String addExpenditure(@PathVariable("id") Long projectId, Model model) {
-		
-		/*ProjectExpenditure expenditure = new ProjectExpenditure();
-		pRepository.findById(projectId).ifPresent(p -> expenditure.setProject(p));
-		model.addAttribute("expenditure", new ProjectExpenditure());*/
-		
+	public String addExpenditure(@PathVariable("id") Long projectId, Model model) {		
 		model.addAttribute("expenditure", new ProjectExpenditure());		
 		return "expenditure/addexpenditure";
 	}

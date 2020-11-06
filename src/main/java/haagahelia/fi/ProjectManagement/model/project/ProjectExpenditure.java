@@ -33,9 +33,9 @@ public class ProjectExpenditure extends BaseEntity {
 	public ProjectExpenditure createExpenditure (Project project, int cost, String description) {
 		ProjectExpenditure expenditure = new ProjectExpenditure();
 		
-		expenditure.setProject(project);
+		/*expenditure.setProject(project);
 		expenditure.setCost(cost);
-		expenditure.setDescription(description);
+		expenditure.setDescription(description);*/
 		
 		project.minusBudget(cost);	
 	

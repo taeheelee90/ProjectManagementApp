@@ -51,21 +51,23 @@
 			</tr>
 		</table>
 
-		<div class="text-right" th:if="${project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING or 
+		<div class="text-right"
+			th:if="${project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING or 
 						project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}">
 
-			<a
-			
-				th:href="@{/expenditureadd/__${id}__}" class="btn btn-info"> Add
-				Expenditure</a> <a
-				
-				th:href="@{/projectedit/{id}(id = ${id})}" class="btn btn-warning">
-				Edit</a>
-				
-				<!--  
+			<a th:href="@{/expenditureadd/__${id}__}" class="btn btn-info">
+				Add Expenditure</a> <a th:href="@{/projectedit/{id}(id = ${id})}"
+				class="btn btn-warning"> Edit</a>
+
+			<!--  
 				<span sec:authorize="hasAuthority('ADMIN')">
 				<a th:href="@{/projectcancel/__${project.id}__}" class="btn btn-danger"> Cancel Project</a>
 				</span>-->
+		</div>
+		<br> <br>
+		<div class="text-right">
+			<a th:href="@{/expendituretlist/__${id}__}" class="btn btn-info">
+				Expenditure List</a>
 		</div>
 
 		<table class="table table-striped" th:object="${projectManager}">
@@ -82,7 +84,9 @@
 				<td th:text="*{department}"></td>
 			</tr>
 		</table>
-		<br> <br>
+		<br> <br> <br> <br>
+
+
 		<div th:replace="fragments/footer :: footer" />
 
 

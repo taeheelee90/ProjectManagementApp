@@ -9,14 +9,12 @@ import org.springframework.context.annotation.Bean;
 
 import haagahelia.fi.ProjectManagement.model.Department;
 import haagahelia.fi.ProjectManagement.model.Employee;
-import haagahelia.fi.ProjectManagement.model.Vendor;
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 import haagahelia.fi.ProjectManagement.model.user.User;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import haagahelia.fi.ProjectManagement.repository.UserRepository;
-import haagahelia.fi.ProjectManagement.repository.VendorRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
@@ -29,7 +27,7 @@ public class ProjectManagementApplication {
 
 	@Bean
 	public CommandLineRunner Demo(EmployeeRepository eRepository, ProjectRepository pRepository,
-			VendorRepository vRepository, UserRepository uRepository) {
+			UserRepository uRepository) {
 
 		return (args) -> {
 
@@ -67,12 +65,6 @@ public class ProjectManagementApplication {
 			pRepository.save(p4);
 			pRepository.save(p5);
 
-			log.info("create vendors");
-			Vendor v1 = new Vendor("AAAVendor", "a@vendor.com", "1111");
-			Vendor v2 = new Vendor("BBBVendor", "b@vendor.com", "2222");
-
-			vRepository.save(v1);
-			vRepository.save(v2);
 
 			log.info("create users");
 			// user/user, admin/admin
