@@ -10,12 +10,13 @@ import org.springframework.context.annotation.Bean;
 import haagahelia.fi.ProjectManagement.model.Department;
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.project.Project;
+import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 import haagahelia.fi.ProjectManagement.model.user.User;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
+import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import haagahelia.fi.ProjectManagement.repository.UserRepository;
-import haagahelia.fi.ProjectManagement.service.ProjectExpenditureService;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
@@ -28,7 +29,7 @@ public class ProjectManagementApplication {
 
 	@Bean
 	public CommandLineRunner Demo(EmployeeRepository eRepository, ProjectRepository pRepository,
-			ProjectExpenditureService peService, UserRepository uRepository) {
+			ProjectExpenditureRepository peRepository, UserRepository uRepository) {
 
 		return (args) -> {
 
@@ -50,7 +51,7 @@ public class ProjectManagementApplication {
 			log.info("create projects");
 			// SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Project p1 = new Project("CRM Implementation", LocalDate.parse("2019-03-20"), LocalDate.parse("2019-09-15"),
-					ProjectStatus.COMPLETE, e5, 10000);
+					ProjectStatus.COMPLETE, e5, 0);
 			Project p2 = new Project("Data Migration", LocalDate.parse("2020-10-10"), LocalDate.parse("2020-12-31"),
 					ProjectStatus.PROCEEDING, e3, 30000);
 			Project p3 = new Project("Q4 profit analysis", LocalDate.parse("2021-01-01"), LocalDate.parse("2021-02-20"),
@@ -67,12 +68,16 @@ public class ProjectManagementApplication {
 			pRepository.save(p5);
 
 			
-			/*log.info("create expenditures");
-			peService.addExpenditure(p1.getId(), 500, "Initial Cost");
-			peService.addExpenditure(p1.getId(), 5000, "License Fee");
-			peService.addExpenditure(p1.getId(), 3000, "Migration");
-			*/
-
+			 log.info("create expenditures"); 
+			 
+			 ProjectExpenditure pe1 = new ProjectExpenditure(p1, 500, "Initial Cost");
+			 ProjectExpenditure pe2 = new ProjectExpenditure(p1, 5000, "License Fee");
+			 ProjectExpenditure pe3 = new ProjectExpenditure(p1, 3000, "Migration Fee");
+			 
+			 peRepository.save(pe1);
+			 peRepository.save(pe2);
+			 peRepository.save(pe3);
+					 
 
 			log.info("create users");
 			// user/user, admin/admin

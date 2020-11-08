@@ -102,6 +102,33 @@ public class ProjectController {
 			return "project/projectlist";
 		}
 	}
+	
+	/*// Search Project by name and status
+	@GetMapping("/project")
+	public String searchByNameAndStatus (Project project, BindingResult result, Map<String, Object> model) {
+
+		// request without parameter returns all list
+		if (project.getName() == null) {
+			project.setName("");
+		}
+
+		// find project by project name
+		Collection<Project> results = pRepository.findByName(project.getName());
+		if (results.isEmpty()) {
+			// no projects found
+			result.rejectValue("name", "not Found", "not found");
+			return "redirect:/projectlist";
+		} else if (results.size() == 1) {
+			// 1 project found
+			project = results.iterator().next();
+			return "redirect:/project/" + project.getId();
+		} else {
+			// multiple projects found
+			model.put("projects", results);
+
+			return "project/projectlist";
+		}
+	}*/
 
 	// Add new Project
 	@GetMapping(value = "/projectadd")

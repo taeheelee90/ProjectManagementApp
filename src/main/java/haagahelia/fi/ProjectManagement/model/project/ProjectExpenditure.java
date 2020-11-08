@@ -29,6 +29,14 @@ public class ProjectExpenditure extends BaseEntity {
 
 	private String description;
 
+
+	public ProjectExpenditure(Project project, int cost, String description) {
+		super();
+		this.project = project;
+		this.cost = cost;
+		this.description = description;
+	}
+
 	
 	
 	// Add Expenditure: Adding Expenditure will minus Project budget 
@@ -39,6 +47,7 @@ public class ProjectExpenditure extends BaseEntity {
 	
 		return expenditure;
 	}
+
 
 
 }

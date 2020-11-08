@@ -42,7 +42,7 @@ public class ProjectExpenditureServiceTest {
 		
 		
 		// When
-		Long expenditureId = service.addExpenditure(p.getId(), cost, description);
+		service.addExpenditure(p.getId(), cost, description);
 	
 		
 		// Then

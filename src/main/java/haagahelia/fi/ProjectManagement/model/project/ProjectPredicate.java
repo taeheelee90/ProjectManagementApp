@@ -5,14 +5,14 @@ import com.querydsl.core.types.Predicate;
 
 public class ProjectPredicate {
 
-	public static Predicate search(String name, ProjectStatus status) {
+	public static Predicate searchByNameAndStatus(String name, ProjectStatus status) {
 		
 		QProject project = QProject.project;
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		
 		if(name != null) {
-			builder.and(project.name.eq(name));
+			builder.and(project.name.like("%"+name+"%"));
 		}
 		if (status != null) {
 			builder.and(project.status.eq(status));

@@ -35,7 +35,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long>, Queryd
 	/*
 	 * Search By Name & Status
 	 */
-
+	Collection <Project> searchByNameAndStatus(@Param("name") String name, @Param("status") ProjectStatus status);
 	
 	
 

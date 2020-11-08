@@ -15,21 +15,27 @@
 		<a class="btn btn-primary" th:href="@{/projectadd}"> Add Project</a> <br>
 		<br> <br>
 
+
+		<!-- Search Project -->
 		<form th:action="@{/project}">
-			Search By Project Name: <input type="text" name="name" id="name"
-				size="50" th:value="${name}" required /> &nbsp; <input
-				type="submit" value="Search" /> &nbsp;
+		<label for="name" >Project Keyword</label> <!-- class="control-label col-sm-2" -->
+		 <input type="text" name="name" id="name" size="50" th:value="${name}" required /> &nbsp; 
+			
+		<label for="status" >Status</label> <!-- class="control-label col-sm-2" -->
+		<select id="status" > <!-- th:field=*{status}  class="form-control"  -->
+			<option th:each="status: ${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).values()}"
+					th:value="${status}" th:text="${status}">
+			</option>
+		</select> 
+		&nbsp;
+		<input type="submit" value="Search" /> &nbsp;
+		
 		</form>
 
-		<!-- To be updated to select option -->
-		<form th:action="@{/projectstatus}">
-			Status: <input type="text" name="status" id="status" size="50"
-				th:value="${status}" required /> &nbsp; <input type="submit"
-				value="Search" /> &nbsp;
-		</form>
 		<br> <br> <br>
 
 
+		<!-- Show Projects -->
 		<table class="table table-striped">
 			<tr>
 				<th>Id</th>
