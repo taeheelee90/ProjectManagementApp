@@ -2,6 +2,7 @@ package haagahelia.fi.ProjectManagement;
 
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,11 +11,14 @@ import org.springframework.context.annotation.Bean;
 import haagahelia.fi.ProjectManagement.model.Department;
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.project.Project;
+import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 import haagahelia.fi.ProjectManagement.model.user.User;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
+import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import haagahelia.fi.ProjectManagement.repository.UserRepository;
+import haagahelia.fi.ProjectManagement.service.ProjectExpenditureService;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
@@ -27,7 +31,7 @@ public class ProjectManagementApplication {
 
 	@Bean
 	public CommandLineRunner Demo(EmployeeRepository eRepository, ProjectRepository pRepository,
-			UserRepository uRepository) {
+			ProjectExpenditureService peService, UserRepository uRepository) {
 
 		return (args) -> {
 
@@ -49,11 +53,11 @@ public class ProjectManagementApplication {
 			log.info("create projects");
 			// SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Project p1 = new Project("CRM Implementation", LocalDate.parse("2019-03-20"), LocalDate.parse("2019-09-15"),
-					ProjectStatus.COMPLETE, e5, 500000);
+					ProjectStatus.COMPLETE, e5, 10000);
 			Project p2 = new Project("Data Migration", LocalDate.parse("2020-10-10"), LocalDate.parse("2020-12-31"),
-					ProjectStatus.PROCEEDING, e3, 300000);
+					ProjectStatus.PROCEEDING, e3, 30000);
 			Project p3 = new Project("Q4 profit analysis", LocalDate.parse("2021-01-01"), LocalDate.parse("2021-02-20"),
-					ProjectStatus.WAITING, e1, 150000);
+					ProjectStatus.WAITING, e1, 15000);
 			Project p4 = new Project("Data Security Policy Update", LocalDate.parse("2021-02-10"),
 					LocalDate.parse("2021-03-31"), ProjectStatus.WAITING, e3, 2000);
 			Project p5 = new Project("Asian Market Analysis", LocalDate.parse("2020-06-05"),
@@ -64,6 +68,13 @@ public class ProjectManagementApplication {
 			pRepository.save(p3);
 			pRepository.save(p4);
 			pRepository.save(p5);
+
+			
+			log.info("create expenditures");
+			peService.addExpenditure(p1.getId(), 500, "Initial Cost");
+			peService.addExpenditure(p1.getId(), 5000, "License Fee");
+			peService.addExpenditure(p1.getId(), 3000, "Migration");
+			
 
 
 			log.info("create users");

@@ -14,7 +14,7 @@
 
 		<div class="form-group">
 			<form class="form-horizontal" action="#"
-				th:action="@{/projectsubmit}" th:object="${project}" method="post">
+				th:action="@{/projectedit}" th:object="${project}" method="post">
 
 				<input type="hidden" id="id" th:field="*{id}" /> <label for="name"
 					class="control-label col-sm-2">Project Name</label> <input
@@ -70,7 +70,7 @@
 				<div style="clear: both; display: block; height: 10px;"></div>
 
 				<input type="submit" class="btn btn-success" value="Submit" />
-				<button class="btn btn-dangery">Cancel</button>
+	
 			</form>
 		</div>
 		<div th:replace="fragments/footer :: footer" />
