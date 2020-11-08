@@ -1,4 +1,4 @@
-package haagahelia.fi.ProjectManagement;
+package haagahelia.fi.ProjectManagement.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

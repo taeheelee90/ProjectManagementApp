@@ -103,8 +103,8 @@ public class ProjectController {
 		}
 	}
 	
-	/*// Search Project by name and status
-	@GetMapping("/project")
+	// Search Project by QueryDSL : User can input keyword of project name AND project STATUS
+	@GetMapping("/projectsearch")
 	public String searchByNameAndStatus (Project project, BindingResult result, Map<String, Object> model) {
 
 		// request without parameter returns all list
@@ -128,7 +128,7 @@ public class ProjectController {
 
 			return "project/projectlist";
 		}
-	}*/
+	}
 
 	// Add new Project
 	@GetMapping(value = "/projectadd")

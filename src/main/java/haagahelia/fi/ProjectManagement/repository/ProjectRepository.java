@@ -13,7 +13,7 @@ import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 
 @RepositoryRestResource
-public interface ProjectRepository extends CrudRepository<Project, Long>, QuerydslPredicateExecutor<Project> {
+public interface ProjectRepository extends CrudRepository<Project, Long> { //QuerydslPredicateExecutor<Project>
 
 	/*	
 	 * Search By Project name (any keyword returns related project(s))
@@ -34,9 +34,9 @@ public interface ProjectRepository extends CrudRepository<Project, Long>, Queryd
 	
 	/*
 	 * Search By Name & Status
-	 */
-	Collection <Project> searchByNameAndStatus(@Param("name") String name, @Param("status") ProjectStatus status);
 	
+	Collection <Project> searchByNameAndStatus(@Param("name") String name, @Param("status") ProjectStatus status);
+	 */
 	
 
 	
