@@ -1,8 +1,12 @@
 package haagahelia.fi.ProjectManagement.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import haagahelia.fi.ProjectManagement.model.project.Project;
+import haagahelia.fi.ProjectManagement.model.project.ProjectSearch;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -15,19 +19,14 @@ public class ProjectService {
 	
 	
 	/*
-	 * Cancel
-	 * 
+	 * Search Project
 	
 	
-	@Transactional
-	public void cancelProject (Long projectId) {
+	public List<Project> findProjects (ProjectSearch projectSearch){	
 		
-		// Search and cancel order
-		repository.findById(projectId).ifPresent(p -> p.cancel());
-		
-		
-	}*/
+		return repository.findAllByNameAndStatus(projectSearch);
+	}
 
-	
+	 */
 
 }

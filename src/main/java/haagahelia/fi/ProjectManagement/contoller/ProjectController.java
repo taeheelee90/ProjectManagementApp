@@ -60,10 +60,7 @@ public class ProjectController {
 		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));
 		pRepository.findById(projectId)
 				.ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
-		/*
-		 * pRepository.findById(projectId) .ifPresent(project ->
-		 * model.addAttribute("projectExpenditures", project.getProjectExpenditures()));
-		 */
+
 		return "project/projectdetails";
 	}
 
@@ -91,9 +88,9 @@ public class ProjectController {
 		// find project by project name
 		Collection<Project> results = pRepository.findByName(project.getName());
 		if (results.isEmpty()) {
-			// no owners found
-			result.rejectValue("name", "notFound", "not found");
-			return "project/projectlist";
+			// no projects found
+			result.rejectValue("name", "not Found", "not found");
+			return "redirect:/projectlist";
 		} else if (results.size() == 1) {
 			// 1 project found
 			project = results.iterator().next();
