@@ -10,19 +10,15 @@ import lombok.Setter;
 public class SignupForm {
 
 	@NotEmpty
-	@Size(min = 5, max = 30)
 	private String username = "";
 
 	@NotEmpty
-	@Size(min = 7, max = 30)
 	private String password = "";
 
 	@NotEmpty
-	@Size(min = 7, max = 30)
 	private String passwordCheck = "";
 
 	@NotEmpty
-	@Size(min = 7, max = 50)
 	private String email = "";
 
 	@NotEmpty

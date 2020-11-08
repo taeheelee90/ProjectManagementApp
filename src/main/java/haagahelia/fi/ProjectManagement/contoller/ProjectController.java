@@ -160,6 +160,7 @@ public class ProjectController {
 			}
 
 		} else { // Any other errors
+			model.addAttribute("employees", eRepository.findAll());
 			return "project/projectForm";
 		}
 

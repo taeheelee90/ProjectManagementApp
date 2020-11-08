@@ -2,7 +2,6 @@ package haagahelia.fi.ProjectManagement;
 
 import java.time.LocalDate;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,11 +10,9 @@ import org.springframework.context.annotation.Bean;
 import haagahelia.fi.ProjectManagement.model.Department;
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.project.Project;
-import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 import haagahelia.fi.ProjectManagement.model.user.User;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
-import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import haagahelia.fi.ProjectManagement.repository.UserRepository;
 import haagahelia.fi.ProjectManagement.service.ProjectExpenditureService;
@@ -70,11 +67,11 @@ public class ProjectManagementApplication {
 			pRepository.save(p5);
 
 			
-			log.info("create expenditures");
+			/*log.info("create expenditures");
 			peService.addExpenditure(p1.getId(), 500, "Initial Cost");
 			peService.addExpenditure(p1.getId(), 5000, "License Fee");
 			peService.addExpenditure(p1.getId(), 3000, "Migration");
-			
+			*/
 
 
 			log.info("create users");

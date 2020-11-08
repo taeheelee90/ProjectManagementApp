@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import haagahelia.fi.ProjectManagement.model.project.Project;
-import haagahelia.fi.ProjectManagement.model.project.ProjectSearch;
+import haagahelia.fi.ProjectManagement.model.project.ProjectPredicate;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 

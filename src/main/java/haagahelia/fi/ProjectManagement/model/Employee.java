@@ -34,7 +34,6 @@ public class Employee extends PersonEntity {
 	
 	@Column(name = "department")
 	@Enumerated(EnumType.STRING)
-	@NotEmpty (message = "Please select Department!")
 	private Department department;
 	
 	@JsonBackReference

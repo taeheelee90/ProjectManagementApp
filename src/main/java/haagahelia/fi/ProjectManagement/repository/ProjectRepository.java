@@ -1,20 +1,19 @@
 package haagahelia.fi.ProjectManagement.repository;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.transaction.annotation.Transactional;
 
 import haagahelia.fi.ProjectManagement.model.project.Project;
-import haagahelia.fi.ProjectManagement.model.project.ProjectSearch;
 import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 
 @RepositoryRestResource
-public interface ProjectRepository extends CrudRepository<Project, Long> {
+public interface ProjectRepository extends CrudRepository<Project, Long>, QuerydslPredicateExecutor<Project> {
 
 	/*	
 	 * Search By Project name (any keyword returns related project(s))
@@ -36,10 +35,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 	/*
 	 * Search By Name & Status
 	 */
-	public static List<Project> findAllByNameAndStatus(ProjectSearch projectSearch){
-		List<Project> projects = null;
-		return projects;
-	}
+
 	
 	
 

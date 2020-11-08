@@ -3,6 +3,8 @@ package haagahelia.fi.ProjectManagement.model.form;
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import haagahelia.fi.ProjectManagement.model.Employee;
@@ -15,18 +17,18 @@ public class ProjectForm {
 	@NotEmpty
 	private String name;
 	
-	@NotEmpty
+	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 	
-	@NotEmpty
+	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
 
-	@NotEmpty
+	@NotNull
 	private Employee projectManager;
 	
-	@NotEmpty
+	@NotNull
 	private int budget;
 
 }
