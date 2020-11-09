@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import haagahelia.fi.ProjectManagement.model.project.Project;
 
 @RepositoryRestResource
-public interface ProjectRepository extends CrudRepository<Project, Long> { //QuerydslPredicateExecutor<Project>
+public interface ProjectRepository extends CrudRepository<Project, Long> { 
 
 	/*
 	 * List All Projects Order By Project Status 

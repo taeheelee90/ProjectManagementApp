@@ -19,15 +19,7 @@
 		<!-- Search Project -->
 		<form th:action="@{/project}">
 		<label for="name" >Project Keyword</label> <!-- class="control-label col-sm-2" -->
-		 <input type="text" name="name" id="name" size="50" th:value="${name}" /> &nbsp; 
-			
-		<!--<label for="status" >Status</label>  class="control-label col-sm-2" 
-		<select id="status" > <!-- th:field=*{status}  class="form-control"  
-			<option th:each="status: ${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).values()}"
-					th:value="${status}" th:text="${status}">
-			</option>
-		</select> -->
-		&nbsp;
+		 <input type="text" name="name" id="name" size="50" th:value="${name}" /> &nbsp; &nbsp;
 		<input type="submit" value="Search" /> &nbsp;
 		</form>
 
@@ -52,7 +44,6 @@
 				<td th:text="${#temporals.format(project.startDate, 'yyyy-MM-dd')}"></td>
 				<td th:text="${#temporals.format(project.endDate, 'yyyy-MM-dd')}"></td>
 				<td th:text="${project.status}"></td>
-
 				<td><a th:href="@{/project/__${project.id}__}"> Show Details</a></td>
 
 			</tr>

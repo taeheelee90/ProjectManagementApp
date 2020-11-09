@@ -2,7 +2,6 @@ package haagahelia.fi.ProjectManagement.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
@@ -37,4 +36,5 @@ public class ProjectExpenditureService {
 		return projectExpenditure.getId();
 	
 	}
+	
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+		<div th:replace="fragments/title :: title" />
+		<div th:replace="fragments/navBar :: navBar" />
+		<br> <br>
+		<h3>Expenditure References - File management</h3>
+		<p>Submit Reference Files (i.e., receipts, invoice, etc.)</p>
+
+
+		<form id="uploadfiles" name="uploadfiles" method="post" th:action="@{/file/__${projectId}__/__${expenditureId}__}" encType="multipart/form-data">
+		
+			<input type="file" name="files" multiple required />
+			<button type="submit">Submit</button>
+		</form>
+		<br> <br>
+		
+		
+		<!--  
+		<h3>List of Files</h3>
+		<table class="table table-striped">
+		<thead>
+         <tr>
+           <th>Name</th>
+           <th>Download</th>
+         </tr>
+       </thead>
+       
+       <tbody>
+       <tr th:each="expenditureDocs: ${docs}">
+       <td th:text="${expenditureDocs.fileName}"/>
+       <td><a th:href="@{'/downloadfile/'+${expenditureDocs.id}}">Download</a></td>
+       </tbody>
+       
+       </table>
+        -->
+       <br>
+		<div th:replace="fragments/footer :: footer" />
+
+
+	</div>
+
+
+</body>
+</html>
+       
