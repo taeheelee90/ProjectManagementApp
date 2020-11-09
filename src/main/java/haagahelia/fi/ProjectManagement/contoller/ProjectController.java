@@ -29,7 +29,6 @@ import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
-import haagahelia.fi.ProjectManagement.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -38,7 +37,7 @@ public class ProjectController {
 
 	private final ProjectRepository pRepository;
 	private final EmployeeRepository eRepository;
-	private final ProjectService service;
+	
 
 	// Main
 	@GetMapping(value = "/")
@@ -46,12 +45,33 @@ public class ProjectController {
 		return "main/home";
 	}
 
-	// Read All Projects
+	// Read All Projects : Default order (Order by name)
 	@GetMapping(value = "/projectlist")
 	public String projectList(Model model) {
-		model.addAttribute("projects", pRepository.findAll());
+		model.addAttribute("projects", pRepository.findByOrderByName());
 		return "project/projectlist";
 
+	}
+	
+	// Change order (by start date)
+	@GetMapping(value="projectstbystartdate")
+	public String projectsByStartDate(Model model) {
+		model.addAttribute("projects", pRepository.findByOrderByStartDate());
+		return "project/projectlist";
+	}
+	
+	// Change order (by end date)
+	@GetMapping(value="projectstbyenddate")
+	public String projecsByEndDate(Model model) {
+		model.addAttribute("projects", pRepository.findByOrderByEndDate());
+		return "project/projectlist";
+	}
+	
+	// Change order (by status)
+	@GetMapping(value="projectstbystatus")
+	public String projecsByStatus(Model model) {
+		model.addAttribute("projects", pRepository.findByOrderByStatus());
+		return "project/projectlist";
 	}
 
 	// Read Project Details
@@ -76,7 +96,7 @@ public class ProjectController {
 		return pRepository.findById(projectId);
 	}
 
-	// Search Project by name
+	// Search Project by keyword in name
 	@GetMapping("/project")
 	public String searchProjectByName(Project project, BindingResult result, Map<String, Object> model) {
 
@@ -84,6 +104,7 @@ public class ProjectController {
 		if (project.getName() == null) {
 			project.setName("");
 		}
+
 
 		// find project by project name
 		Collection<Project> results = pRepository.findByName(project.getName());
@@ -103,33 +124,9 @@ public class ProjectController {
 		}
 	}
 	
-	// Search Project by QueryDSL : User can input keyword of project name AND project STATUS
-	@GetMapping("/projectsearch")
-	public String searchByNameAndStatus (Project project, BindingResult result, Map<String, Object> model) {
 
-		// request without parameter returns all list
-		if (project.getName() == null) {
-			project.setName("");
-		}
-
-		// find project by project name
-		Collection<Project> results = pRepository.findByName(project.getName());
-		if (results.isEmpty()) {
-			// no projects found
-			result.rejectValue("name", "not Found", "not found");
-			return "redirect:/projectlist";
-		} else if (results.size() == 1) {
-			// 1 project found
-			project = results.iterator().next();
-			return "redirect:/project/" + project.getId();
-		} else {
-			// multiple projects found
-			model.put("projects", results);
-
-			return "project/projectlist";
-		}
-	}
-
+	
+	
 	// Add new Project
 	@GetMapping(value = "/projectadd")
 	public String addProject(Model model) {

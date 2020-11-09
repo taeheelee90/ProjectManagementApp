@@ -19,17 +19,16 @@
 		<!-- Search Project -->
 		<form th:action="@{/project}">
 		<label for="name" >Project Keyword</label> <!-- class="control-label col-sm-2" -->
-		 <input type="text" name="name" id="name" size="50" th:value="${name}" required /> &nbsp; 
+		 <input type="text" name="name" id="name" size="50" th:value="${name}" /> &nbsp; 
 			
-		<label for="status" >Status</label> <!-- class="control-label col-sm-2" -->
-		<select id="status" > <!-- th:field=*{status}  class="form-control"  -->
+		<!--<label for="status" >Status</label>  class="control-label col-sm-2" 
+		<select id="status" > <!-- th:field=*{status}  class="form-control"  
 			<option th:each="status: ${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).values()}"
 					th:value="${status}" th:text="${status}">
 			</option>
-		</select> 
+		</select> -->
 		&nbsp;
 		<input type="submit" value="Search" /> &nbsp;
-		
 		</form>
 
 		<br> <br> <br>
@@ -39,10 +38,10 @@
 		<table class="table table-striped">
 			<tr>
 				<th>Id</th>
-				<th>Project name</th>
-				<th>Start Date</th>
-				<th>End Date</th>
-				<th>Status</th>
+				<th><a th:href="@{/projectlist}" class="btn btn-default"> Project name </a></th>
+				<th><a th:href="@{/projectstbystartdate}" class="btn btn-default"> Start Date </a> </th>
+				<th><a th:href="@{/projectstbyenddate}" class="btn btn-default"> End Date </a></th>
+				<th><a th:href="@{/projectstbystatus}" class="btn btn-default"> Status </a></th>
 				<th>Action</th>
 
 			</tr>
@@ -54,7 +53,7 @@
 				<td th:text="${#temporals.format(project.endDate, 'yyyy-MM-dd')}"></td>
 				<td th:text="${project.status}"></td>
 
-				<td><a th:href="@{/project/__${project.id}__}" class="btn btn-default"> Show Details</a></td>
+				<td><a th:href="@{/project/__${project.id}__}"> Show Details</a></td>
 
 			</tr>
 		</table>
