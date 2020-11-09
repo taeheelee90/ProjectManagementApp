@@ -27,7 +27,7 @@ public class ExpenditureDocs extends BaseEntity  {
 	
 	private String fileType;
 
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne// (fetch = FetchType.LAZY)
 	@JsonManagedReference
 	@JoinColumn(name = "expenditure_id")
 	private ProjectExpenditure projectExpenditure;

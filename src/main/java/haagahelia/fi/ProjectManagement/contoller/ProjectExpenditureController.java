@@ -27,6 +27,12 @@ public class ProjectExpenditureController {
 	private final ProjectExpenditureService service;
 	private final ExpenditureDocsService docService;
 
+	/*
+	 * Expenditure Management
+	 * User can submit several expenditures for one project.
+	 */
+	
+	
 	// Show All Expenditures
 	@GetMapping(value = "expendituretlist/{id}")
 	public String expenditureList(@PathVariable("id") Long projectId, Model model) {
@@ -54,7 +60,8 @@ public class ProjectExpenditureController {
 	}
 
 	/*
-	 * File Management User can submit multiple files per expenditure
+	 * File Management
+	 * User can submit several documents per one expenditure.
 	 */
 
 	// File lists
@@ -62,7 +69,6 @@ public class ProjectExpenditureController {
 	public String fileForm(@PathVariable("projectId") Long projectId,
 			@PathVariable("expenditureId") Long expenditureId, Model model) {
 		model.addAttribute("docs", docService.getFiles());
-		// return "redirect:/expendituretlist/{id}";
 		return "expenditure/files";
 	}
 
@@ -80,7 +86,9 @@ public class ProjectExpenditureController {
 	// Download Files
 	@GetMapping(value = "/downloadfile/{id}")
 	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("id") Long fileId) {
+		
 		ExpenditureDocs doc = docService.getFile(fileId).get();
+		
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(doc.getFileType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + doc.getFileName() + "\"")
 				.body(new ByteArrayResource(doc.getFile()));
