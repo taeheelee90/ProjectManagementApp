@@ -42,26 +42,21 @@ public class ProjectRepositoryTest {
 	
 	
 	@Test
-	public void findByNameAndStatusTeat() throws ParseException{
+	public void findByNameTeat() throws ParseException{
 		// Given
 		Project p1 = new Project();
 		p1.setName("test1");
-		p1.setStatus(ProjectStatus.COMPLETE);
-		
-		Project p2 = new Project();
-		p2.setName("test2");
-		p2.setStatus(ProjectStatus.WAITING);
+	
 		
 		repository.save(p1);
-		repository.save(p2);
+		
 		
 		// When
-		Collection <Project> result1 = repository.findByNameOrStatus("test", ProjectStatus.COMPLETE);
-		Collection <Project> result2 = repository.findByNameOrStatus("test", ProjectStatus.WAITING);
-		
+		Collection <Project> result1 = repository.findByName("test");
+	
 		// Then
 		assertThat(result1.contains(p1));
-		assertThat(result2.contains(p2));
+		
 	}
 
 	
