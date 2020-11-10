@@ -1,10 +1,7 @@
-package haagahelia.fi.ProjectManagement.exception;
+package haagahelia.fi.ProjectManagement.system;
 
 public class NotEnoughBudgetException extends RuntimeException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	public NotEnoughBudgetException() {

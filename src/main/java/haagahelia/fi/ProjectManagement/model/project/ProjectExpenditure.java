@@ -18,6 +18,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+/*
+ * Project Expenditure entity
+ */
+
+
 @Entity
 @Getter @Setter
 @RequiredArgsConstructor
@@ -46,7 +51,10 @@ public class ProjectExpenditure extends BaseEntity {
 	}
 	
 	
-	// Add Expenditure: Adding Expenditure will minus Project budget 
+	/*
+	 * Business Logic:  Adding Expenditure will minus Project budget 
+	 */
+	
 	public ProjectExpenditure createExpenditure (Project project, int cost, String description) {
 		ProjectExpenditure expenditure = new ProjectExpenditure();
 		

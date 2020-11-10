@@ -14,11 +14,13 @@
 		<br> <br>
 
 
+		<!-- Show Project Information -->
+
 		<h3>Project Information</h3>
 		<br> <br> <br>
 
 		<table class="table table-striped" th:object="${project}">
-			<h4>Basic Information</h4>
+			
 			<tr>
 				<th>Project Id</th>
 				<td th:text="*{id}"></td>
@@ -51,25 +53,27 @@
 			</tr>
 		</table>
 
+		
+		<!-- If project status is CANCEL :  Add expenditure and Edit are not available-->
 		<div class="text-right"
 			th:if="${project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING or 
 						project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}">
 
-			<a th:href="@{/expenditureadd/__${id}__}" class="btn btn-info">
-				Add Expenditure</a> <a th:href="@{/projectedit/{id}(id = ${id})}"
-				class="btn btn-warning"> Edit</a>
+			<a th:href="@{/expenditureadd/__${id}__}" class="btn btn-info"> Add Expenditure</a> 
+			<a th:href="@{/projectedit/{id}(id = ${id})}" class="btn btn-warning"> Edit</a>
 
-			<!--  
-				<span sec:authorize="hasAuthority('ADMIN')">
-				<a th:href="@{/projectcancel/__${project.id}__}" class="btn btn-danger"> Cancel Project</a>
-				</span>-->
 		</div>
 		<br> <br>
+		
+		
+		<!-- Link to Expenditure List -->
 		<div class="text-right">
-			<a th:href="@{/expendituretlist/__${id}__}" class="btn btn-info">
-				Expenditure List</a>
+			<a th:href="@{/expendituretlist/__${id}__}" class="btn btn-info"> Expenditure List</a>
 		</div>
 
+
+
+		<!-- Project Manager Information -->
 		<table class="table table-striped" th:object="${projectManager}">
 			<h4>PM Information</h4>
 

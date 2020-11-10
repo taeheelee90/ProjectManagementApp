@@ -19,15 +19,15 @@ import javax.persistence.Table;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import haagahelia.fi.ProjectManagement.exception.NotEnoughBudgetException;
 import haagahelia.fi.ProjectManagement.model.Employee;
 import haagahelia.fi.ProjectManagement.model.entity.ObjectEntity;
+import haagahelia.fi.ProjectManagement.system.NotEnoughBudgetException;
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Entity
 @Getter @Setter
@@ -59,9 +59,12 @@ public class Project extends ObjectEntity {
 	@JsonBackReference	
 	@OneToMany (cascade = CascadeType.ALL, mappedBy ="project") // , fetch= FetchType.EAGER
 	private Set <ProjectExpenditure> projectExpenditures;
+
+
 	
-	
-	// Constructor		
+	/*
+	 * Constructor
+	 */		
 	public Project() {
 		
 	}
@@ -76,7 +79,9 @@ public class Project extends ObjectEntity {
 		this.budget = budget;
 	}
 
-	// Relationship Management with Project Expenditure
+	/*
+	 * Relationship Management with Project Expenditure
+	 */
 	protected Set <ProjectExpenditure> getProjectExpendituresInternal(){
 		if(this.projectExpenditures == null) {
 			this.projectExpenditures = new HashSet<>();
@@ -126,9 +131,11 @@ public class Project extends ObjectEntity {
 	}
 
 	
-	
 
-	// Business Logic:  Adding Expenditure will minus Project budget (if cost > budget, throw exception)
+	/*
+	 * Business Logic:  Adding Expenditure will minus Project budget (if cost > budget, throw exception) 
+	 */
+
 	public void minusBudget(int expenditure) {
 		int leftBudget = this.budget -= expenditure;
 		
@@ -139,11 +146,6 @@ public class Project extends ObjectEntity {
 		this.budget = leftBudget;
 	}
 
-	/*
-	// Cancel Project
-	public void cancel() {
-		
-		this.setStatus(ProjectStatus.CANCEL);
-	}*/
+	
 
 }

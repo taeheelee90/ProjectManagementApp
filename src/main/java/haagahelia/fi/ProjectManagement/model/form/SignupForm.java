@@ -1,10 +1,14 @@
 package haagahelia.fi.ProjectManagement.model.form;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
 import lombok.Getter;
 import lombok.Setter;
+
+/*
+ * Signup Form : to Add new User
+ * Default Role: USER
+ */
+
 
 @Getter @Setter
 public class SignupForm {

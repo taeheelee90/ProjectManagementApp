@@ -12,7 +12,21 @@
 		<div th:replace="fragments/title :: title" />
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
-		<h3>Expenditure References - File management</h3>
+		<h3>Expenditure Reference Files</h3>
+		
+		
+		<!-- Information about pending project and expenditure -->
+		<ul>
+		<li th:object="${projectId}"
+			th:text="'Project Id: ' + ${projectId}"></li>
+		<li th:object="${expenditureId}"
+			th:text="'Expenditure Id: ' + ${expenditureId}"></li>
+		</ul>
+		
+		
+		
+		
+		<!-- File Submission -->
 		<p>Submit Reference Files (i.e., receipts, invoice, etc.)</p>
 
 
@@ -24,7 +38,7 @@
 		<br> <br>
 		
 		
-		<!--  If not null! -->
+		<!-- Show submitted files for pending expenditure and download files -->
 		<h3>Reference files</h3>
 		<table class="table table-striped">
 		<thead>
@@ -41,12 +55,11 @@
        </tbody>
        
        </table>
-       
+     
        <br>
 		<div th:replace="fragments/footer :: footer" />
 
 
-	</div>
 
 
 </body>

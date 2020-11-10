@@ -1,7 +1,6 @@
 package haagahelia.fi.ProjectManagement.model.project;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -13,6 +12,10 @@ import haagahelia.fi.ProjectManagement.model.entity.BaseEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+/*
+ * Expenditure References (file) entity
+ */
 
 @Entity
 @Getter @Setter

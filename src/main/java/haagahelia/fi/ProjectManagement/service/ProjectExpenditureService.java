@@ -17,7 +17,7 @@ public class ProjectExpenditureService {
 	
 	/*
 	 * Add Expenditure
-	 * */
+	 */
 	@Transactional
 	public Long addExpenditure (Long projectId, int cost, String description) {
 		

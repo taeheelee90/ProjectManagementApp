@@ -15,6 +15,14 @@ import haagahelia.fi.ProjectManagement.model.project.Project;
 public interface ProjectRepository extends CrudRepository<Project, Long> { 
 
 	/*
+	 * List All Projects Order By ID 
+	 */
+	List<Project> findByOrderById();
+	
+	
+	
+	
+	/*
 	 * List All Projects Order By Project Status 
 	 */
 	List<Project> findByOrderByStatus();
@@ -40,7 +48,6 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 	/*	
 	 * Search By Project name (any keyword returns related project(s))
 	 */
-	
 	@Query ("SELECT project FROM Project project WHERE lower(project.name) LIKE lower(concat('%', :name,'%'))")
 	@Transactional(readOnly = true)
 	Collection <Project> findByName(@Param("name") String name);

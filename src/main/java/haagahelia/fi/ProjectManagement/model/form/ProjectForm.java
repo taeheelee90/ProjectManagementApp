@@ -11,6 +11,11 @@ import haagahelia.fi.ProjectManagement.model.Employee;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+ * Project Form : to Add new Project
+ */
+
+
 @Getter @Setter
 public class ProjectForm {
 	

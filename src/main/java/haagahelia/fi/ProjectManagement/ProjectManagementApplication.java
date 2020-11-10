@@ -33,6 +33,7 @@ public class ProjectManagementApplication {
 
 		return (args) -> {
 
+			
 			log.info("create Employees");
 			Employee e1 = new Employee("Alexander", "Adkins", Department.ACCOUNTING, "aa@email.com", "010111");
 			Employee e2 = new Employee("Roan", "Jackson", Department.HR, "rj@email.com", "010222");

@@ -14,9 +14,13 @@
 		<br> <br>
 		<h3>Project Manager List</h3>
 
-		<a class="btn btn-primary" th:href="@{/employeeadd}"> Add PM</a> <br>
-		<br> <br>
 
+		<!-- Add new PM -->
+		<a class="btn btn-primary" th:href="@{/employeeadd}"> Add PM</a> 
+		<br> <br> <br>
+
+
+		<!-- Brief PM List -->
 		<table class="table table-striped">
 			<tr>
 				<th>Name</th>
@@ -27,8 +31,7 @@
 			<tr th:each="employee: ${employees}">
 				<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
 				<td th:text="${employee.department}"></td>
-				<td><a th:href="@{/employee/__${employee.id}__}"
-					class="btn btn-default"> Show Details</a></td>
+				<td><a th:href="@{/employee/__${employee.id}__}" class="btn btn-default"> Show Details</a></td>
 			</tr>
 		</table>
 

@@ -25,4 +25,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 				AuthorityUtils.createAuthorityList(curruser.getRole()));
 		return user;
 	}
+
+	
+
 }

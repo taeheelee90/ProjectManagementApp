@@ -28,11 +28,9 @@ public class ProjectExpenditureController {
 	private final ExpenditureDocsService docService;
 
 	/*
-	 * Expenditure Management
-	 * User can submit several expenditures for one project.
+	 * Expenditure Management User can submit several expenditures for one project.
 	 */
-	
-	
+
 	// Show All Expenditures
 	@GetMapping(value = "expendituretlist/{id}")
 	public String expenditureList(@PathVariable("id") Long projectId, Model model) {
@@ -60,15 +58,17 @@ public class ProjectExpenditureController {
 	}
 
 	/*
-	 * File Management
-	 * User can submit several documents per one expenditure.
+	 * File Management User can submit several documents per one expenditure.
 	 */
 
 	// File lists
 	@GetMapping(value = "/file/{projectId}/{expenditureId}")
-	public String fileForm(@PathVariable("projectId") Long projectId,
-			@PathVariable("expenditureId") Long expenditureId, Model model) {
+	public String fileForm(@PathVariable("projectId") Long projectId, @PathVariable("expenditureId") Long expenditureId,
+			Model model) {
 		model.addAttribute("docs", docService.getFiles());
+
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("expenditureId", expenditureId);
 		return "expenditure/files";
 	}
 
@@ -80,19 +80,19 @@ public class ProjectExpenditureController {
 		for (MultipartFile file : files) {
 			docService.SaveFile(file, expenditureId);
 		}
-		return "redirect:/expendituretlist/{projectId}";
+		return "redirect:/file/{projectId}/{expenditureId}";
 	}
 
 	// Download Files
 	@GetMapping(value = "/downloadfile/{id}")
 	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("id") Long fileId) {
-		
+
 		ExpenditureDocs doc = docService.getFile(fileId).get();
-		
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(doc.getFileType()))
+		String fileType = doc.getFileType();
+
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(fileType))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + doc.getFileName() + "\"")
 				.body(new ByteArrayResource(doc.getFile()));
-
 	}
 
 }

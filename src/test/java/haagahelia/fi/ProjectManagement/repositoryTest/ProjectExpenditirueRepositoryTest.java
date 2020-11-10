@@ -12,12 +12,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import haagahelia.fi.ProjectManagement.exception.NotEnoughBudgetException;
 import haagahelia.fi.ProjectManagement.model.project.Project;
 import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.repository.EmployeeRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
+import haagahelia.fi.ProjectManagement.system.NotEnoughBudgetException;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

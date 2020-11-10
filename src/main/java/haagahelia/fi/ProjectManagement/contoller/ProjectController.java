@@ -37,38 +37,66 @@ public class ProjectController {
 
 	private final ProjectRepository pRepository;
 	private final EmployeeRepository eRepository;
-	
 
-	// Main
+	/*
+	 * Main Page
+	 */
 	@GetMapping(value = "/")
 	public String main() {
 		return "main/home";
 	}
 
-	// Read All Projects : Default order (Order by name)
+	/*
+	 * REST Service
+	 */
+
+	// REST: Read All Projects
+	@RequestMapping(value = "/projects")
+	public @ResponseBody List<Project> projectsRest() {
+		return (List<Project>) pRepository.findAll();
+	}
+
+	// REST: Search Project by ID
+	@GetMapping(value = "/projects/{id}")
+	public @ResponseBody Optional<Project> findProjectRest(@PathVariable("id") Long projectId) {
+		return pRepository.findById(projectId);
+	}
+
+	/*
+	 * MVC
+	 */
+	// Read All Projects : Default order (Order by Id)
 	@GetMapping(value = "/projectlist")
 	public String projectList(Model model) {
+		model.addAttribute("projects", pRepository.findByOrderById());
+		return "project/projectlist";
+
+	}
+
+	// Change order (by name)
+	@GetMapping(value = "/projectsbyname")
+	public String projectsByName(Model model) {
 		model.addAttribute("projects", pRepository.findByOrderByName());
 		return "project/projectlist";
 
 	}
-	
+
 	// Change order (by start date)
-	@GetMapping(value="projectstbystartdate")
+	@GetMapping(value = "projectstbystartdate")
 	public String projectsByStartDate(Model model) {
 		model.addAttribute("projects", pRepository.findByOrderByStartDate());
 		return "project/projectlist";
 	}
-	
+
 	// Change order (by end date)
-	@GetMapping(value="projectstbyenddate")
+	@GetMapping(value = "projectstbyenddate")
 	public String projecsByEndDate(Model model) {
 		model.addAttribute("projects", pRepository.findByOrderByEndDate());
 		return "project/projectlist";
 	}
-	
+
 	// Change order (by status)
-	@GetMapping(value="projectstbystatus")
+	@GetMapping(value = "projectstbystatus")
 	public String projecsByStatus(Model model) {
 		model.addAttribute("projects", pRepository.findByOrderByStatus());
 		return "project/projectlist";
@@ -84,18 +112,6 @@ public class ProjectController {
 		return "project/projectdetails";
 	}
 
-	// REST: Read All Projects
-	@RequestMapping(value = "/projects")
-	public @ResponseBody List<Project> projectsRest() {
-		return (List<Project>) pRepository.findAll();
-	}
-
-	// REST: Search Project by ID
-	@GetMapping(value = "/projects/{id}")
-	public @ResponseBody Optional<Project> findProjectRest(@PathVariable("id") Long projectId) {
-		return pRepository.findById(projectId);
-	}
-
 	// Search Project by keyword in name
 	@GetMapping("/project")
 	public String searchProjectByName(Project project, BindingResult result, Map<String, Object> model) {
@@ -104,7 +120,6 @@ public class ProjectController {
 		if (project.getName() == null) {
 			project.setName("");
 		}
-
 
 		// find project by project name
 		Collection<Project> results = pRepository.findByName(project.getName());
@@ -123,10 +138,7 @@ public class ProjectController {
 			return "project/projectlist";
 		}
 	}
-	
 
-	
-	
 	// Add new Project
 	@GetMapping(value = "/projectadd")
 	public String addProject(Model model) {
@@ -140,49 +152,34 @@ public class ProjectController {
 	public String saveProject(@Valid @ModelAttribute("projectForm") ProjectForm projectForm,
 			BindingResult bindingResult, Model model) {
 		if (!bindingResult.hasErrors()) {
-			if (projectForm.getName() != null) { // Check null in all input fields
-				if (projectForm.getStartDate() != null) {
-					if (projectForm.getEndDate() != null) {
-						if (projectForm.getEndDate().isAfter(projectForm.getStartDate())) { // Check end date validity
 
-							if (projectForm.getBudget() != 0) {
-								Project project = new Project(); // Save new project when all inputs pass validity
-								project.setName(projectForm.getName());
-								project.setStartDate(projectForm.getStartDate());
-								project.setEndDate(projectForm.getEndDate());
-								project.setStatus(createProjectStatus(projectForm));
-								project.setProjectManager(projectForm.getProjectManager());
-								project.setBudget(projectForm.getBudget());
+			if (projectForm.getEndDate().isAfter(projectForm.getStartDate())) { // Check end date validity
 
-								pRepository.save(project);
+				if (projectForm.getBudget() != 0) {
 
-							} else { // budget is 0
-								bindingResult.rejectValue("budget", "err.budget", "Budget can not be 0");
-								model.addAttribute("employees", eRepository.findAll());
-								return "project/projectForm";
+					// Save new project when all inputs pass validity
+					Project project = new Project();
+					project.setName(projectForm.getName());
+					project.setStartDate(projectForm.getStartDate());
+					project.setEndDate(projectForm.getEndDate());
+					project.setStatus(createProjectStatus(projectForm));
+					project.setProjectManager(projectForm.getProjectManager());
+					project.setBudget(projectForm.getBudget());
 
-							}
-						} else { // End Date is before Start Date
-							bindingResult.rejectValue("endDate", "err.endDate", "End Date must be after Start Date");
-							model.addAttribute("employees", eRepository.findAll());
-							return "project/projectForm";
-						}
-					} else { // End Date is null
-						bindingResult.rejectValue("endDate", "err.endDate", "Must select end date");
-						model.addAttribute("employees", eRepository.findAll());
-						return "project/projectForm";
-					}
-				} else { // Start Date is null
-					bindingResult.rejectValue("startDate", "err.startDate", "Must select start date");
+					pRepository.save(project);
+
+				} else {
+					// budget is 0
+					bindingResult.rejectValue("budget", "err.budget", "Budget can not be 0");
 					model.addAttribute("employees", eRepository.findAll());
 					return "project/projectForm";
+
 				}
-			} else { // Name is null
-				bindingResult.rejectValue("name", "err.name", "Must enter Project Name");
+			} else { // End Date is before Start Date
+				bindingResult.rejectValue("endDate", "err.endDate", "End Date must be after Start Date");
 				model.addAttribute("employees", eRepository.findAll());
 				return "project/projectForm";
 			}
-
 		} else { // Any other errors
 			model.addAttribute("employees", eRepository.findAll());
 			return "project/projectForm";

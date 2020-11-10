@@ -14,8 +14,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
@@ -26,69 +24,67 @@ import haagahelia.fi.ProjectManagement.model.project.Project;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @Table(name = "employees")
 public class Employee extends PersonEntity {
-	
+
 	@Column(name = "department")
 	@Enumerated(EnumType.STRING)
 	private Department department;
-	
+
 	@JsonBackReference
-	@OneToMany  (cascade = CascadeType.ALL, mappedBy ="projectManager", fetch= FetchType.EAGER)
-	private Set <Project> projects;
-	
-	@NotEmpty (message = "Please fill Email!")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "projectManager", fetch = FetchType.EAGER)
+	private Set<Project> projects;
+
 	private String email;
-	
-	@NotEmpty (message = "Please fill Phone number")
+
 	private String phone;
 
-	// Constructor
+	/*
+	 * Constructor
+	 */
 	public Employee() {
-	
+
 	}
 
-	public Employee(String firstName, String lastName, @NotEmpty(message = "Please select Department!") Department department,
-			@NotEmpty(message = "Please fill Email!") String email,
-			@NotEmpty(message = "Please fill Phone number") String phone) {
+	public Employee(String firstName, String lastName, Department department, String email, String phone) {
 		super(firstName, lastName);
-		this.department = department;		
+		this.department = department;
 		this.email = email;
 		this.phone = phone;
 	}
-	
-	
-	// Relationship Management with Project
-	protected Set<Project> getProjectsInternal(){
-		if(this.projects == null) {
+
+	/*
+	 * Relationship Management with Project
+	 */
+	protected Set<Project> getProjectsInternal() {
+		if (this.projects == null) {
 			this.projects = new HashSet<>();
 		}
-		
+
 		return this.projects;
 	}
-	
+
 	protected void setProjectsInternal(Set<Project> projects) {
 		this.projects = projects;
 	}
-	
-	public List<Project> getProjects(){
+
+	public List<Project> getProjects() {
 		List<Project> sortedProjects = new ArrayList<>(getProjectsInternal());
 		PropertyComparator.sort(sortedProjects, new MutableSortDefinition("name", true, true));
 		return Collections.unmodifiableList(sortedProjects);
 	}
 
-	
 	// Project Add -> Set ProjectManager
-	public void addProject (Project project) {
-		if(projects.size()==0) {
+	public void addProject(Project project) {
+		if (projects.size() == 0) {
 			getProjectsInternal().add(project);
 		}
 		project.setProjectManager(this);
 	}
-	
+
 	// Return Project with project name or null
 	public Project getProject(String name) {
 		return getProject(name, false);
@@ -97,9 +93,9 @@ public class Employee extends PersonEntity {
 	private Project getProject(String name, boolean ignore) {
 		name = name.toLowerCase();
 		for (Project project : getProjectsInternal()) {
-			if(!ignore || projects.size()!= 0) {
+			if (!ignore || projects.size() != 0) {
 				String resultName = project.getName();
-				if(resultName.equals(name)) {
+				if (resultName.equals(name)) {
 					return project;
 				}
 			}

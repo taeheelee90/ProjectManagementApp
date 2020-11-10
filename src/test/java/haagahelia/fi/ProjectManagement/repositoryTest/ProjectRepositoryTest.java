@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import haagahelia.fi.ProjectManagement.model.project.Project;
-import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 import haagahelia.fi.ProjectManagement.repository.ProjectRepository;
 
 @RunWith(SpringRunner.class)
@@ -24,9 +23,6 @@ public class ProjectRepositoryTest {
 	@Autowired
 	private ProjectRepository repository;
 
-
-	
-	
 	@Test
 	public void createProjectTest() throws ParseException {
 		// Given
@@ -42,7 +38,7 @@ public class ProjectRepositoryTest {
 	
 	
 	@Test
-	public void findByNameTeat() throws ParseException{
+	public void findByNameTest() throws ParseException{
 		// Given
 		Project p1 = new Project();
 		p1.setName("test1");

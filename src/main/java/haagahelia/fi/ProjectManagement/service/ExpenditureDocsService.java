@@ -20,17 +20,25 @@ public class ExpenditureDocsService {
 	private final ExpenditureDocsRepository repository;
 	private final ProjectExpenditureRepository peRepository;
 
-	// Save files
+	/*
+	 * Save files
+	 */
 	public ExpenditureDocs SaveFile(MultipartFile file, Long expenditureId) {
+		
+		// get fileName
 		String docname = file.getOriginalFilename();
 
 		try {
+			
+			// create new file
+			
 			ExpenditureDocs doc = new ExpenditureDocs();
 			doc.setFile(file.getBytes());
 			doc.setFileType(file.getContentType());
 			doc.setFileName(docname);
 			peRepository.findById(expenditureId).ifPresent(expenditure -> doc.setProjectExpenditure(expenditure));
 
+			// save file
 			return repository.save(doc);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,12 +46,16 @@ public class ExpenditureDocsService {
 		return null;
 	}
 
-	// Find one file
+	/*
+	 * Find One File
+	 */
 	public Optional<ExpenditureDocs> getFile(Long fileId) {
 		return repository.findById(fileId);
 	}
 
-	// Find all files
+	/*
+	 * Find All Files
+	 */
 	public List<ExpenditureDocs> getFiles() {
 		return (List<ExpenditureDocs>) repository.findAll();
 	}

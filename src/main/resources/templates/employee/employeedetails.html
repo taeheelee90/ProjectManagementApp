@@ -13,10 +13,12 @@
 		<div th:replace="fragments/title :: title" />
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
+
 		<h3>Project Manager Information</h3>
 
-
 		<br> <br> <br>
+
+		<!-- Show Basic Information of PM -->
 		<table class="table table-striped" th:object="${employee}">
 			<h4>Basic Information</h4>
 			<tr>
@@ -49,15 +51,15 @@
 
 		<br>
 		<div class="text-right">
-			<a th:href="@{/employeeedit/{id}(id = ${id})}"
-				class="btn btn-warning">Edit</a>
-			<!--<td sec:authorize="hasAuthority('ADMIN')">-->
-			<a th:href="@{/employeedelete/{id}(id = ${id})}"
-				class="btn btn-danger">Delete</a>
+			<a th:href="@{/employeeedit/{id}(id = ${id})}" class="btn btn-warning">Edit</a>
+		
+			<a th:href="@{/employeedelete/{id}(id = ${id})}" class="btn btn-danger">Delete</a>
 
 		</div>
 		<br>
-
+		
+		
+		<!-- Show Project List of PM -->
 		<table class="table table-striped">
 			<h4>Project Information</h4>
 			<tr>
@@ -72,11 +74,9 @@
 				<td th:text="${project.id}"></td>
 				<td th:text="${project.name}"></td>
 				<td th:text="${project.status}"></td>
-				<td><a th:href="@{/project/__${project.id}__}"
-					class="btn btn-default"> Show Details</a></td>
+				<td><a th:href="@{/project/__${project.id}__}" class="btn btn-default"> Show Details</a></td>
 			</tr>
 		</table>
-
 
 
 
