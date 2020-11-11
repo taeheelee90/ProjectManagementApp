@@ -2,6 +2,8 @@ package haagahelia.fi.ProjectManagement.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotEmpty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,9 +16,11 @@ import lombok.Setter;
 @MappedSuperclass
 public class PersonEntity extends BaseEntity {
 
+	@NotEmpty (message = "Please enter first name.")
 	@Column(name = "first_name")
 	private String firstName;
-
+	
+	@NotEmpty (message = "Please enter last name.")
 	@Column(name = "last_name")
 	private String lastName;
 

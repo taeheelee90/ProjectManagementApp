@@ -13,20 +13,20 @@ import lombok.Setter;
 @Getter @Setter
 public class EmployeeForm {
 	
-	@NotEmpty
+	@NotEmpty (message = "Please enter first name.")
 	private String firstName = "";
 	
-	@NotEmpty
+	@NotEmpty (message = "Please enter last name.")
 	private String lastName = "";
 	
 	
 	private Department department;
 	
 	
-	@NotEmpty
+	@NotEmpty (message="Please enter email.")
 	private String email = "";
 	
-	@NotEmpty
+	@NotEmpty (message= "Please enter phone.")
 	private String phone = "";
 
 }

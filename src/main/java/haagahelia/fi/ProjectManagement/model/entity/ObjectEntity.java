@@ -2,6 +2,7 @@ package haagahelia.fi.ProjectManagement.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,18 +11,19 @@ import lombok.Setter;
  * Object Entity to be extended to non-human entities
  */
 
-
-@Getter @Setter
+@Getter
+@Setter
 @MappedSuperclass
 public class ObjectEntity extends BaseEntity {
 	
+	@NotEmpty(message = "Please enter name.")
 	@Column(name = "name")
 	private String name;
-	
+
 	public ObjectEntity() {
-		
+
 	}
-		
+
 	public ObjectEntity(String name) {
 		super();
 		this.name = name;
@@ -35,6 +37,4 @@ public class ObjectEntity extends BaseEntity {
 		this.name = name;
 	}
 
-	
-	
 }

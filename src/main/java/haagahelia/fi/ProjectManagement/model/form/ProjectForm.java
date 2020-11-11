@@ -20,21 +20,21 @@ import lombok.Setter;
 @Getter @Setter
 public class ProjectForm {
 	
-	@NotEmpty
+	@NotEmpty (message = "Please enter name.")
 	private String name;
 	
-	@NotNull
+	@NotNull (message = "Please select start date.")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 	
-	@NotNull
+	@NotNull (message = "Please select end date.")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
 
 	@NotNull
 	private Employee projectManager;
 	
-	@NotNull
+	@NotNull (message = "Please enter budget")
 	private int budget;
 	
 	private ProjectStatus projectStatus;

@@ -29,6 +29,8 @@ public class ExpenditureDocs extends BaseEntity  {
 	private String fileName;
 	
 	private String fileType;
+	
+	private String uploadDir;
 
 	@ManyToOne// (fetch = FetchType.LAZY)
 	@JsonManagedReference
@@ -36,11 +38,12 @@ public class ExpenditureDocs extends BaseEntity  {
 	private ProjectExpenditure projectExpenditure;
 
 		
-	public ExpenditureDocs(byte[] file, String fileName, String fileType, ProjectExpenditure projectExpenditure) {
+	public ExpenditureDocs(byte[] file, String fileName, String fileType, String uploadDir,ProjectExpenditure projectExpenditure) {
 		super();
 		this.file = file;
 		this.fileName = fileName;
 		this.fileType = fileType;
+		this.uploadDir = uploadDir;
 		this.projectExpenditure = projectExpenditure;
 	
 	}

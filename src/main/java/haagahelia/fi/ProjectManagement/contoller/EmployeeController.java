@@ -99,13 +99,14 @@ public class EmployeeController {
 	// Update Employee
 	@GetMapping(value = "/employeeedit/{id}")
 	public String updateEmployee(@PathVariable("id") Long empId, Model model) {
-		model.addAttribute("employee", eRepository.findById(empId));
+		eRepository.findById(empId).ifPresent(employee -> model.addAttribute("employee", employee));
+		
 		return "employee/updateemployee";
 	}
 
 	// Save updates
 	@PostMapping(value = "/employeeedit")
-	public String updateHandling(Employee employee, BindingResult bindingResult) {
+	public String updateHandling(@Valid Employee employee, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
 			return "employee/updateemployee";
@@ -115,6 +116,7 @@ public class EmployeeController {
 		}
 	}
 
+	
 	// Delete Employee
 	@GetMapping(value = "/employeedelete/{id}")
 	public String deleteEmployee(@PathVariable("id") Long empId) {

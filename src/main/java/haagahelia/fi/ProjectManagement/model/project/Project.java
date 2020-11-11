@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,11 +37,13 @@ import lombok.Setter;
 @Table(name = "projects")
 public class Project extends ObjectEntity {
 
+	@NotNull (message = "Please select start date.")
 	@Column(name = "start_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	// @Temporal(TemporalType.DATE)
 	private LocalDate startDate;
 
+	@NotNull (message = "Please select end date.")
 	@Column(name = "end_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	// @Temporal(TemporalType.DATE)
@@ -54,6 +58,7 @@ public class Project extends ObjectEntity {
 	@JoinColumn(name = "project_manager_id")
 	private Employee projectManager;
 
+	@NotNull (message = "Please enter budget")
 	private int budget;
 
 	@JsonBackReference

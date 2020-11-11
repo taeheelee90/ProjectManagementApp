@@ -34,8 +34,7 @@
 
 
 
-				<!-- Only Admin can Cancel Project -->
-				<div sec:authorize="hasAuthority('ADMIN')">
+				
 					<label for="status" class="control-label col-sm-2">Status</label> 
 					<select
 						id="status" th:field="*{status}" class="form-control">
@@ -43,11 +42,12 @@
 							th:each="status: ${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).values()}"
 							th:value="${status}" th:text="${status}"></option>
 					</select> <br>
-				</div>
+				<!-- </div> -->
 				
 				
-				<!-- USER can not cancel project-->
-				<div sec:authorize="hasAuthority('USER')">
+				<!-- USER can not cancel project
+				
+				<div sec:authorize="hasAuthority('USER')"> -
 					<label for="status" class="control-label col-sm-2">Status</label> 
 					<select id="status" th:field="*{status}" class="form-control">
 						<option
@@ -60,7 +60,7 @@
 							th:value="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).COMPLETE}"
 							th:text="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).COMPLETE}"></option>
 					</select> <br>
-				</div> 
+				</div> -->
 				
 				<label for="pm" class="control-label col-sm-2">Project Manager</label> 
 				<select id="pm" th:field=*{projectManager} class="form-control">

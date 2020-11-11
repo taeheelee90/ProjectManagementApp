@@ -223,14 +223,23 @@ public class ProjectController {
 	@PostMapping(value = "/projectedit")
 	public String updateHandling(Project project, BindingResult bindingResult, Model model) {
 
-		if (bindingResult.hasErrors()) {
+		if (!bindingResult.hasErrors()) {
+			if (project.getEndDate().isAfter(project.getStartDate())) { // Check end date validity
+				
+				pRepository.save(project);
+			} else { // End Date is before Start Date
+				bindingResult.rejectValue("endDate", "err.endDate", "End Date must be after Start Date");
+				model.addAttribute("employees", eRepository.findAll());
+				return "project/updateproject";
+			}
+		} else { // Any other errors
 			model.addAttribute("employees", eRepository.findAll());
 			return "project/updateproject";
-		} else {
-			pRepository.save(project);
-			return "redirect:projectlist";
 		}
+		// No error found
+		return "redirect:projectlist";
 	}
+
 
 	// Handling Date
 	@InitBinder

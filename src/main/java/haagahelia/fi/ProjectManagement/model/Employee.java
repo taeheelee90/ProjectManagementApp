@@ -14,6 +14,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
@@ -38,8 +40,10 @@ public class Employee extends PersonEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "projectManager", fetch = FetchType.EAGER)
 	private Set<Project> projects;
 
+	@NotEmpty (message="Please enter email.")
 	private String email;
 
+	@NotEmpty (message= "Please enter phone.")
 	private String phone;
 
 	/*
