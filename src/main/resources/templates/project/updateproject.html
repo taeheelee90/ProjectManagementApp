@@ -13,18 +13,24 @@
 		<div th:replace="fragments/title :: title" />
 
 		<div class="form-group">
-			<form class="form-horizontal" action="#" th:action="@{/projectsubmit}" th:object="${project}" method="post">
+			<form class="form-horizontal" action="#" th:action="@{/projectedit}" th:object="${project}" method="post">
 
 				<input type="hidden" id="id" th:field="*{id}" /> 
 				
 				<label for="name" class="control-label col-sm-2">Project Name</label> 
-				<input type="text" id="name" th:field="*{name}" class="form-control" /><br>
+				<input type="text" id="name" th:field="*{name}" class="form-control" />
+				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+				<br>
 
 				<label for="startDate" class="control-label col-sm-2"> Start Date</label> 
-				<input type="date" id="startDate" th:field="*{startDate}" class="form-control" /> <br> 
+				<input type="date" id="startDate" th:field="*{startDate}" class="form-control" /> 
+				<p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Start Date Error</p>
+				<br> 
 								
 				<label for="endDate" class="control-label col-sm-2"> End Date</label> 
-				<input type="date" id="endDate" th:field="*{endDate}" class="form-control" /> <br>
+				<input type="date" id="endDate" th:field="*{endDate}" class="form-control" />
+				<p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">End Date Error</p>
+				 <br>
 
 
 
@@ -40,7 +46,7 @@
 				</div>
 				
 				
-				<!-- USER can not cancel project -->
+				<!-- USER can not cancel project-->
 				<div sec:authorize="hasAuthority('USER')">
 					<label for="status" class="control-label col-sm-2">Status</label> 
 					<select id="status" th:field="*{status}" class="form-control">
@@ -54,7 +60,7 @@
 							th:value="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).COMPLETE}"
 							th:text="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).COMPLETE}"></option>
 					</select> <br>
-				</div>
+				</div> 
 				
 				<label for="pm" class="control-label col-sm-2">Project Manager</label> 
 				<select id="pm" th:field=*{projectManager} class="form-control">
@@ -66,7 +72,9 @@
 				<!-- Budget can be only edited by ADMIN -->
 				<span sec:authorize="hasAuthority('ADMIN')"> 
 					<label for="budget" class="control-label col-sm-2">Budget</label> 
-						<input type="number" id="budget" th:field="*{budget}" class="form-control" /><br>
+						<input type="number" id="budget" th:field="*{budget}" class="form-control" />
+						<p th:if="${#fields.hasErrors('budget')}" th:errors="*{budget}">Budget Error</p>
+						<br>
 				</span>
 
 				<div style="clear: both; display: block; height: 10px;"></div>

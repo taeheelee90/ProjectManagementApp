@@ -221,9 +221,15 @@ public class ProjectController {
 
 	// Save updates
 	@PostMapping(value = "/projectedit")
-	public String updateHandling(Project project, Model model) {
-		pRepository.save(project);
-		return "redirect:projectlist";
+	public String updateHandling(Project project, BindingResult bindingResult, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("employees", eRepository.findAll());
+			return "project/updateproject";
+		} else {
+			pRepository.save(project);
+			return "redirect:projectlist";
+		}
 	}
 
 	// Handling Date

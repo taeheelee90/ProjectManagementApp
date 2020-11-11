@@ -19,7 +19,6 @@ import haagahelia.fi.ProjectManagement.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
-//@EnableJpaRepositories
 @Slf4j
 public class ProjectManagementApplication {
 

@@ -70,9 +70,9 @@ public class EmployeeController {
 
 	}
 
-	// Submit Project
+	// Submit Employee
 	@PostMapping(value = "/employeesubmit")
-	public String saveProject(@Valid @ModelAttribute("employeeForm") EmployeeForm employeeForm,
+	public String saveEmployee(@Valid @ModelAttribute("employeeForm") EmployeeForm employeeForm,
 			BindingResult bindingResult, Model model) {
 		if (!bindingResult.hasErrors()) { // check validity
 
@@ -81,7 +81,7 @@ public class EmployeeController {
 			employee.setFirstName(employeeForm.getFirstName());
 			employee.setLastName(employeeForm.getLastName());
 			employee.setEmail(employeeForm.getEmail());
-			employee.setPhone(employee.getPhone());
+			employee.setPhone(employeeForm.getPhone());
 			employee.setDepartment(employeeForm.getDepartment());
 
 			eRepository.save(employee);
@@ -101,6 +101,18 @@ public class EmployeeController {
 	public String updateEmployee(@PathVariable("id") Long empId, Model model) {
 		model.addAttribute("employee", eRepository.findById(empId));
 		return "employee/updateemployee";
+	}
+
+	// Save updates
+	@PostMapping(value = "/employeeedit")
+	public String updateHandling(Employee employee, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return "employee/updateemployee";
+		} else {
+			eRepository.save(employee);
+			return "redirect:employeelist";
+		}
 	}
 
 	// Delete Employee

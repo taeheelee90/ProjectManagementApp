@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import haagahelia.fi.ProjectManagement.model.Employee;
+import haagahelia.fi.ProjectManagement.model.project.ProjectStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,5 +36,7 @@ public class ProjectForm {
 	
 	@NotNull
 	private int budget;
+	
+	private ProjectStatus projectStatus;
 
 }
