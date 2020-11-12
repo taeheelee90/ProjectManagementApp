@@ -1,6 +1,8 @@
 package haagahelia.fi.ProjectManagement.model.form;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,17 +15,17 @@ import lombok.Setter;
 @Getter @Setter
 public class SignupForm {
 
-	@NotEmpty
+	@NotEmpty (message = "Please enter username")
+	@Size(min = 4, max= 10, message = "Length should be between 4 and 10")
 	private String username = "";
 
-	@NotEmpty
+	@NotEmpty(message = "Please enter Password")
+	@Size(min = 5, max= 20, message = "Length should be between 5 and 20")
 	private String password = "";
 
-	@NotEmpty
+	@NotEmpty(message = "Please re-type Password")
+	@Size(min = 5, max= 20, message = "Length should be between 5 and 20")
 	private String passwordCheck = "";
-
-	@NotEmpty
-	private String email = "";
 
 	@NotEmpty
 	private String role = "USER";

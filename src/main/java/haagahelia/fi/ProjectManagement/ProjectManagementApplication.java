@@ -32,7 +32,6 @@ public class ProjectManagementApplication {
 
 		return (args) -> {
 
-			
 			log.info("create Employees");
 			Employee e1 = new Employee("Alexander", "Adkins", Department.ACCOUNTING, "aa@email.com", "010111");
 			Employee e2 = new Employee("Roan", "Jackson", Department.HR, "rj@email.com", "010222");
@@ -67,24 +66,20 @@ public class ProjectManagementApplication {
 			pRepository.save(p4);
 			pRepository.save(p5);
 
-			
-			 log.info("create expenditures"); 
-			 
-			 ProjectExpenditure pe1 = new ProjectExpenditure(p1, 500, "Initial Cost");
-			 ProjectExpenditure pe2 = new ProjectExpenditure(p1, 5000, "License Fee");
-			 ProjectExpenditure pe3 = new ProjectExpenditure(p1, 3000, "Migration Fee");
-			 
-			 peRepository.save(pe1);
-			 peRepository.save(pe2);
-			 peRepository.save(pe3);
-					 
+			log.info("create expenditures");
+
+			ProjectExpenditure pe1 = new ProjectExpenditure(p1, 500, "Initial Cost");
+			ProjectExpenditure pe2 = new ProjectExpenditure(p1, 5000, "License Fee");
+			ProjectExpenditure pe3 = new ProjectExpenditure(p1, 3000, "Migration Fee");
+
+			peRepository.save(pe1);
+			peRepository.save(pe2);
+			peRepository.save(pe3);
 
 			log.info("create users");
 			// user/user, admin/admin
-			User user1 = new User("user", "$2a$10$zTvn5SMAQ.NSO/jnY3PjAueq2qEKG1gVLXASHCob6q6.EpBDj90H6",
-					"user@email.com", "USER");
-			User user2 = new User("admin", "$2a$10$Qflab20ugY5RFyC65P.2VuqGPGLvlJEuzGOqZsB21j9j8tJlbcrGe",
-					"admin@email.com", "ADMIN");
+			User user1 = new User("user", "$2a$10$zTvn5SMAQ.NSO/jnY3PjAueq2qEKG1gVLXASHCob6q6.EpBDj90H6", "USER");
+			User user2 = new User("admin", "$2a$10$Qflab20ugY5RFyC65P.2VuqGPGLvlJEuzGOqZsB21j9j8tJlbcrGe", "ADMIN");
 			uRepository.save(user1);
 			uRepository.save(user2);
 

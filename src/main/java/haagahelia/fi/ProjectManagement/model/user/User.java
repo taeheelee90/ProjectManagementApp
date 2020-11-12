@@ -17,9 +17,6 @@ public class User extends BaseEntity {
 	@Column(name = "password", nullable = false)
 	private String passwordHash;
 
-	@Column(name = "email", nullable = false)
-	private String email;
-
 	@Column(name = "role", nullable = false)
 	private String role;
 
@@ -27,11 +24,10 @@ public class User extends BaseEntity {
 		super();
 	}
 	
-	public User(String username, String passwordHash, String email, String role) {
+	public User(String username, String passwordHash, String role) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
-		this.email = email;
 		this.role = role;
 	}
 

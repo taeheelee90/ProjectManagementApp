@@ -162,7 +162,7 @@ public class ProjectController {
 					project.setName(projectForm.getName());
 					project.setStartDate(projectForm.getStartDate());
 					project.setEndDate(projectForm.getEndDate());
-					project.setStatus(createProjectStatus(projectForm));
+					project.setStatus(createProjectStatus(projectForm.getStartDate(), projectForm.getEndDate()));
 					project.setProjectManager(projectForm.getProjectManager());
 					project.setBudget(projectForm.getBudget());
 
@@ -190,27 +190,6 @@ public class ProjectController {
 
 	}
 
-	// Submit Method: Project Status Setting
-	private ProjectStatus createProjectStatus(ProjectForm projectForm) {
-		ProjectStatus status = null;
-		LocalDate today = LocalDate.now();
-
-		// Get values from form
-		LocalDate startDate = projectForm.getStartDate();
-		LocalDate endDate = projectForm.getEndDate();
-
-		if (endDate.isBefore(today)) {
-			status = ProjectStatus.COMPLETE;
-		} else if (startDate.isAfter(today)) {
-			status = ProjectStatus.WAITING;
-		} else if (startDate.equals(today) || startDate.isBefore(today)) {
-			if (endDate.isAfter(today)) {
-				status = ProjectStatus.PROCEEDING;
-			}
-		}
-		return status;
-	}
-
 	// Update Project
 	@GetMapping(value = "/projectedit/{id}")
 	public String updateProject(@PathVariable("id") Long projectId, Model model) {
@@ -219,14 +198,44 @@ public class ProjectController {
 		return "project/updateproject";
 	}
 
-	// Save updates
+	// Submit updates
 	@PostMapping(value = "/projectedit")
-	public String updateHandling(Project project, BindingResult bindingResult, Model model) {
+	public String saveUpdate(Project project, BindingResult bindingResult, Model model) {
 
 		if (!bindingResult.hasErrors()) {
 			if (project.getEndDate().isAfter(project.getStartDate())) { // Check end date validity
-				
-				pRepository.save(project);
+
+				// Get Project Status based on start and end dates
+				ProjectStatus status = createProjectStatus(project.getStartDate(), project.getEndDate());
+
+				// Check budget is not 0 for WAITING and PROCEEDING projects
+				if (project.getBudget() != 0
+						&& (status.equals(ProjectStatus.WAITING) || status.equals(ProjectStatus.PROCEEDING))) {
+
+					project.setStatus(status);
+					pRepository.save(project);
+
+				} else if (project.getBudget() == 0 && status.equals(ProjectStatus.COMPLETE)) {
+					// budget can be 0 when ProjectStatus is COMPLETE
+					project.setStatus(status);
+					pRepository.save(project);
+				} else {
+
+					if (status.equals(ProjectStatus.COMPLETE)) {
+						// budget is more than 0 for COMPLETE project
+						bindingResult.rejectValue("budget", "err.budget",
+								"Please check budget. (RULE: COMPLETE Project must have 0) ");
+						model.addAttribute("employees", eRepository.findAll());
+					} else {
+						// budget is 0 (and status is not COMPLETE)
+						bindingResult.rejectValue("budget", "err.budget",
+								"Please check budget. (RULE: Not complete projet can not have 0) ");
+						model.addAttribute("employees", eRepository.findAll());
+					}
+
+					return "project/updateproject";
+				}
+
 			} else { // End Date is before Start Date
 				bindingResult.rejectValue("endDate", "err.endDate", "End Date must be after Start Date");
 				model.addAttribute("employees", eRepository.findAll());
@@ -240,6 +249,27 @@ public class ProjectController {
 		return "redirect:projectlist";
 	}
 
+	/*
+	 * Methods
+	 */
+
+	// Submit Method: Project Status Setting
+	private ProjectStatus createProjectStatus(LocalDate startDate, LocalDate endDate) {
+		ProjectStatus status = null;
+		LocalDate today = LocalDate.now();
+
+		if (endDate.isBefore(today)) {
+			status = ProjectStatus.COMPLETE;
+		} else if (startDate.isAfter(today)) {
+			status = ProjectStatus.WAITING;
+		} else if (startDate.equals(today) || startDate.isBefore(today)) {
+			if (endDate.isAfter(today)) {
+				status = ProjectStatus.PROCEEDING;
+			}
+		}
+		return status;
+
+	}
 
 	// Handling Date
 	@InitBinder

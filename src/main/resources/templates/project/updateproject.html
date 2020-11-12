@@ -31,36 +31,6 @@
 				<input type="date" id="endDate" th:field="*{endDate}" class="form-control" />
 				<p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">End Date Error</p>
 				 <br>
-
-
-
-				
-					<label for="status" class="control-label col-sm-2">Status</label> 
-					<select
-						id="status" th:field="*{status}" class="form-control">
-						<option
-							th:each="status: ${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).values()}"
-							th:value="${status}" th:text="${status}"></option>
-					</select> <br>
-				<!-- </div> -->
-				
-				
-				<!-- USER can not cancel project
-				
-				<div sec:authorize="hasAuthority('USER')"> -
-					<label for="status" class="control-label col-sm-2">Status</label> 
-					<select id="status" th:field="*{status}" class="form-control">
-						<option
-							th:value="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING}"
-							th:text="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING}"></option>
-						<option
-							th:value="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}"
-							th:text="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}"></option>
-						<option
-							th:value="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).COMPLETE}"
-							th:text="${T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).COMPLETE}"></option>
-					</select> <br>
-				</div> -->
 				
 				<label for="pm" class="control-label col-sm-2">Project Manager</label> 
 				<select id="pm" th:field=*{projectManager} class="form-control">
@@ -73,7 +43,7 @@
 				<span sec:authorize="hasAuthority('ADMIN')"> 
 					<label for="budget" class="control-label col-sm-2">Budget</label> 
 						<input type="number" id="budget" th:field="*{budget}" class="form-control" />
-						<p th:if="${#fields.hasErrors('budget')}" th:errors="*{budget}">Budget Error</p>
+							<p th:if="${#fields.hasErrors('budget')}" th:errors="*{budget}">Budget Error</p>
 						<br>
 				</span>
 

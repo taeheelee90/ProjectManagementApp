@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeController {
 
 	private final EmployeeRepository eRepository;
-
+	private static final String emailRegex = "^(.+)@(.+)$";
 	/*
 	 * REST Service
 	 */
@@ -75,22 +75,24 @@ public class EmployeeController {
 	public String saveEmployee(@Valid @ModelAttribute("employeeForm") EmployeeForm employeeForm,
 			BindingResult bindingResult, Model model) {
 		if (!bindingResult.hasErrors()) { // check validity
+			if (employeeForm.getEmail().matches(emailRegex)) { // Check email format
+				// Save new Employee when all inputs pass validity
+				Employee employee = new Employee();
+				employee.setFirstName(employeeForm.getFirstName());
+				employee.setLastName(employeeForm.getLastName());
+				employee.setEmail(employeeForm.getEmail());
+				employee.setPhone(employeeForm.getPhone());
+				employee.setDepartment(employeeForm.getDepartment());
 
-			// Save new Employee when all inputs pass validity
-			Employee employee = new Employee();
-			employee.setFirstName(employeeForm.getFirstName());
-			employee.setLastName(employeeForm.getLastName());
-			employee.setEmail(employeeForm.getEmail());
-			employee.setPhone(employeeForm.getPhone());
-			employee.setDepartment(employeeForm.getDepartment());
-
-			eRepository.save(employee);
-
+				eRepository.save(employee);
+			} else { // Email form error
+				bindingResult.rejectValue("email", "err.email", "Email format is invalid");
+				return "employee/employeeform";
+			}
 		} else { // Any errors occurred
 			model.addAttribute("employees", eRepository.findAll());
 			return "employee/employeeform";
 		}
-
 		// No error found
 		return "redirect:employeelist";
 
@@ -100,7 +102,7 @@ public class EmployeeController {
 	@GetMapping(value = "/employeeedit/{id}")
 	public String updateEmployee(@PathVariable("id") Long empId, Model model) {
 		eRepository.findById(empId).ifPresent(employee -> model.addAttribute("employee", employee));
-		
+
 		return "employee/updateemployee";
 	}
 
@@ -108,15 +110,19 @@ public class EmployeeController {
 	@PostMapping(value = "/employeeedit")
 	public String updateHandling(@Valid Employee employee, BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
-			return "employee/updateemployee";
+		if (!bindingResult.hasErrors()) {
+			if (employee.getEmail().matches(emailRegex)) {
+				eRepository.save(employee);
+				return "redirect:employeelist";
+			} else { // Email form error
+				bindingResult.rejectValue("email", "err.email", "Email format is invalid");
+				return "employee/updateemployee";
+			}
 		} else {
-			eRepository.save(employee);
-			return "redirect:employeelist";
+			return "employee/updateemployee";
 		}
 	}
 
-	
 	// Delete Employee
 	@GetMapping(value = "/employeedelete/{id}")
 	public String deleteEmployee(@PathVariable("id") Long empId) {
