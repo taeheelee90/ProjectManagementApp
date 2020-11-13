@@ -123,10 +123,10 @@ public class EmployeeController {
 		}
 	}
 
-	// Delete Employee
+	/*// Delete Employee
 	@GetMapping(value = "/employeedelete/{id}")
 	public String deleteEmployee(@PathVariable("id") Long empId) {
 		eRepository.deleteById(empId);
 		return "redirect:../employeelist";
-	}
+	}*/
 }
