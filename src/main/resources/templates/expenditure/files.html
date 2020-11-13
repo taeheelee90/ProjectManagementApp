@@ -27,11 +27,14 @@
 		
 		
 		<!-- File Submission -->
-		<p>Submit Reference Files (i.e., receipts, invoice, etc.)</p>
+		<p>Submit Expenditure Reference File(s).</p>
+		<p>USE THIS FORM: 
+			<a href="https://haagahelia-my.sharepoint.com/:x:/g/personal/bgm173_myy_haaga-helia_fi/EUroop9SCuZHrwZJaugZBiMBve_fxZ51jBZ4YGu7fkmnNA?e=lVicVu" target="_blank"> "Expenditure Reference Form (MS Excel)" </a> 
+		</p>
 
 
 		<form id="uploadfiles" name="uploadfiles" method="post" th:action="@{/file/__${projectId}__/__${expenditureId}__}" encType="multipart/form-data">
-		
+			<label for="file" class="control-label col-sm-2">Reference File</label>
 			<input type="file" name="files" multiple required />
 			<button type="submit">Submit</button>
 		</form>

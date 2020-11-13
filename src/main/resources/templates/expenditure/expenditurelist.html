@@ -22,7 +22,7 @@
 			<tr>
 				<th>Amount (EUR)</th>
 				<th>Description</th>
-				<th>Reference Documents</th>
+				<th>Expenditure Reference</th>
 				
 			</tr>
 
@@ -31,7 +31,7 @@
 				<td th:text="*{expenditure.description}">
 				
 				<!-- Adding reference files for pending expenditure -->
-				<td> <a th:object="${projectId}" th:href="@{/file/__${projectId}__/__${expenditure.id}__}"> File Management </a></td>
+				<td> <a th:object="${projectId}" th:href="@{/file/__${projectId}__/__${expenditure.id}__}"> Reference File Management </a></td>
 			</tr>
 
 		</table>

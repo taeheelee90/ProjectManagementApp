@@ -2,6 +2,7 @@ package haagahelia.fi.ProjectManagement.model.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import haagahelia.fi.ProjectManagement.model.entity.BaseEntity;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@Table(name ="Users")
 public class User extends BaseEntity {
 
 	@Column(name = "username", nullable = false, unique = true)
