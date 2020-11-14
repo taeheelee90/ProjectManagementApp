@@ -13,8 +13,7 @@
 		<br> <br>
 		<h3>Project List</h3>
 		<a class="btn btn-primary" th:href="@{/projectadd}"> Add Project</a> <br>
-		<br> <br>
-
+		<br> 
 
 		<!-- Search Project -->
 		<form th:action="@{/project}">
@@ -23,11 +22,12 @@
 		<input type="submit" value="Search" /> &nbsp;
 		</form>
 
-		<br> <br> <br>
+		<br> 
 
 
 		<!-- Show Projects -->
 		<table class="table table-striped">
+		<p style ="font-size:small">Click &#9660 to change project list order</p>
 			<tr>
 				<th>Id <a th:href="@{/projectlist}" >  <span style='font-size:15px;'>&#9660;</span> </a></th>
 				<th>Project name <a th:href="@{/projectsbyname}" >  <span style='font-size:15px;'>&#9660;</span> </a></th>

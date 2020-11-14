@@ -54,22 +54,27 @@
 		</table>
 
 		
-		<!-- If project status is CANCEL :  Add expenditure and Edit are not available-->
+		<!-- If project status is COMPLETE :  Add expenditure is not available-->
 		<div class="text-right"
 			th:if="${project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING or 
-						project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}">
+					project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}">
 
 			<a th:href="@{/expenditureadd/__${id}__}" class="btn btn-info"> Add Expenditure</a> 
-			<a th:href="@{/projectedit/{id}(id = ${id})}" class="btn btn-warning"> Edit</a>
-
+			
 		</div>
-		<br> <br>
 		
-		
-		<!-- Link to Expenditure List -->
+		<br> 
+		<!-- Expenditure List is always available -->
 		<div class="text-right">
 			<a th:href="@{/expendituretlist/__${id}__}" class="btn btn-info"> Expenditure List</a>
-		</div>
+		</div>		
+		<br>
+		
+		<!-- Edit Project is always available -->		
+		<div class="text-right">
+			<a th:href="@{/projectedit/{id}(id = ${id})}" class="btn btn-warning"> Edit</a>
+			
+		</div>		
 
 
 

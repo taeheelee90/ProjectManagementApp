@@ -170,7 +170,7 @@ public class ProjectController {
 
 				} else {
 					// budget is 0
-					bindingResult.rejectValue("budget", "err.budget", "Budget can not be 0");
+					bindingResult.rejectValue("budget", "err.budget", "Initial Budget can not be 0");
 					model.addAttribute("employees", eRepository.findAll());
 					return "project/projectForm";
 
@@ -224,12 +224,12 @@ public class ProjectController {
 					if (status.equals(ProjectStatus.COMPLETE)) {
 						// budget is more than 0 for COMPLETE project
 						bindingResult.rejectValue("budget", "err.budget",
-								"Please check budget. (RULE: COMPLETE Project must have 0) ");
+								"Please check remaining budget. (RULE: COMPLETE Project must have 0) ");
 						model.addAttribute("employees", eRepository.findAll());
 					} else {
 						// budget is 0 (and status is not COMPLETE)
 						bindingResult.rejectValue("budget", "err.budget",
-								"Please check budget. (RULE: Not complete projet can not have 0) ");
+								"Please check remaining budget. (RULE: Not complete projet can not have 0) ");
 						model.addAttribute("employees", eRepository.findAll());
 					}
 
@@ -258,7 +258,7 @@ public class ProjectController {
 		ProjectStatus status = null;
 		LocalDate today = LocalDate.now();
 
-		if (endDate.isBefore(today)) {
+		if (endDate.isBefore(today) || endDate.equals(today)) {
 			status = ProjectStatus.COMPLETE;
 		} else if (startDate.isAfter(today)) {
 			status = ProjectStatus.WAITING;

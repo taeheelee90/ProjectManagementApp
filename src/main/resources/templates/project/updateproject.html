@@ -39,14 +39,14 @@
 				</select> <br>
 
 
-				<!-- Budget can be only edited by ADMIN -->
-				<span sec:authorize="hasAuthority('ADMIN')"> 
-					<label for="budget" class="control-label col-sm-2">Budget</label> 
+			
+					<label for="budget" class="control-label col-sm-2">Remaining Budget</label> 
+					<p style ="font-size:small"> WAITING or PROCEEDING projects must have remaining budget bigger than 0.</p>
+					<p style ="font-size:small"> COMPLETE project must have 0 remaining budget.</p>
 						<input type="number" id="budget" th:field="*{budget}" class="form-control" />
 							<p th:if="${#fields.hasErrors('budget')}" th:errors="*{budget}">Budget Error</p>
 						<br>
-				</span>
-
+			
 				<div style="clear: both; display: block; height: 10px;"></div>
 
 				<input type="submit" class="btn btn-success" value="Submit" />
