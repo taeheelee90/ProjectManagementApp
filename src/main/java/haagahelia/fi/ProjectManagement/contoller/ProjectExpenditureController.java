@@ -1,22 +1,27 @@
 package haagahelia.fi.ProjectManagement.contoller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import haagahelia.fi.ProjectManagement.model.project.ExpenditureDocs;
 import haagahelia.fi.ProjectManagement.model.project.ProjectExpenditure;
 import haagahelia.fi.ProjectManagement.repository.ProjectExpenditureRepository;
 import haagahelia.fi.ProjectManagement.service.ExpenditureDocsService;
 import haagahelia.fi.ProjectManagement.service.ProjectExpenditureService;
+import haagahelia.fi.ProjectManagement.system.NotEnoughBudgetException;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -56,6 +61,19 @@ public class ProjectExpenditureController {
 
 		return "redirect:/expendituretlist/{id}";
 	}
+	
+	/* 
+	* Exception Controller 
+	* Source: https://www.netjstech.com/2018/09/spring-mvc-exception-handling-example-exceptionhandler-controlleradvice.html
+	*/
+	
+	@ExceptionHandler(NotEnoughBudgetException.class)
+	  public ModelAndView handleIOException(HttpServletRequest request, Exception exception){
+	    ModelAndView mv = new ModelAndView();
+	    mv.addObject("exception", exception.getMessage());
+	    mv.setViewName("error");
+	    return mv;
+	  }
 
 	/*
 	 * File Management User can submit several documents per one expenditure.
