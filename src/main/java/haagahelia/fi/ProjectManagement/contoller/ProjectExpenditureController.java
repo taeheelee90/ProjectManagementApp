@@ -77,7 +77,7 @@ public class ProjectExpenditureController {
 
 	/*
 	 * File Management User can submit several documents per one expenditure.
-	 */
+	 
 
 	// File lists
 	@GetMapping(value = "/file/{projectId}/{expenditureId}")
@@ -111,6 +111,6 @@ public class ProjectExpenditureController {
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(fileType))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + doc.getFileName() + "\"")
 				.body(new ByteArrayResource(doc.getFile()));
-	}
+	}*/
 
 }

@@ -88,13 +88,16 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- DB for Deploy 
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>-->
+		<!-- DB for Deploy <dependency> <groupId>org.postgresql</groupId> <artifactId>postgresql</artifactId> 
+			<scope>runtime</scope> </dependency> -->
 
+
+		<!-- S3 Storage -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.11.884</version>
+		</dependency>
 
 		<!-- Lombok -->
 		<dependency>

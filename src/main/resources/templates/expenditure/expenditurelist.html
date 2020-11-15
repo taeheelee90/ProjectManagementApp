@@ -30,8 +30,10 @@
 				<td th:text="*{expenditure.cost}"></td>
 				<td th:text="*{expenditure.description}">
 				
-				<!-- Adding reference files for pending expenditure -->
-				<td> <a th:object="${projectId}" th:href="@{/file/__${projectId}__/__${expenditure.id}__}"> Reference File</a></td>
+				<!-- Adding reference files for pending expenditure 
+				<td> <a th:object="${projectId}" th:href="@{/file/__${projectId}__/__${expenditure.id}__}"> Reference File</a></td>-->
+				<td> <a th:href="@{/file}"> Reference File</a></td>
+				
 			</tr>
 
 		</table>
