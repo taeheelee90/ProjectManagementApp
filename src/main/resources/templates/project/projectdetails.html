@@ -51,6 +51,12 @@
 				<td th:text="*{budget}"></td>
 
 			</tr>
+			
+			
+			<tr>
+			<th>Expenditure List</th>
+			<td><a th:href="@{/expendituretlist/__${id}__}"> Expenditure List</a></td>
+			</tr>
 		</table>
 
 		
@@ -62,12 +68,7 @@
 			<a th:href="@{/expenditureadd/__${id}__}" class="btn btn-info"> Add Expenditure</a> 
 			
 		</div>
-		
-		<br> 
-		<!-- Expenditure List is always available -->
-		<div class="text-right">
-			<a th:href="@{/expendituretlist/__${id}__}" class="btn btn-info"> Expenditure List</a>
-		</div>		
+	
 		<br>
 		
 		<!-- Edit Project is always available -->		

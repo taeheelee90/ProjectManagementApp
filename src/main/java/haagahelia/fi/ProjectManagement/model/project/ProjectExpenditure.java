@@ -1,16 +1,11 @@
 package haagahelia.fi.ProjectManagement.model.project;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import haagahelia.fi.ProjectManagement.model.entity.BaseEntity;
@@ -38,9 +33,9 @@ public class ProjectExpenditure extends BaseEntity {
 
 	private String description;
 	
-	@JsonBackReference	
+	/*@JsonBackReference	
 	@OneToMany (cascade = CascadeType.ALL, mappedBy ="projectExpenditure") // , fetch= FetchType.EAGER
-	private Set <ExpenditureDocs> expenditureDocs;
+	private Set <ExpenditureDocs> expenditureDocs;*/
 	
 		
 	public ProjectExpenditure(Project project, int cost, String description) {

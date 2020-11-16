@@ -20,31 +20,35 @@
 		<!-- List of Expenditures for pending project-->
 		<table class="table table-striped">
 			<tr>
+				<th>Expenditure Id</th>
 				<th>Amount (EUR)</th>
 				<th>Description</th>
-				<th>Expenditure Reference</th>
 				
 			</tr>
 
 			<tr th:each="expenditure: ${expenditures}">
+				<td th:text="*{expenditure.id}"></td>
 				<td th:text="*{expenditure.cost}"></td>
-				<td th:text="*{expenditure.description}">
-				
-				<!-- Adding reference files for pending expenditure 
-				<td> <a th:object="${projectId}" th:href="@{/file/__${projectId}__/__${expenditure.id}__}"> Reference File</a></td>-->
-				<td> <a th:href="@{/file}"> Reference File</a></td>
-				
+				<td th:text="*{expenditure.description}">			
+					
 			</tr>
 
 		</table>
 		
 
-
-		<!-- Add New Expenditure for pending project -->
-		<div class="text-right" th:object="${projectId}">
-			<a th:href="@{/expenditureadd/__${projectId}__}" class="btn btn-info"> Add Expenditure</a>
-			<a th:href="@{/project/__${projectId}__}" class="btn btn-info"> Back to Project Information</a>
+		
+	
+		<div class="text-right" >
+			<!-- Add reference files for pending expenditure -->
+			<a th:href="@{/file}" class="btn btn-info"> Reference File</a>
+			
+			<!-- Add New Expenditure for pending project -->
+			<a th:object="${projectId}" th:href="@{/expenditureadd/__${projectId}__}" class="btn btn-info"> Add Expenditure</a>
+			<br>
+			
+			<a th:object="${projectId}" th:href="@{/project/__${projectId}__}" class="btn-default"> Back to Project Information</a>
 		</div>
+	
 
 
 
