@@ -14,13 +14,13 @@ https://projectmanagementapp-2020.herokuapp.com/login
 : AWS S3 storage 
 
 
-### Entity with relationship
+### Entity relationships
 - Employee: works as project manager / can have multiple projects
 - Project: must have one project manager / can have multiple project expenditures
 - Project Expenditure: must registered for exactly one project
 
 
-### Key business logic applied
+### Key business logics applied
 - Application has login and signup features.
 - Projects can be ordered differently. (by name, date or status)
 - Projects can be searched. (by keyword in project name)
