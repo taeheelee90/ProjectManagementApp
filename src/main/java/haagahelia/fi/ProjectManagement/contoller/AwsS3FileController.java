@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +61,8 @@ public class AwsS3FileController {
 				.body(byteArrayOutputStream.toByteArray());
 	}
 
-	// Delete file
+	// Delete file: Only available for ADMIN
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/delete/{filename}")
 	public String deleteFile(@PathVariable("filename") String fileName) {
 		awsS3Service.deleteFromBucket(bucket_name, fileName);

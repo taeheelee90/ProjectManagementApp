@@ -12,20 +12,10 @@
 		<div th:replace="fragments/title :: title" />
 		<div th:replace="fragments/navBar :: navBar" />
 		<br> <br>
-		<h3>Expenditure Reference Files</h3>
+		<h3>Expenditure Reference Files</h3>		
 		
-		
-		<!-- Information about pending project and expenditure 
-		<ul>
-		<li th:object="${projectId}"
-			th:text="'Project Id: ' + ${projectId}"></li>
-		<li th:object="${expenditureId}"
-			th:text="'Expenditure Id: ' + ${expenditureId}"></li>
-		</ul>-->
-		
-			<br> <br>
-		
-		
+		<br> <br>
+				
 		<!-- File Submission -->
 		<h3>Submit Expenditure Reference(s).</h3>
 		<p>USE THIS FORM: 
@@ -36,20 +26,19 @@
 		<form  method="post" th:action="@{/file}" encType="multipart/form-data">
 			<label for="file" class="control-label col-sm-2">Attachment</label>
 			<input type="file" name="files" multiple required />
-			<!--<button type="submit">Submit</button>  -->
 			<input type="submit" value="Upload">
 		</form>
 		<br> <br>
 		
 		
-		<!-- Show submitted files for pending expenditure and download files -->
+		<!-- Show submitted files from S3 storage -->
 		<h3>Reference files</h3>
 		<table class="table table-striped">
 		<thead>
          <tr>
            <th>Name</th>
            <th>Download</th>
-           <th>Delete</th>
+           <th sec:authorize="hasAuthority('ADMIN')">Delete</th>
          </tr>
        </thead>
        
@@ -57,7 +46,7 @@
        <tr th:each="s3file: ${s3FileNames}">
        	<td th:text="${s3file}"/>
        	<td><a th:href="@{'/download/'+ ${s3file}}"> Download </a></td>
-       	<td><a th:href="@{'/delete/'+ ${s3file}}"> Delete </a></td>
+       	<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/delete/'+ ${s3file}}"> Delete </a></td>
        </tbody>
        
        </table>

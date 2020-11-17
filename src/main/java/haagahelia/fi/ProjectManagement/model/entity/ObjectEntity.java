@@ -11,8 +11,7 @@ import lombok.Setter;
  * Object Entity to be extended to non-human entities
  */
 
-@Getter
-@Setter
+@Getter @Setter
 @MappedSuperclass
 public class ObjectEntity extends BaseEntity {
 	

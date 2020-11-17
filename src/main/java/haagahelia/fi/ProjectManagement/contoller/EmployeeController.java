@@ -26,6 +26,7 @@ public class EmployeeController {
 
 	private final EmployeeRepository eRepository;
 	private static final String emailRegex = "^(.+)@(.+)$";
+	
 	/*
 	 * REST Service
 	 */
@@ -42,10 +43,10 @@ public class EmployeeController {
 		return eRepository.findById(empId);
 	}
 
+	
 	/*
 	 * MVC
 	 */
-
 	// Read All Employees
 	@RequestMapping(value = "/employeelist")
 	public String employeeList(Model model) {
@@ -123,10 +124,4 @@ public class EmployeeController {
 		}
 	}
 
-	/*// Delete Employee
-	@GetMapping(value = "/employeedelete/{id}")
-	public String deleteEmployee(@PathVariable("id") Long empId) {
-		eRepository.deleteById(empId);
-		return "redirect:../employeelist";
-	}*/
 }

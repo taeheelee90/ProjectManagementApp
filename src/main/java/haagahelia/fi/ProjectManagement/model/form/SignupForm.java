@@ -22,6 +22,10 @@ public class SignupForm {
 	@NotEmpty(message = "Please enter Password")
 	@Size(min = 5, max= 20, message = "Length should be between 5 and 20")
 	private String password = "";
+	
+	@NotEmpty (message = "Please enter Email")
+	@Size(min = 5, max= 20, message = "Length should be between 5 and 20")
+	private String email;
 
 	@NotEmpty(message = "Please re-type Password")
 	@Size(min = 5, max= 20, message = "Length should be between 5 and 20")

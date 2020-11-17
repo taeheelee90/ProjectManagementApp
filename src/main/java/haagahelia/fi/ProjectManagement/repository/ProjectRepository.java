@@ -18,9 +18,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 	 * List All Projects Order By ID 
 	 */
 	List<Project> findByOrderById();
-	
-	
-	
+		
 	
 	/*
 	 * List All Projects Order By Project Status 

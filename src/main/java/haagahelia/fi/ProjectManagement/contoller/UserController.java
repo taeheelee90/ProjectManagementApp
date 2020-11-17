@@ -17,7 +17,10 @@ import haagahelia.fi.ProjectManagement.repository.UserRepository;
 @Controller
 public class UserController {
 
-	@Autowired private UserRepository repository;
+	@Autowired
+	private UserRepository repository;
+	@Autowired
+	private static final String emailRegex = "^(.+)@(.+)$";
 
 	// Login
 	@GetMapping(value = "/login")
@@ -45,11 +48,18 @@ public class UserController {
 				User newUser = new User();
 				newUser.setPasswordHash(hashedpw);
 				newUser.setUsername(signupForm.getUsername());
+				newUser.setEmail(signupForm.getEmail());
 				newUser.setRole("USER");
-				
+
 				if (repository.findByUsername(signupForm.getUsername()) == null) { // check user name duplication
 
-					repository.save(newUser);
+					if (signupForm.getEmail().matches(emailRegex)) { // Check email format
+						repository.save(newUser);
+
+					} else { // Email form error
+						bindingResult.rejectValue("email", "err.email", "Email format is invalid");
+						return "main/signup";
+					}
 
 				} else { // User name duplication
 					bindingResult.rejectValue("username", "err.username", "Username already exists");

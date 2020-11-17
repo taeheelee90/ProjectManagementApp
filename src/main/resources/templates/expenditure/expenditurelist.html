@@ -14,7 +14,11 @@
 		<br> <br>
 		<h3 th:object="${projectId}"
 			th:text="'Project Id(' + ${projectId} + ')_Expenditure History'"></h3>
-
+			
+			
+		<!-- Add New Expenditure for pending project -->
+		<a th:object="${projectId}" th:href="@{/expenditureadd/__${projectId}__}" class="btn btn-primary"> Add Expenditure</a>
+			
 		<br> <br> <br>
 
 		<!-- List of Expenditures for pending project-->
@@ -40,12 +44,8 @@
 	
 		<div class="text-right" >
 			<!-- Add reference files for pending expenditure -->
-			<a th:href="@{/file}" class="btn btn-info"> Reference File</a>
-			
-			<!-- Add New Expenditure for pending project -->
-			<a th:object="${projectId}" th:href="@{/expenditureadd/__${projectId}__}" class="btn btn-info"> Add Expenditure</a>
+			<a th:href="@{/file}" class="btn btn-info"> Reference File Management</a>
 			<br>
-			
 			<a th:object="${projectId}" th:href="@{/project/__${projectId}__}" class="btn-default"> Back to Project Information</a>
 		</div>
 	

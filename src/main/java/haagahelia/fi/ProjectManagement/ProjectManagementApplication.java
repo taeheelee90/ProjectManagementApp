@@ -78,8 +78,10 @@ public class ProjectManagementApplication {
 
 			log.info("create users");
 			// user/user, admin/admin
-			User user1 = new User("user", "$2a$10$zTvn5SMAQ.NSO/jnY3PjAueq2qEKG1gVLXASHCob6q6.EpBDj90H6", "USER");
-			User user2 = new User("admin", "$2a$10$Qflab20ugY5RFyC65P.2VuqGPGLvlJEuzGOqZsB21j9j8tJlbcrGe", "ADMIN");
+			// email for testing
+			String email = "bgm173@myy.haaga-helia.fi";
+			User user1 = new User("user", "$2a$10$zTvn5SMAQ.NSO/jnY3PjAueq2qEKG1gVLXASHCob6q6.EpBDj90H6", email, "USER");
+			User user2 = new User("admin", "$2a$10$Qflab20ugY5RFyC65P.2VuqGPGLvlJEuzGOqZsB21j9j8tJlbcrGe", email,  "ADMIN");
 			uRepository.save(user1);
 			uRepository.save(user2);
 
