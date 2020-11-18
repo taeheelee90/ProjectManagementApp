@@ -66,7 +66,7 @@ public class AwsS3FileController {
 	@GetMapping("/delete/{filename}")
 	public String deleteFile(@PathVariable("filename") String fileName) {
 		awsS3Service.deleteFromBucket(bucket_name, fileName);
-		return "redirect:/home";
+		return "redirect:/file";
 	}
 
 }
