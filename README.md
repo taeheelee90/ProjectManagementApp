@@ -3,7 +3,7 @@ Simple Project Management App with Spring Boot
 
 ## Published by heroku
 https://projectmanagementapp-2020.herokuapp.com/login
-You can login by username: admin pw: admin
+
 
 ### Technologies in use 
 
