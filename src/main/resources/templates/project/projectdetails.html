@@ -60,8 +60,8 @@
 		
 		<div class="py-5 text-center">
 		<div class="text-right"
-			th:if="${project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).WAITING or 
-					project.status==T(haagahelia.fi.ProjectManagement.model.project.ProjectStatus).PROCEEDING}">
+			th:if="${project.status==T(taehee.lee.ProjectManagementApp_v2.domain.project.ProjectStatus).WAITING or 
+					project.status==T(taehee.lee.ProjectManagementApp_v2.domain.project.ProjectStatus).PROCEEDING}">
 
 			<a th:href="@{/expenditureadd/__${id}__}" class="btn btn-info"> Add Expenditure</a> 
 			
