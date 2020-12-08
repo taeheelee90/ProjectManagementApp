@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -95,5 +96,20 @@ public class AppUserController {
 		
 		appUserService.sendSignUpConfirmEmail(appUser);
 		return "redirect:/";
+	}
+	
+	@GetMapping("/profile/{username}")
+	public String showProfile (@PathVariable String username, Model model, @CurrentUser AppUser appUser) {
+		AppUser byUsername = appUserRepository.findByUsername(username);
+		
+		if (username == null) {
+			throw new IllegalArgumentException ("Can not find " + username);
+		}
+		
+		
+		model.addAttribute(byUsername);
+		model.addAttribute("isOwner", byUsername.equals(appUser));
+		
+		return "appuser/profile";
 	}
 }

@@ -24,7 +24,7 @@ import taehee.lee.ProjectManagementApp_v2.domain.BaseEntity;
 @Getter @Setter
 @EqualsAndHashCode( of = "id")
 @Builder @NoArgsConstructor @AllArgsConstructor
-@Table(name = "ServiceUsers")
+@Table(name = "AppUsers")
 public class AppUser extends BaseEntity {
 
 	@Email
@@ -37,8 +37,9 @@ public class AppUser extends BaseEntity {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	/*@Column(name = "role", nullable = false)
-	private String role;*/
+	private String description;
+	
+	private String phone;
 	
 	private boolean emailVerified;
 	
