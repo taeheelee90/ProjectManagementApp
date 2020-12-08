@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+
+<div class="container">
+		<div class="py-5 text-center">
+		<h3>Add new expenditure</h3>
+		</div>	
+
+		<div class="row justify-content-md-center">
+			<form class="form-horizontal" th:action="@{/expenditureadd/__${id}__}" th:object="${expenditure}" method="post">
+
+				<label for="expenditure" class="control-label col-sm-2">Expenditure</label>
+				<input type="number" id="cost" th:field="*{cost}" class="form-control" /><br> 
+				
+				<label for="description" class="control-label col-sm-2">Description</label> 
+				<input type="text" id="description" th:field="*{description}" class="form-control" /> <br> 
+	
+							 
+				<input type="submit" class="btn btn-success" value="Submit" />
+			</form>
+			
+			
+			
+		</div>
+		<div th:replace="fragments.html :: footer" />
+	</div>
+	<script th:replace="fragments.html :: form-validation"></script>
+</body>
+</html>

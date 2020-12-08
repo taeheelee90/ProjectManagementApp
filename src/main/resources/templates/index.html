@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+	<div class="alert alert-warning" role="alert" th:if="${appUser != null && !appUser.emailVerified}">
+		To complete sign up, please confirm <a href="a" th:href="@{/check-email}" class="alert-link">verification email</a>.
+	</div>
+
+
+		<div class="container">
+			<div class="py-5 text-center">
+			<h3>Welcome to Project Management</h3>
+			
+					<!--<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>  -->
+
+			</div>
+		</div>
+		<div th:replace="fragments.html :: footer" />
+
+	</div>
+</body>
+</html>

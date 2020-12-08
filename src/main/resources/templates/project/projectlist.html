@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+
+	<div class="container">
+		<br> <br>
+		<h3>Project List</h3>
+		<a class="btn btn-primary" th:href="@{/projectadd}"> Add Project</a> <br>
+		<br> 
+
+		<!-- Search Project -->
+		<form th:action="@{/project}">
+		<label for="name" >Project Keyword</label> 
+		 <input type="text" name="name" id="name" size="50" th:value="${name}" placeholder ="Enter Project Keyword"/> &nbsp; &nbsp;
+		<input type="submit" value="Search" /> &nbsp;
+		</form>
+
+		<br> 
+
+
+		<!-- Show Projects -->
+		<table class="table table-striped">
+		<p style ="font-size:small">Click &#9660 to change project list order</p>
+			<tr>
+				<th>Id <a th:href="@{/projectlist}" >  <span style='font-size:15px;'>&#9660;</span> </a></th>
+				<th>Project name <a th:href="@{/projectsbyname}" >  <span style='font-size:15px;'>&#9660;</span> </a></th>
+				<th>Start Date <a th:href="@{/projectstbystartdate}">  <span style='font-size:15px;'>&#9660;</span></a> </th>
+				<th>End Date  <a th:href="@{/projectstbyenddate}"> <span style='font-size:15px;'>&#9660;</span></a></th>
+				<th>Status <a th:href="@{/projectstbystatus}"> <span style='font-size:15px;'>&#9660;</span></a></th>
+				<th>Action</th>
+
+			</tr>
+
+			<tr th:each="project: ${projects}">
+				<td th:text="${project.id}"></td>
+				<td th:text="${project.name}"></td>
+				<td th:text="${#temporals.format(project.startDate, 'yyyy-MM-dd')}"></td>
+				<td th:text="${#temporals.format(project.endDate, 'yyyy-MM-dd')}"></td>
+				<td th:text="${project.status}"></td>
+				<td><a th:href="@{/project/__${project.id}__}"> Show Details</a></td>
+
+			</tr>
+		</table>
+
+		<br>
+
+
+		
+		<div th:replace="fragments.html :: footer" />
+	</div>
+</div>
+</body>
+</html>

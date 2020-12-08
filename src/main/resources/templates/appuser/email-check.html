@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+
+	<div class="container">
+	
+		<div class="py-5 text-center" th:if="${error}">
+  	   		<p class="lead">Email Verification</p>
+   	   		<div class="alert alert-danger" role="alert" th:text="${error}">  </div> 
+   	   		<p class="lead" th:text="${email}">email</p>
+  		</div>
+  		
+  		
+  		 <div class="py-5 text-center" th:if="${error == null}">
+    		<p class="lead"> Email Verification Required</p>
+  			<h2>
+  				Please confirm verification email to complete sign up process</span> 
+  			</h2>
+  	
+  			<div>
+  				<p class="lead" th:text="${email}">email</p>
+  				<a class="btn btn-outline-info" th:href="@{/resend-confirm-email}">Resend email</a>
+  			</div>
+ 		</div>
+ 		
+ 				
+		
+	<div th:replace="fragments.html :: footer" />
+	
+</div>
+</body>
+</html>

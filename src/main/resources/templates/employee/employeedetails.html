@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+		<br> <br>
+
+
+		<!-- Show Project Information -->
+	<div class="container">
+		<div class="py-5 text-center">
+			<h3>Project Manager Information</h3>
+			<br> <br> <br>
+
+		<!-- Show Basic Information of PM -->
+		<table class="table table-striped" th:object="${employee}">
+			<h4>Basic Information</h4>
+			<tr>
+				<th>Employee Id</th>
+				<td th:text="*{id}"></td>
+			</tr>
+
+			<tr>
+				<th>Employee Name</th>
+				<td th:text="*{firstName} + ' ' + *{lastName}"></td>
+			</tr>
+
+			<tr>
+				<th>Employee Department</th>
+				<td th:text="*{department}"></td>
+			</tr>
+
+			<tr>
+				<th>Email</th>
+				<td th:text="*{email}"></td>
+			</tr>
+
+			<tr>
+				<th>Phone</th>
+				<td th:text="*{phone}"></td>
+			</tr>
+
+		</table>
+
+
+		<br>
+		<div class="text-right">
+			<a th:href="@{/employeeedit/{id}(id = ${id})}" class="btn btn-warning">Edit</a>
+		
+		</div>
+		<br>
+		
+		
+		<!-- Show Project List of PM -->
+		<table class="table table-striped">
+			<h4>Project Information</h4>
+			<tr>
+				<th>Project Id</th>
+				<th>Project name</th>
+				<th>Status</th>
+				<th>More Info</th>
+			</tr>
+
+
+			<tr th:each="project : ${employee.projects}">
+				<td th:text="${project.id}"></td>
+				<td th:text="${project.name}"></td>
+				<td th:text="${project.status}"></td>
+				<td><a th:href="@{/project/__${project.id}__}" class="btn btn-default"> Show Details</a></td>
+			</tr>
+		</table>
+
+
+
+</div>
+	<div th:replace="fragments.html :: footer" />
+
+
+	</div>
+
+
+
+</body>
+</html>

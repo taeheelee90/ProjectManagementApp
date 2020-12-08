@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head"></head>
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+
+	<div class="container">
+		
+		<h3>Expenditure Reference Files</h3>		
+		
+		<br> <br>
+				
+		<!-- File Submission -->
+		<h5>Submit Expenditure Reference(s).</h5>
+		<p>USE THIS FORM: 
+			<a href="https://haagahelia-my.sharepoint.com/:x:/g/personal/bgm173_myy_haaga-helia_fi/EUroop9SCuZHrwZJaugZBiMBve_fxZ51jBZ4YGu7fkmnNA?e=lVicVu" target="_blank"> "Expenditure Reference Form" </a> 
+		</p>
+		
+		
+		
+		
+		<form  method="post" th:action="@{/file}" encType="multipart/form-data">
+			<label for="file" class="control-label col-sm-2">Attachment</label>
+			<input type="file" name="files" multiple required />
+			<input type="submit" value="Upload">
+		</form>
+	
+		<br> <br>
+		
+		
+		<!-- Show submitted files from S3 storage -->
+		<h5>Reference files</h5>
+		<table class="table table-striped">
+		<thead>
+         <tr>
+           <th>Name</th>
+           <th>Download</th>
+           <th sec:authorize="hasAuthority('ADMIN')">Delete</th>
+         </tr>
+       </thead>
+       
+       <tbody>
+       <tr th:each="s3file: ${s3FileNames}">
+       	<td th:text="${s3file}"/>
+       	<td><a th:href="@{'/download/'+ ${s3file}}"> Download </a></td>
+       	<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/delete/'+ ${s3file}}"> Delete </a></td>
+       </tbody>
+       
+       </table>
+     
+       <br>
+		<div th:replace="fragments.html :: footer" />
+	</div>
+	<script th:replace="fragments.html :: form-validation"></script>
+
+
+
+</body>
+</html>
+       

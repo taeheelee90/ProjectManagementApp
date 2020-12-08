@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+
+<div class="container">
+		<div class="py-5 text-center">
+		<h3>Update Project Manager</h3>
+		</div>	
+
+		<div class="row justify-content-md-center">	
+			<form class="form-horizontal" action="#"
+				th:action="@{/employeeedit}" th:object="${employee}" method="post">
+
+				<input type="hidden" id="id" th:field="*{id}" /> 
+				
+				
+				<label for="firstName" class="control-label col-sm-2">First Name</label> 
+				<input type="text" id="firstName" th:field="*{firstName}" class="form-control" />
+				<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</p>
+				<br> 
+				
+				<label for="lastname" class="control-label col-sm-2">Last Name</label> 
+				<input type="text" id="name" th:field="*{lastName}" class="form-control" />
+				<p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</p>
+				<br>
+
+				<label for="department" class="control-label col-sm-2">Department</label>
+				<select id="department" th:field=*{department} class="form-control">
+					<option
+						th:each="department: ${T(haagahelia.fi.ProjectManagement.model.Department).values()}"
+						th:value="${department}" th:text="${department}"></option>
+				</select> <br> 
+				
+				
+				<label th:for="email" class="control-label col-sm-2">Email</label>
+				<input type="text" th:field="*{email}" class="form-control" />
+				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+				<br>
+
+				<label th:for="phone" class="control-label col-sm-2">Phone</label> 
+				<input type="text" th:field="*{phone}" class="form-control" />
+				<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</p>
+				<br>
+
+
+				<div style="clear: both; display: block; height: 10px;"></div>
+
+				<input type="submit" class="btn btn-success" value="Submit" />
+		
+			</form>
+				</div>
+		<div th:replace="fragments.html :: footer" />
+	</div>
+	<script th:replace="fragments.html :: form-validation"></script>
+</body>
+</html>

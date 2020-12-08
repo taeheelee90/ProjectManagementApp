@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+
+	<div class="container">
+		<div class="py-5 text-center" th:if="${error}">
+			<h3>Sign Up Error</h3>
+			<div class="alert alert-danger" role="alert">
+  			 Email confirmation failed.
+  	   		</div> 
+  		</div>
+  		
+  		
+  		<div class="py-5 text-center" th:if="${error == null}">
+   			 <p class="lead"> Verification completed.</p>
+  			<h2> Welcome <span th:text="${username}"></span>.</h2>
+  			<small class="text-info">You can login with your email or username & password.</small>
+ 		</div>
+  		
+		
+		<div th:replace="fragments.html :: footer" />
+	</div>
+
+</body>
+</html>

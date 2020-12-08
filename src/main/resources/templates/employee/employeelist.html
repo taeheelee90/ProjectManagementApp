@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+<div th:replace="fragments.html :: navBar" > </div>
+
+	<div class="container">
+		<br> <br>
+		<h3>Project Manager List</h3>
+
+
+		<!-- Add new PM -->
+		<a class="btn btn-primary" th:href="@{/employeeadd}"> Add PM</a> 
+		<br> <br> <br>
+
+
+		<!-- Brief PM List -->
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Department</th>
+				<th>Action</th>
+			</tr>
+
+			<tr th:each="employee: ${employees}">
+				<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
+				<td th:text="${employee.department}"></td>
+				<td><a th:href="@{/employee/__${employee.id}__}" > Show Details</a></td>
+			</tr>
+		</table>
+
+		<br>
+		
+		<div th:replace="fragments.html :: footer" />
+	</div>
+</body>
+</html>
