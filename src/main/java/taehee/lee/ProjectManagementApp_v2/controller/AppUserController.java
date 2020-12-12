@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import lombok.RequiredArgsConstructor;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.CurrentUser;
-import taehee.lee.ProjectManagementApp_v2.domain.form.SignupForm;
+import taehee.lee.ProjectManagementApp_v2.domain.form.SignUpForm;
 import taehee.lee.ProjectManagementApp_v2.domain.validator.SignUpFormValidator;
 import taehee.lee.ProjectManagementApp_v2.repository.AppUserRepository;
 import taehee.lee.ProjectManagementApp_v2.service.AppUserService;
@@ -36,19 +36,19 @@ public class AppUserController {
 	// Sign up
 	@GetMapping(value = "/signup")
 	public String signUpform(Model model) {
-		model.addAttribute("signupform", new SignupForm());
+		model.addAttribute("signUpForm", new SignUpForm());
 		return "appuser/signup";
 	}
 
 	// Handling sign up
 	@PostMapping(value = "/signup")
-	public String signUpSubmit(@Valid SignupForm signupForm, Errors errors) {
+	public String signUpSubmit(@Valid SignUpForm signUpForm, Errors errors) {
 		
 		if(errors.hasErrors()) {
 			return "appuser/signup";
 		}
 		
-		AppUser appUser = appUserService.processNewAccount(signupForm);
+		AppUser appUser = appUserService.processNewAccount(signUpForm);
 		appUserService.login(appUser);
 		
 		return "redirect:/";

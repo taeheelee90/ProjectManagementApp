@@ -7,20 +7,17 @@
 <body>
 <div th:replace="fragments.html :: navBar" > </div>
 	<div class="container">
-		
-		
 
 		<div class="py-5 text-center">
 			<h3>Sign-up</h3>
 		</div>		
 
 		<div class="row justify-content-center">
-			<form  class="needs-validation col-sm-6" action="#" th:action="@{/signup}" th:object="${signupform}"  method="post" novalidate>
+			<form  class="needs-validation col-sm-6" action="#" th:action="@{/signup}" th:object="${signUpForm}"  method="post" novalidate>
 				
 				<div class ="form-group">
 					<label for="username"> Username </label>
-					<input id="username" type="text" th:field="*{username}" class="form-control" aria-describedby="usernameHelp" required minlength="4" maxlength="10">
-					<small id="usernameHelp" class="form-text text-muted"> Username should be 4~10 letters. </small>
+					<input id="username" type="text" th:field="*{username}" class="form-control" placeholder="4~10 characters" aria-describedby="usernameHelp" required minlength="4" maxlength="10">
 					<small class="invalid-feedback">Please enter username.</small>
 					<small class="form-text text danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</small>
 				</div>
@@ -28,7 +25,6 @@
 				<div class ="form-group">
 					<label for="email"> Email </label>
 					<input id="email" type="text" th:field="*{email}" class="form-control" aria-describedby="emailHelp" required>
-					<small id="emailHelp" class="form-text text-muted"> Email is not used for other purpose than login. </small>
 					<small class="invalid-feedback">Please enter email.</small>
 					<small class="form-text text danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
 				</div>

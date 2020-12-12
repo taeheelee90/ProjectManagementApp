@@ -5,7 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import lombok.RequiredArgsConstructor;
-import taehee.lee.ProjectManagementApp_v2.domain.form.SignupForm;
+import taehee.lee.ProjectManagementApp_v2.domain.form.SignUpForm;
 import taehee.lee.ProjectManagementApp_v2.repository.AppUserRepository;
 
 @Component
@@ -16,12 +16,12 @@ public class SignUpFormValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return clazz.isAssignableFrom(SignupForm.class);
+		return clazz.isAssignableFrom(SignUpForm.class);
 	}
 
 	@Override
-	public void validate(Object user, Errors errors) {
-		SignupForm signUpForm = (SignupForm) user;
+	public void validate(Object target, Errors errors) {
+		SignUpForm signUpForm = (SignUpForm) target;
 		
 		if (appUserRepository.existsByEmail(signUpForm.getEmail())) {
 			errors.rejectValue("email", "invalid.email", new Object[] {signUpForm.getEmail()}, "Email is already in use.");

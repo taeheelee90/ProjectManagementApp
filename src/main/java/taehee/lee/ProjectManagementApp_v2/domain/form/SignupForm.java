@@ -13,17 +13,17 @@ import lombok.Data;
 
 
 @Data
-public class SignupForm {
+public class SignUpForm {
 
-	@NotBlank (message = "Please enter username")
+	@NotBlank 
 	@Length(min = 4, max= 10, message = "Length should be between 4 and 10")
 	private String username;
 
-	@NotBlank(message = "Please enter Password")
+	@NotBlank
 	@Length(min = 5, max= 20, message = "Length should be between 5 and 20")
 	private String password;
 	
-	@NotBlank (message = "Please enter Email")
+	@NotBlank 
 	@Email
 	private String email;
 

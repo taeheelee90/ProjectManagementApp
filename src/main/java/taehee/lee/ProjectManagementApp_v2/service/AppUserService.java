@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.UserAccount;
 import taehee.lee.ProjectManagementApp_v2.domain.form.AppUserProfileForm;
-import taehee.lee.ProjectManagementApp_v2.domain.form.SignupForm;
+import taehee.lee.ProjectManagementApp_v2.domain.form.SignUpForm;
 import taehee.lee.ProjectManagementApp_v2.repository.AppUserRepository;
 
 @Service
@@ -36,7 +36,7 @@ public class AppUserService implements UserDetailsService {
 	
 
 
-	public AppUser processNewAccount(@Valid SignupForm signupForm) {
+	public AppUser processNewAccount(@Valid SignUpForm signupForm) {
 		AppUser newUser = saveNewUser(signupForm);
 		newUser.generateEmailCheckToken();
 		sendSignUpConfirmEmail(newUser);
@@ -44,7 +44,7 @@ public class AppUserService implements UserDetailsService {
 		return newUser;
 	}
 
-	private AppUser saveNewUser(@Valid SignupForm signupForm) {
+	private AppUser saveNewUser(@Valid SignUpForm signupForm) {
 		AppUser appUser = AppUser.builder()
 									  .email(signupForm.getEmail())
 									  .username(signupForm.getUsername())
