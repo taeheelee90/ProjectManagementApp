@@ -32,7 +32,7 @@
 				<label for="department" class="control-label col-sm-2">Department</label>
 				<select id="department" th:field=*{department} class="form-control">
 					<option
-						th:each="department: ${T(haagahelia.fi.ProjectManagement.model.Department).values()}"
+						th:each="department: ${T(taehee.lee.ProjectManagementApp_v2.domain.employee.Department).values()}"
 						th:value="${department}" th:text="${department}"></option>
 				</select> <br> 
 				

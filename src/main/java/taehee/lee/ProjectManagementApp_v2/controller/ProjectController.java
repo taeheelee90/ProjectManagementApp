@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
+import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
+import taehee.lee.ProjectManagementApp_v2.domain.appUser.CurrentUser;
 import taehee.lee.ProjectManagementApp_v2.domain.form.ProjectForm;
 import taehee.lee.ProjectManagementApp_v2.domain.project.Project;
 import taehee.lee.ProjectManagementApp_v2.domain.project.ProjectStatus;
@@ -59,7 +61,8 @@ public class ProjectController {
 	 */
 	// Read All Projects : Default order (Order by Id)
 	@GetMapping(value = "/projectlist")
-	public String projectList(Model model) {
+	public String projectList(@CurrentUser AppUser appUser, Model model) {
+		model.addAttribute(appUser);
 		model.addAttribute("projects", pRepository.findByOrderById());
 		return "project/projectlist";
 
@@ -67,7 +70,8 @@ public class ProjectController {
 
 	// Change order (by name)
 	@GetMapping(value = "/projectsbyname")
-	public String projectsByName(Model model) {
+	public String projectsByName(@CurrentUser AppUser appUser, Model model) {
+		model.addAttribute(appUser);
 		model.addAttribute("projects", pRepository.findByOrderByName());
 		return "project/projectlist";
 
@@ -75,38 +79,41 @@ public class ProjectController {
 
 	// Change order (by start date)
 	@GetMapping(value = "projectstbystartdate")
-	public String projectsByStartDate(Model model) {
+	public String projectsByStartDate(@CurrentUser AppUser appUser, Model model) {
+		model.addAttribute(appUser);
 		model.addAttribute("projects", pRepository.findByOrderByStartDate());
 		return "project/projectlist";
 	}
 
 	// Change order (by end date)
 	@GetMapping(value = "projectstbyenddate")
-	public String projecsByEndDate(Model model) {
+	public String projecsByEndDate(@CurrentUser AppUser appUser, Model model) {
+		model.addAttribute(appUser);
 		model.addAttribute("projects", pRepository.findByOrderByEndDate());
 		return "project/projectlist";
 	}
 
 	// Change order (by status)
 	@GetMapping(value = "projectstbystatus")
-	public String projecsByStatus(Model model) {
+	public String projecsByStatus(@CurrentUser AppUser appUser, Model model) {
+		model.addAttribute(appUser);
 		model.addAttribute("projects", pRepository.findByOrderByStatus());
 		return "project/projectlist";
 	}
 
 	// Read Project Details
 	@GetMapping(value = "/project/{id}")
-	public String projectDetails(@PathVariable("id") Long projectId, Model model) {
+	public String projectDetails(@CurrentUser AppUser appUser, @PathVariable("id") Long projectId, Model model) {
 		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));
 		pRepository.findById(projectId)
 				.ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
-
+		model.addAttribute(appUser);
 		return "project/projectdetails";
 	}
 
 	// Search Project by keyword in name
 	@GetMapping("/project")
-	public String searchProjectByName(Project project, BindingResult result, Map<String, Object> model) {
+	public String searchProjectByName(@CurrentUser AppUser appUser, Project project, BindingResult result, Map<String, Object> model) {
 
 		// request without parameter returns all list
 		if (project.getName() == null) {
@@ -126,22 +133,23 @@ public class ProjectController {
 		} else {
 			// multiple projects found
 			model.put("projects", results);
-
+			((Model) model).addAttribute(appUser);
 			return "project/projectlist";
 		}
 	}
 
 	// Add new Project
 	@GetMapping(value = "/projectadd")
-	public String addProject(Model model) {
+	public String addProject(@CurrentUser AppUser appUser, Model model) {
 		model.addAttribute("projectForm", new ProjectForm());
 		model.addAttribute("employees", eRepository.findAll());
+		model.addAttribute(appUser);
 		return "project/projectForm";
 	}
 
 	// Submit Project
 	@PostMapping(value = "/projectsubmit")
-	public String saveProject(@Valid @ModelAttribute("projectForm") ProjectForm projectForm,
+	public String saveProject(@CurrentUser AppUser appUser, @Valid @ModelAttribute("projectForm") ProjectForm projectForm,
 			BindingResult bindingResult, Model model) {
 		if (!bindingResult.hasErrors()) {
 
@@ -164,35 +172,40 @@ public class ProjectController {
 					// budget is 0
 					bindingResult.rejectValue("budget", "err.budget", "Initial Budget can not be 0");
 					model.addAttribute("employees", eRepository.findAll());
+					model.addAttribute(appUser);
 					return "project/projectForm";
 
 				}
 			} else { // End Date is before Start Date
 				bindingResult.rejectValue("endDate", "err.endDate", "End Date must be after Start Date");
 				model.addAttribute("employees", eRepository.findAll());
+				model.addAttribute(appUser);
 				return "project/projectForm";
 			}
 		} else { // Any other errors
 			model.addAttribute("employees", eRepository.findAll());
+			model.addAttribute(appUser);
 			return "project/projectForm";
 		}
 
 		// No error found
+		model.addAttribute(appUser);
 		return "redirect:projectlist";
 
 	}
 
 	// Update Project
 	@GetMapping(value = "/projectedit/{id}")
-	public String updateProject(@PathVariable("id") Long projectId, Model model) {
+	public String updateProject(@CurrentUser AppUser appUser, @PathVariable("id") Long projectId, Model model) {
 		model.addAttribute("project", pRepository.findById(projectId));
 		model.addAttribute("employees", eRepository.findAll());
+		model.addAttribute(appUser);
 		return "project/updateproject";
 	}
 
 	// Submit updates
 	@PostMapping(value = "/projectedit")
-	public String saveUpdate(Project project, BindingResult bindingResult, Model model) {
+	public String saveUpdate(@CurrentUser AppUser appUser, Project project, BindingResult bindingResult, Model model) {
 
 		if (!bindingResult.hasErrors()) {
 			if (project.getEndDate().isAfter(project.getStartDate())) { // Check end date validity
@@ -218,11 +231,13 @@ public class ProjectController {
 						bindingResult.rejectValue("budget", "err.budget",
 								"Please check remaining budget. (RULE: COMPLETE Project must have 0) ");
 						model.addAttribute("employees", eRepository.findAll());
+						model.addAttribute(appUser);
 					} else {
 						// budget is 0 (and status is not COMPLETE)
 						bindingResult.rejectValue("budget", "err.budget",
 								"Please check remaining budget. (RULE: Not complete projet can not have 0) ");
 						model.addAttribute("employees", eRepository.findAll());
+						model.addAttribute(appUser);
 					}
 
 					return "project/updateproject";
@@ -231,13 +246,16 @@ public class ProjectController {
 			} else { // End Date is before Start Date
 				bindingResult.rejectValue("endDate", "err.endDate", "End Date must be after Start Date");
 				model.addAttribute("employees", eRepository.findAll());
+				model.addAttribute(appUser);
 				return "project/updateproject";
 			}
 		} else { // Any other errors
+			model.addAttribute(appUser);
 			model.addAttribute("employees", eRepository.findAll());
 			return "project/updateproject";
 		}
 		// No error found
+		model.addAttribute(appUser);
 		return "redirect:projectlist";
 	}
 

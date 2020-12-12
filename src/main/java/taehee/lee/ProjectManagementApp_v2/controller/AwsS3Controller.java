@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
+import taehee.lee.ProjectManagementApp_v2.domain.appUser.CurrentUser;
 import taehee.lee.ProjectManagementApp_v2.service.AwsS3Service;
 
 
@@ -38,10 +40,10 @@ public class AwsS3Controller {
 
 	// File Lists
 	@GetMapping(value = "/file")
-	public String fileForm(Model model) {
+	public String fileForm(@CurrentUser AppUser appUser, Model model) {
 		List<String> allFileNameInBucket = awsS3Service.getAllFileNameInBucket(bucket_name);
 		model.addAttribute("s3FileNames", allFileNameInBucket);
-
+		model.addAttribute(appUser);
 		return "expenditure/files";
 	}
 
@@ -51,6 +53,7 @@ public class AwsS3Controller {
 		File file = File.createTempFile("tmp", "tmp");
 		multipartFile.transferTo(file);
 		awsS3Service.upload(file, multipartFile.getOriginalFilename(), bucket_name);
+		
 		return "redirect:/file";
 	}
 

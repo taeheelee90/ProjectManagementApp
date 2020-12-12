@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.RequiredArgsConstructor;
+import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
+import taehee.lee.ProjectManagementApp_v2.domain.appUser.CurrentUser;
 import taehee.lee.ProjectManagementApp_v2.domain.project.ProjectExpenditure;
 import taehee.lee.ProjectManagementApp_v2.repository.ProjectExpenditureRepository;
 import taehee.lee.ProjectManagementApp_v2.service.ProjectExpenditureService;
@@ -31,27 +33,27 @@ public class ProjectExpenditureController {
 
 	// Show All Expenditures
 	@GetMapping(value = "expendituretlist/{id}")
-	public String expenditureList(@PathVariable("id") Long projectId, Model model) {
+	public String expenditureList(@CurrentUser AppUser appUser, @PathVariable("id") Long projectId, Model model) {
 		model.addAttribute("expenditures", peRepository.findByProjectId(projectId));
 		model.addAttribute("projectId", projectId);
-
+		model.addAttribute(appUser);
 		return "expenditure/expenditurelist";
 	}
 
 	// Add Expenditure
 	@GetMapping(value = "expenditureadd/{id}")
-	public String addExpenditure(@PathVariable("id") Long projectId, Model model) {
+	public String addExpenditure(@CurrentUser AppUser appUser, @PathVariable("id") Long projectId, Model model) {
 		model.addAttribute("expenditure", new ProjectExpenditure());
-		//model.addAttribute("docs", new ExpenditureDocs());
+		model.addAttribute(appUser);
 		return "expenditure/addexpenditure";
 	}
 
 	// Handling expenditure submission
 	@PostMapping(value = "/expenditureadd/{id}")
-	public String expendtirueSubmit(@PathVariable("id") Long projectId, ProjectExpenditure expenditure) {
+	public String expendtirueSubmit(@CurrentUser AppUser appUser, @PathVariable("id") Long projectId, ProjectExpenditure expenditure, Model model) {
 
 		service.addExpenditure(projectId, expenditure.getCost(), expenditure.getDescription());
-
+		model.addAttribute(appUser);
 		return "redirect:/expendituretlist/{id}";
 	}
 	

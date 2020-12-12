@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
+import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
+import taehee.lee.ProjectManagementApp_v2.domain.appUser.CurrentUser;
 import taehee.lee.ProjectManagementApp_v2.domain.employee.Employee;
 import taehee.lee.ProjectManagementApp_v2.domain.form.EmployeeForm;
 import taehee.lee.ProjectManagementApp_v2.repository.EmployeeRepository;
@@ -49,14 +51,16 @@ public class ProjectManagerController {
 	 */
 	// Read All Employees
 	@RequestMapping(value = "/employeelist")
-	public String employeeList(Model model) {
+	public String employeeList(@CurrentUser AppUser appUser, Model model) {
+		model.addAttribute(appUser);
 		model.addAttribute("employees", eRepository.findAll());
 		return "employee/employeelist";
 	}
 
 	// Read Employee Details
 	@GetMapping(value = "/employee/{id}")
-	public String projectDetails(@PathVariable("id") Long employeeId, Model model) {
+	public String projectDetails(@CurrentUser AppUser appUser, @PathVariable("id") Long employeeId, Model model) {
+		model.addAttribute(appUser);
 		eRepository.findById(employeeId).ifPresent(employee -> model.addAttribute("employee", employee));
 		eRepository.findById(employeeId).ifPresent(employee -> model.addAttribute("projects", employee.getProjects()));
 
@@ -65,7 +69,8 @@ public class ProjectManagerController {
 
 	// Add Employee
 	@GetMapping(value = "/employeeadd")
-	public String addEmployee(Model model) {
+	public String addEmployee(@CurrentUser AppUser appUser, Model model) {
+		model.addAttribute(appUser);
 		model.addAttribute("employeeForm", new EmployeeForm());
 		return "employee/employeeform";
 
@@ -73,8 +78,8 @@ public class ProjectManagerController {
 
 	// Submit Employee
 	@PostMapping(value = "/employeesubmit")
-	public String saveEmployee(@Valid @ModelAttribute("employeeForm") EmployeeForm employeeForm,
-			BindingResult bindingResult, Model model) {
+	public String saveEmployee(@CurrentUser AppUser appUser, @Valid @ModelAttribute("employeeForm") EmployeeForm employeeForm, Model model,
+			BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) { // check validity
 			if (employeeForm.getEmail().matches(emailRegex)) { // Check email format
 				// Save new Employee when all inputs pass validity
@@ -87,39 +92,46 @@ public class ProjectManagerController {
 
 				eRepository.save(employee);
 			} else { // Email form error
+				model.addAttribute(appUser);
 				bindingResult.rejectValue("email", "err.email", "Email format is invalid");
 				return "employee/employeeform";
 			}
 		} else { // Any errors occurred
+			model.addAttribute(appUser);
 			model.addAttribute("employees", eRepository.findAll());
 			return "employee/employeeform";
 		}
 		// No error found
+		model.addAttribute(appUser);
 		return "redirect:employeelist";
 
 	}
 
 	// Update Employee
 	@GetMapping(value = "/employeeedit/{id}")
-	public String updateEmployee(@PathVariable("id") Long empId, Model model) {
+	public String updateEmployee(@CurrentUser AppUser appUser, @PathVariable("id") Long empId, Model model) {
 		eRepository.findById(empId).ifPresent(employee -> model.addAttribute("employee", employee));
+		model.addAttribute(appUser);
 
 		return "employee/updateemployee";
 	}
 
 	// Save updates
 	@PostMapping(value = "/employeeedit")
-	public String updateHandling(@Valid Employee employee, BindingResult bindingResult) {
+	public String updateHandling(@CurrentUser AppUser appUser, @Valid Employee employee, Model model, BindingResult bindingResult) {
 
 		if (!bindingResult.hasErrors()) {
 			if (employee.getEmail().matches(emailRegex)) {
+				
 				eRepository.save(employee);
 				return "redirect:employeelist";
 			} else { // Email form error
+				model.addAttribute(appUser);
 				bindingResult.rejectValue("email", "err.email", "Email format is invalid");
 				return "employee/updateemployee";
 			}
 		} else {
+			model.addAttribute(appUser);
 			return "employee/updateemployee";
 		}
 	}
