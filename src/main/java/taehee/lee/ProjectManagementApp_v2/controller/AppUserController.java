@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import lombok.RequiredArgsConstructor;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.CurrentUser;
-import taehee.lee.ProjectManagementApp_v2.domain.form.SignUpFormValidator;
 import taehee.lee.ProjectManagementApp_v2.domain.form.SignupForm;
+import taehee.lee.ProjectManagementApp_v2.domain.validator.SignUpFormValidator;
 import taehee.lee.ProjectManagementApp_v2.repository.AppUserRepository;
 import taehee.lee.ProjectManagementApp_v2.service.AppUserService;
 

@@ -27,14 +27,13 @@ import taehee.lee.ProjectManagementApp_v2.domain.BaseEntity;
 @Table(name = "AppUsers")
 public class AppUser extends BaseEntity {
 
-	@Email
-	@Column(name = "email", nullable = false)
-	private String email;
 	
-	@Column(name = "username", nullable = false, unique = true)
+	@Column(unique = true)
+	private String email;
+		
+	@Column(unique = true)
 	private String username;
 
-	@Column(name = "password", nullable = false)
 	private String password;
 
 	private String description;

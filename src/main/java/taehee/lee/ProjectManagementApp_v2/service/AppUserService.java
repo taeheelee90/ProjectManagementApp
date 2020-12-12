@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.UserAccount;
+import taehee.lee.ProjectManagementApp_v2.domain.form.AppUserProfileForm;
 import taehee.lee.ProjectManagementApp_v2.domain.form.SignupForm;
 import taehee.lee.ProjectManagementApp_v2.repository.AppUserRepository;
 
@@ -30,6 +32,7 @@ public class AppUserService implements UserDetailsService {
 	private final AppUserRepository appUserRepository;
 	private final JavaMailSender javaMailSender;
 	private final PasswordEncoder passwordEncoder;
+	private final ModelMapper modelMapper;
 	
 
 
@@ -42,12 +45,12 @@ public class AppUserService implements UserDetailsService {
 	}
 
 	private AppUser saveNewUser(@Valid SignupForm signupForm) {
-		AppUser user = AppUser.builder()
+		AppUser appUser = AppUser.builder()
 									  .email(signupForm.getEmail())
 									  .username(signupForm.getUsername())
 									  .password(passwordEncoder.encode(signupForm.getPassword())).build();
 		
-		AppUser newUser = appUserRepository.save(user);
+		AppUser newUser = appUserRepository.save(appUser);
 		return newUser;
 	}
 	
@@ -98,6 +101,18 @@ public class AppUserService implements UserDetailsService {
 		login(appUser);
 		
 	}
+
+	public void profileUpdate(AppUser appUser, @Valid AppUserProfileForm profileForm) {
+		modelMapper.map(profileForm, appUser);
+		appUserRepository.save(appUser);		
+	}
+
+	public void passwordUpdate(AppUser appUser, String newPassword) {
+		appUser.setPassword(passwordEncoder.encode(newPassword));
+		appUserRepository.save(appUser);		
+	}
+	
+	
 
 	
 }
