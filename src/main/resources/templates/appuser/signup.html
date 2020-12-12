@@ -17,7 +17,8 @@
 				
 				<div class ="form-group">
 					<label for="username"> Username </label>
-					<input id="username" type="text" th:field="*{username}" class="form-control" placeholder="4~10 characters" aria-describedby="usernameHelp" required minlength="4" maxlength="10">
+					<input id="username" type="text" th:field="*{username}" class="form-control" aria-describedby="usernameHelp" required minlength="4" maxlength="10">
+					<small id="usernameHelp" class="form-text text-muted"> Username should be 4~10 characters. </small>
 					<small class="invalid-feedback">Please enter username.</small>
 					<small class="form-text text danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</small>
 				</div>

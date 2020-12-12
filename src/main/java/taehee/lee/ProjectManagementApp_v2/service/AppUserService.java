@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.UserAccount;
 import taehee.lee.ProjectManagementApp_v2.domain.form.AppUserProfileForm;
+import taehee.lee.ProjectManagementApp_v2.domain.form.AppUsernameForm;
 import taehee.lee.ProjectManagementApp_v2.domain.form.SignUpForm;
 import taehee.lee.ProjectManagementApp_v2.repository.AppUserRepository;
 
@@ -110,6 +111,12 @@ public class AppUserService implements UserDetailsService {
 	public void passwordUpdate(AppUser appUser, String newPassword) {
 		appUser.setPassword(passwordEncoder.encode(newPassword));
 		appUserRepository.save(appUser);		
+	}
+
+	public void updateUsername(AppUser appUser, @Valid AppUsernameForm appUsernameForm) {
+		modelMapper.map(appUsernameForm, appUser);
+		appUserRepository.save(appUser);
+		login(appUser);	
 	}
 	
 	

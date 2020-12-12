@@ -1,8 +1,7 @@
 package taehee.lee.ProjectManagementApp_v2.domain.form;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -16,11 +15,11 @@ import lombok.Data;
 public class SignUpForm {
 
 	@NotBlank 
-	@Length(min = 4, max= 10, message = "Length should be between 4 and 10")
+	@Size(min = 4, max= 10, message = "Length should be between 4 and 10")
 	private String username;
 
 	@NotBlank
-	@Length(min = 5, max= 20, message = "Length should be between 5 and 20")
+	@Size(min = 5, max= 20, message = "Length should be between 5 and 20")
 	private String password;
 	
 	@NotBlank 
