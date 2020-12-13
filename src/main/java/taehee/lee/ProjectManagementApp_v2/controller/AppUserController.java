@@ -125,11 +125,11 @@ public class AppUserController {
 			return "appuser/email-login";
 		}
 		
-		/*if(!appUser.canResendEmail()) {
+		if(!appUser.canResendEmail()) {
 			model.addAttribute("error", "Can not send email now. Please try again one hour later.");
 			return "appuser/email-login";
 		}
-		*/
+		
 		appUserService.sendLoginLink(appUser);
 		attributes.addFlashAttribute("message", "Sent login link to email.");
 		return "redirect:/email-login";
@@ -140,8 +140,14 @@ public class AppUserController {
 	public String loginByEmail (String token, String email, Model model) {
 		AppUser appUser = appUserRepository.findByEmail(email);
 		
-		if(appUser == null || !appUser.isValidtoken(token)) {
+		if(appUser == null ) { 
 			model.addAttribute("error", "Can not login");
+			return "appuser/logged-in-by-email";
+		}
+		
+		if(!appUser.isValidtoken(token)) {
+			String msg = "url Token: " + token + " appToken: " + appUser.getEmailCheckToken();
+			model.addAttribute("error", msg);
 			return "appuser/logged-in-by-email";
 		}
 		

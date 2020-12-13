@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -21,59 +18,59 @@ import lombok.Setter;
 import taehee.lee.ProjectManagementApp_v2.domain.BaseEntity;
 
 @Entity
-@Getter @Setter
-@EqualsAndHashCode( of = "id")
-@Builder @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(of = "id")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "AppUsers")
 public class AppUser extends BaseEntity {
 
-	
 	@Column(unique = true)
 	private String email;
-		
+
 	@Column(unique = true)
 	private String username;
 
 	private String password;
 
 	private String description;
-	
+
 	private String phone;
-	
+
 	private boolean emailVerified;
-	
+
 	private String emailCheckToken;
-	
+
 	private LocalDateTime emailCheckTokenGeneratedAt;
-	
+
 	private LocalDateTime joinedAt;
-	
-	@Lob @Basic(fetch = FetchType.EAGER)
+
+	@Lob
+	@Basic(fetch = FetchType.EAGER)
 	private String profileImage;
 
 	public void completeSignUp() {
 		this.setEmailVerified(true);
 		this.setJoinedAt(LocalDateTime.now());
 	}
-	
+
 	public void generateEmailCheckToken() {
 		this.emailCheckToken = UUID.randomUUID().toString();
-		this.emailCheckTokenGeneratedAt = LocalDateTime.now();		
+		this.emailCheckTokenGeneratedAt = LocalDateTime.now();
 	}
 
 	public boolean isValidtoken(String token) {
 		return this.emailCheckToken.equals(token);
 	}
 
-
 	/*
-	 * Verification email can be sent only once in an hour. 
+	 * Verification email can be sent only once in an hour.
 	 */
 
 	public boolean canResendEmail() {
 		return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
 	}
 
-
-	
 }

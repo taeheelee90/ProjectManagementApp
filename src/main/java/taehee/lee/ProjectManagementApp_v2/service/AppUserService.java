@@ -1,7 +1,6 @@
 package taehee.lee.ProjectManagementApp_v2.service;
 
 import java.util.List;
-
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -120,16 +119,14 @@ public class AppUserService implements UserDetailsService {
 	}
 
 	public void sendLoginLink(AppUser appUser) {
-		appUser.generateEmailCheckToken();
+		appUser.generateEmailCheckToken();		
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(appUser.getEmail());
 		msg.setSubject("Project Management: Login Link");
 		msg.setText("/login-by-email?token=" + appUser.getEmailCheckToken() + "&email=" + appUser.getEmail());
 		
 		javaMailSender.send(msg);
+		appUserRepository.save(appUser);
 	}
-	
-	
-
 	
 }
