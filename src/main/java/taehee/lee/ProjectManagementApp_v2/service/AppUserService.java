@@ -118,6 +118,16 @@ public class AppUserService implements UserDetailsService {
 		appUserRepository.save(appUser);
 		login(appUser);	
 	}
+
+	public void sendLoginLink(AppUser appUser) {
+		appUser.generateEmailCheckToken();
+		SimpleMailMessage msg = new SimpleMailMessage();
+		msg.setTo(appUser.getEmail());
+		msg.setSubject("Project Management: Login Link");
+		msg.setText("/login-by-email?token=" + appUser.getEmailCheckToken() + "&email=" + appUser.getEmail());
+		
+		javaMailSender.send(msg);
+	}
 	
 	
 

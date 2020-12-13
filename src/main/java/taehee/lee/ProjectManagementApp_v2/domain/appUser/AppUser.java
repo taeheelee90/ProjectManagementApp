@@ -51,22 +51,21 @@ public class AppUser extends BaseEntity {
 	@Lob @Basic(fetch = FetchType.EAGER)
 	private String profileImage;
 
+	public void completeSignUp() {
+		this.setEmailVerified(true);
+		this.setJoinedAt(LocalDateTime.now());
+	}
+	
 	public void generateEmailCheckToken() {
 		this.emailCheckToken = UUID.randomUUID().toString();
-		this.emailCheckTokenGeneratedAt = LocalDateTime.now();
-		
+		this.emailCheckTokenGeneratedAt = LocalDateTime.now();		
 	}
 
 	public boolean isValidtoken(String token) {
 		return this.emailCheckToken.equals(token);
 	}
 
-	public void completeSignUp() {
-		this.setEmailVerified(true);
-		this.setJoinedAt(LocalDateTime.now());
-		
-	}
-	
+
 	/*
 	 * Verification email can be sent only once in an hour. 
 	 */
