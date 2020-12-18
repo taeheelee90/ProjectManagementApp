@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments.html :: head">
+
+<body>
+ <div>
+        <h2>Hello. <span th:text="${username}"></span></h2>
+
+        <p th:text="${message}">message</p>
+
+        <div>
+            <a th:href="${host + link}" th:text="${linkName}" class="btn btn-primary" role="button">Link</a>
+            <p>You can also copy the link directly into your browser: </p>
+            <small th:text="${host + link}"></small>
+            
+            <p>Kind regards,</p>
+        </div>
+    </div>
+    <footer>
+        <small>Project Management &copy; 2020</small>
+    </footer>
+</body>
+</html>

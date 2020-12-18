@@ -1,11 +1,10 @@
 package taehee.lee.ProjectManagementApp_v2.service;
 
 import java.util.List;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import lombok.RequiredArgsConstructor;
 import taehee.lee.ProjectManagementApp_v2.domain.appUser.AppUser;
@@ -23,6 +24,9 @@ import taehee.lee.ProjectManagementApp_v2.domain.form.AppUserProfileForm;
 import taehee.lee.ProjectManagementApp_v2.domain.form.AppUsernameForm;
 import taehee.lee.ProjectManagementApp_v2.domain.form.SignUpForm;
 import taehee.lee.ProjectManagementApp_v2.repository.AppUserRepository;
+import taehee.lee.ProjectManagementApp_v2.system.AppProperties;
+import taehee.lee.ProjectManagementApp_v2.system.mail.MailMessage;
+import taehee.lee.ProjectManagementApp_v2.system.mail.MailService;
 
 @Service
 @Transactional
@@ -30,9 +34,11 @@ import taehee.lee.ProjectManagementApp_v2.repository.AppUserRepository;
 public class AppUserService implements UserDetailsService {
 	
 	private final AppUserRepository appUserRepository;
-	private final JavaMailSender javaMailSender;
+	private final MailService mailService;
 	private final PasswordEncoder passwordEncoder;
 	private final ModelMapper modelMapper;
+	private final TemplateEngine templateEngine;
+	private final AppProperties appProperties;
 	
 
 
@@ -48,21 +54,29 @@ public class AppUserService implements UserDetailsService {
 		AppUser appUser = AppUser.builder()
 									  .email(signupForm.getEmail())
 									  .username(signupForm.getUsername())
-									  .password(passwordEncoder.encode(signupForm.getPassword())).build();
+									  .password(passwordEncoder.encode(signupForm.getPassword())).build();		
 		
-		AppUser newUser = appUserRepository.save(appUser);
-		return newUser;
+		return appUserRepository.save(appUser);
 	}
 	
 
 	public void sendSignUpConfirmEmail(AppUser newUser) {
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setTo(newUser.getEmail());
-		mailMessage.setSubject("[Verification] Welcome to Project Managment.");
-		mailMessage.setText(
-				"/check-email-token?token=" + newUser.getEmailCheckToken() + "&email=" + newUser.getEmail());
+		Context context = new Context();
+		context.setVariable("link", "/check-email-token?token=" + newUser.getEmailCheckToken() + "&email=" + newUser.getEmail());
+		context.setVariable("username", newUser.getUsername());
+		context.setVariable("linkName", "Validate your email");
+		context.setVariable("message", "You are about to confirm your e-mail address to complete signup proces.");
+		context.setVariable("host", appProperties.getHost());
 		
-		javaMailSender.send(mailMessage);
+		String msg = templateEngine.process("appuser/email-message", context);
+		
+		MailMessage mailMsg = MailMessage.builder()
+							  .address(newUser.getEmail())
+							  .subject("Validate your email")
+							  .message(msg)
+							  .build();
+		
+		mailService.send(mailMsg);
 		
 	}
 
@@ -119,13 +133,23 @@ public class AppUserService implements UserDetailsService {
 	}
 
 	public void sendLoginLink(AppUser appUser) {
-		appUser.generateEmailCheckToken();		
-		SimpleMailMessage msg = new SimpleMailMessage();
-		msg.setTo(appUser.getEmail());
-		msg.setSubject("Project Management: Login Link");
-		msg.setText("/login-by-email?token=" + appUser.getEmailCheckToken() + "&email=" + appUser.getEmail());
 		
-		javaMailSender.send(msg);
+		Context context = new Context();
+		context.setVariable("link", "/login-by-email?token=" + appUser.getEmailCheckToken() + "&email=" + appUser.getEmail());
+		context.setVariable("username", appUser.getUsername());
+		context.setVariable("linkName", "Login to Project Management");
+		context.setVariable("message", "Please click the link to login to Project Management.");
+		context.setVariable("host", appProperties.getHost());
+		
+		String msg = templateEngine.process("appuser/email-message", context);
+		
+		MailMessage mailMsg = MailMessage.builder()
+							  .address(appUser.getEmail())
+							  .subject("Validate your email")
+							  .message(msg)
+							  .build();
+		
+		mailService.send(mailMsg);
 		appUserRepository.save(appUser);
 	}
 	

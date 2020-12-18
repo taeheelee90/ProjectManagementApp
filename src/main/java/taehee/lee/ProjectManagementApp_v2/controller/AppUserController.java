@@ -87,11 +87,11 @@ public class AppUserController {
 	// Re-send verification email
 	@GetMapping("/resend-confirm-email")
 	public String resendConfirmEmail(@CurrentUser AppUser appUser, Model model) {
-		if (!appUser.canResendEmail()) {
+		/*if (!appUser.canResendEmail()) {
 			model.addAttribute("error", "Confirmation email can be sent once in an hour.");
 			model.addAttribute("email", appUser.getEmail());
 			return "appuser/email-check";
-		}
+		}*/
 
 		appUserService.sendSignUpConfirmEmail(appUser);
 		return "redirect:/";
@@ -125,10 +125,10 @@ public class AppUserController {
 			return "appuser/email-login";
 		}
 		
-		if(!appUser.canResendEmail()) {
+		/*if(!appUser.canResendEmail()) {
 			model.addAttribute("error", "Can not send email now. Please try again one hour later.");
 			return "appuser/email-login";
-		}
+		}*/
 		
 		appUserService.sendLoginLink(appUser);
 		attributes.addFlashAttribute("message", "Sent login link to email.");
