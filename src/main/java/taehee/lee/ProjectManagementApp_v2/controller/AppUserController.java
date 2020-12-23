@@ -77,7 +77,7 @@ public class AppUserController {
 		return view;
 	}
 
-	// Request for re-sending verification email
+	// Request for checking up email
 	@GetMapping("/check-email")
 	public String checkEmail(@CurrentUser AppUser appUser, Model model) {
 		model.addAttribute("email", appUser.getEmail());

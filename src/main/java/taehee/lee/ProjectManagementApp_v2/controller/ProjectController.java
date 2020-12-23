@@ -105,8 +105,7 @@ public class ProjectController {
 	@GetMapping(value = "/project/{id}")
 	public String projectDetails(@CurrentUser AppUser appUser, @PathVariable("id") Long projectId, Model model) {
 		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("project", project));
-		pRepository.findById(projectId)
-				.ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
+		pRepository.findById(projectId).ifPresent(project -> model.addAttribute("projectManager", project.getProjectManager()));
 		model.addAttribute(appUser);
 		return "project/projectdetails";
 	}

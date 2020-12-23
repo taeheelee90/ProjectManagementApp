@@ -13,13 +13,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +36,13 @@ public class AppUserControllerTest {
 	@Autowired private MockMvc mockMvc;
 	@Autowired private AppUserRepository appUserRepository;
 	@MockBean MailService mailService;
+	
+	private AppUser validUser = AppUser.builder().username("test").email("test@email.com").password("12345").build();
+	
+	@AfterEach
+	void afterEach() {
+		appUserRepository.deleteAll();
+	}
 	
 	@DisplayName("Sign Up View")
 	@Test
@@ -64,22 +71,59 @@ public class AppUserControllerTest {
 	void signUp_submission_success() throws Exception{
 		
 		mockMvc.perform(post("/signup")
-				.param("username", "test1")
-				.param("email", "test1@email.com")
-				.param("password", "12345")
+				.param("username", validUser.getUsername())
+				.param("email", validUser.getEmail())
+				.param("password", validUser.getPassword())
 				.with(csrf()))
 				.andExpect(status().is3xxRedirection())  // 302
 				.andExpect(view().name("redirect:/"))
-				.andExpect(authenticated().withUsername("test1"));
+				.andExpect(authenticated().withUsername(validUser.getUsername()));
 		
 		
-		AppUser appUser = appUserRepository.findByEmail("test1@email.com");
+		AppUser appUser = appUserRepository.findByEmail(validUser.getEmail());
 		assertNotNull(appUser); // User saved
 		assertNotEquals(appUser.getPassword(), "12345"); // PW encoded
 		assertNotNull(appUser.getEmailCheckToken()); // Token generated
 		
 		then(mailService).should().send(any(MailMessage.class));
 	}
-
 	
+	
+	@DisplayName("Request for checking up verification email")
+	@Test
+	void check_email() throws Exception {
+		validUser.setEmailVerified(false);
+		appUserRepository.save(validUser);
+		
+		mockMvc.perform(get("/check-email")
+				.param("email", validUser.getEmail()))
+			    .andExpect(status().is3xxRedirection()); // 302
+	}
+	
+	
+	@DisplayName("Profile View")
+	@Test
+	void check_showProfile() throws Exception {
+		appUserRepository.save(validUser);		
+		String username = validUser.getUsername();
+		
+		mockMvc.perform(get("/profile/" + username))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("isOwner"))
+				.andExpect(view().name("appuser/profile"));
+	}
+	
+	@DisplayName("Email Login View")
+	@Test
+	void emailLoginForm() throws Exception {
+		mockMvc.perform(get("/email-login"))
+		 		.andExpect(status().isOk())
+		 		.andExpect(view().name("appuser/email-login"));
+			
+	}
+	
+	
+	
+	
+
 }
